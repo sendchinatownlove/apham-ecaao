@@ -17,6 +17,7 @@ firebase console @ https://console.firebase.google.com/u/2/project/scl-scavenger
 cp app/env_template # 
 cd app
 npm run dev
+# navigate http://localhost:5173/
 ```
 
 
