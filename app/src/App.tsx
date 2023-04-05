@@ -1,36 +1,118 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useEffect, useState } from 'react';
+import './App.css';
 
+import {
+  getAuth,
+  User,
+  signInWithPopup,
+  GoogleAuthProvider,
+  sendSignInLinkToEmail,
+  isSignInWithEmailLink,
+  signInWithEmailLink,
+  signOut,
+} from 'firebase/auth';
+
+import { initializeApp } from 'firebase/app';
+
+const FIREBASE_CONFIG = {
+  apiKey: import.meta.env.VITE_REACT_APP_FIREBASE_API_KEY,
+  appId: import.meta.env.VITE_REACT_APP_FIREBASE_APP_ID,
+  authDomain: import.meta.env.VITE_REACT_APP_FIREBASE_AUTH_DOMAIN,
+  messagingSenderId: import.meta.env.VITE_REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  projectId: import.meta.env.VITE_REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_REACT_APP_FIREBASE_STORAGE_BUCKET,
+};
+
+const firebaseApp = initializeApp(FIREBASE_CONFIG);
+const auth = getAuth(firebaseApp);
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [user, setUser] = useState<User | null>(null);
+  const [email, setEmail] = useState('');
+  const [error, setError] = useState('');
+
+  const signInWithGoogle = async () => {
+    const provider = new GoogleAuthProvider();
+    try {
+      await signInWithPopup(auth, provider);
+    } catch (error) {
+      setError(error.message);
+    }
+  };
+
+  const sendSignInEmail = async (email: string) => {
+    const actionCodeSettings = {
+      url: window.location.href,
+      handleCodeInApp: true,
+    };
+    try {
+      await sendSignInLinkToEmail(auth, email, actionCodeSettings);
+      window.localStorage.setItem('emailForSignIn', email);
+      setEmail('');
+      setError('Email sent. Please check your inbox.');
+    } catch (error) {
+      setError(error.message);
+    }
+  };
+
+  const signInWithEmail = async (email: string, emailLink: string) => {
+    try {
+      await signInWithEmailLink(auth, email, emailLink);
+    } catch (error) {
+      setError(error.message);
+    }
+  };
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        setUser(user);
+      } else {
+        setUser(null);
+      }
+    });
+
+    if (isSignInWithEmailLink(auth, window.location.href)) {
+      const email = window.localStorage.getItem('emailForSignIn');
+      if (email) {
+        signInWithEmail(email, window.location.href);
+        window.localStorage.removeItem('emailForSignIn');
+      }
+    }
+
+    return () => unsubscribe();
+  }, []);
+
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+    sendSignInEmail(email);
+  };
 
   return (
     <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-          SCL Update
-      </p>
-    </div>
-  )
+      <h1>Hello Vite + React!</h1>
+      {user ? (
+        <div>
+          <h2>Welcome, {user.email}</h2>
+          <button onClick={() => signOut(auth)}>Sign out</button>
+        </div>
+      ) : (
+        <>
+          <button onClick={signInWithGoogle}>Sign in with Google</button>
+          <form onSubmit={handleSubmit}>
+            <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <button type="submit">Send sign-in email</button>
+        </form>
+        {error && <p>{error}</p>}
+      </>
+    )}
+  </div>
+);
 }
 
-export default App
+export default App;
