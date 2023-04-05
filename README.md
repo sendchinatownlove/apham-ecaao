@@ -40,3 +40,22 @@ firebase experiments:enable webframeworks
 firebase login
 firebase init emulators
 ``` 
+
+## @TODO
+
+just a list to get started, not inclusive. Linear is best up to date list of TODOs.git
+
+Frontend
+- CSS framework (tailscale still cool?)
+- Analytics Toolings
+  
+- Backend
+  - Firebase Database Modeling
+  - firebase setup for backend 
+  - AirTable <-->Firebase sync+editing
+  - Image Upload / Management
+- DEVOPS
+  - Domain Setup for Production x.sendchinatownlove.com
+  - Cost Planning
+- Product/Social
+  - Analytics / Reach 
