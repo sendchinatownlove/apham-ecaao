@@ -35,7 +35,7 @@ function App() {
     const provider = new GoogleAuthProvider();
     try {
       await signInWithPopup(auth, provider);
-    } catch (error) {
+    } catch (error : any) {
       setError(error.message);
     }
   };
@@ -50,7 +50,7 @@ function App() {
       window.localStorage.setItem('emailForSignIn', email);
       setEmail('');
       setError('Email sent. Please check your inbox.');
-    } catch (error) {
+    } catch (error : any) {
       setError(error.message);
     }
   };
@@ -58,7 +58,7 @@ function App() {
   const signInWithEmail = async (email: string, emailLink: string) => {
     try {
       await signInWithEmailLink(auth, email, emailLink);
-    } catch (error) {
+    } catch (error : any) {
       setError(error.message);
     }
   };
@@ -90,7 +90,7 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Hello Vite + React!</h1>
+      <h1>Send Chinatown Love APHAM Scavenger Hunt!</h1>
       {user ? (
         <div>
           <h2>Welcome, {user.email}</h2>
