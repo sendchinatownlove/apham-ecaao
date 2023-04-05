@@ -72,6 +72,7 @@ function App() {
       }
     });
 
+    // @TODO https://firebase.google.com/docs/auth/web/email-link-auth?authuser=2&hl=en 
     if (isSignInWithEmailLink(auth, window.location.href)) {
       const email = window.localStorage.getItem('emailForSignIn');
       if (email) {
@@ -90,10 +91,12 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Send Chinatown Love APHAM Scavenger Hunt!</h1>
+      <h1>Send Chinatown Love</h1>
+      <h1>APHAM Scavenger Hunt!</h1>
+      <h3>Sign in to get started!</h3>
       {user ? (
         <div>
-          <h2>Welcome, {user.email}</h2>
+          <h3>Welcome, {user.email}</h3>
           <button onClick={() => signOut(auth)}>Sign out</button>
         </div>
       ) : (
