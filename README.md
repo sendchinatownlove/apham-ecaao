@@ -56,6 +56,8 @@ Frontend
   - Image Upload / Management
 - DEVOPS
   - Domain Setup for Production x.sendchinatownlove.com
-  - Cost Planning
+  - Cost Planning / Billing
+  - Terraform Setup Modeling for GCP resources / storage bucket etc
+
 - Product/Social
   - Analytics / Reach 
