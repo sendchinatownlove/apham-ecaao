@@ -8,7 +8,9 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
-    working-directory: ./app
+    defaults:
+      run:
+        working-directory: app
     steps:
       - name: Checkout Repo
         uses: actions/checkout@master
@@ -25,7 +27,6 @@ jobs:
     name: Deploy
     needs: build
     runs-on: ubuntu-latest
-    working-directory: ./app
     steps:
       - name: Checkout Repo
         uses: actions/checkout@master
