@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
 
 import {
@@ -11,6 +12,8 @@ import {
   signInWithEmailLink,
   signOut,
 } from 'firebase/auth';
+
+import TaskList from './components/tasks/TaskList';
 
 import { initializeApp } from 'firebase/app';
 
@@ -63,6 +66,39 @@ function App() {
     }
   };
 
+  interface UserProps {
+    user: User | null;
+  }
+
+  function HomePage(props: UserProps) {
+    const { user } = props
+  return <div>
+    <h1>Send Chinatown Love</h1>
+    <h1>APHAM Scavenger Hunt!</h1>
+    {user ? (
+        <div>
+          <h3>Welcome, {user.email}</h3>
+          <button onClick={() => signOut(auth)}>Sign out</button>
+        </div>
+      ) : (
+        <>
+          <h3>Sign in to get started!</h3>
+          <button onClick={signInWithGoogle}>Sign in with Google</button>
+          <form onSubmit={handleSubmit}>
+            <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <button type="submit">Send sign-in email</button>
+        </form>
+        {error && <p>{error}</p>}
+      </>
+    )}
+  </div>;
+}
+
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
@@ -91,29 +127,14 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Send Chinatown Love</h1>
-      <h1>APHAM Scavenger Hunt!</h1>
-      <h3>Sign in to get started!</h3>
-      {user ? (
-        <div>
-          <h3>Welcome, {user.email}</h3>
-          <button onClick={() => signOut(auth)}>Sign out</button>
-        </div>
-      ) : (
-        <>
-          <button onClick={signInWithGoogle}>Sign in with Google</button>
-          <form onSubmit={handleSubmit}>
-            <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <button type="submit">Send sign-in email</button>
-        </form>
-        {error && <p>{error}</p>}
-      </>
-    )}
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<HomePage user={user}/>}/>
+          <Route path="/tasks/manhattan" element={<TaskList />}/>
+          <Route path="/tasks/brooklyn" element={<TaskList />}/>
+          <Route path="/tasks/queens" element={<TaskList />}/>
+        </Routes>
+      </BrowserRouter>
   </div>
 );
 }

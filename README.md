@@ -12,10 +12,15 @@ firebase console @ https://console.firebase.google.com/u/2/project/scl-scavenger
 - firebase cli 
 - firebase permission to project `scl-scaventhunt` from @stanzheng 
 
-## Development
-``` # 
+## Setup
+```
 cd app
 mv .env_template .env # get env values from #discord->engineering
+npm install
+```
+
+## Local development
+```
 npm run dev
 # navigate http://localhost:5173/
 ```
