@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './App.css';
 
 import {
@@ -11,6 +12,8 @@ import {
   signInWithEmailLink,
   signOut,
 } from 'firebase/auth';
+
+import TaskList from './components/tasks/TaskList';
 
 import { initializeApp } from 'firebase/app';
 
@@ -63,6 +66,13 @@ function App() {
     }
   };
 
+export default function Homepage() {
+    <div>
+      <h3>Welcome, {user.email}</h3>
+      <button onClick={() => signOut(auth)}>Sign out</button>
+    </div>
+}
+
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
@@ -95,10 +105,19 @@ function App() {
       <h1>APHAM Scavenger Hunt!</h1>
       <h3>Sign in to get started!</h3>
       {user ? (
-        <div>
-          <h3>Welcome, {user.email}</h3>
-          <button onClick={() => signOut(auth)}>Sign out</button>
-        </div>
+        <BrowserRouter>
+            <Switch>
+                <Route path="/">
+                    <div>
+                      <h3>Welcome, {user.email}</h3>
+                      <button onClick={() => signOut(auth)}>Sign out</button>
+                    </div>
+                </Route>
+                 <Route path="/tasks/manhattan">
+                     <TaskList />
+                 </Route>
+            </Switch>
+        </BrowserRouter>
       ) : (
         <>
           <button onClick={signInWithGoogle}>Sign in with Google</button>
