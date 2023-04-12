@@ -16,6 +16,7 @@ import {
 import TaskList from './components/tasks/TaskList';
 
 import { initializeApp } from 'firebase/app';
+import LoginPage from './pages/Login';
 
 const FIREBASE_CONFIG = {
   apiKey: import.meta.env.VITE_REACT_APP_FIREBASE_API_KEY,
@@ -130,6 +131,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<HomePage user={user}/>}/>
+          <Route path="/login" element={<LoginPage />}/>
           <Route path="/tasks/manhattan" element={<TaskList />}/>
           <Route path="/tasks/brooklyn" element={<TaskList />}/>
           <Route path="/tasks/queens" element={<TaskList />}/>
