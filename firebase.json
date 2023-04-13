@@ -18,5 +18,8 @@
       "enabled": true
     },
     "singleProjectMode": true
+  },
+  "functions": {
+    "source": "functions"
   }
 }
