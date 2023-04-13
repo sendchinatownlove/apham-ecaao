@@ -7,7 +7,8 @@ on:
   pull_request:
     branches:
       - main
-
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 jobs:
   build:
     name: Build Dev
@@ -51,6 +52,19 @@ jobs:
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
       - name: Deploy to Firebase
-        run: firebase --project ${{ secrets.FIREBASE_PROJECT_ID }} hosting:channel:deploy ${{ github.head_ref }} 
+        run: firebase --project ${{ secrets.FIREBASE_PROJECT_ID }} hosting:channel:deploy ${{ github.head_ref }} > firebase_output.txt
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+      - name: Post Deployment Output as Comment
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v5
+        with:
+          script: |
+            const fs = require('fs');
+            const output = fs.readFileSync('firebase_output.txt', 'utf8');
+            const comment = `Deployment output:\n\`\`\`\n${output}\n\
+
+
+
+
+
