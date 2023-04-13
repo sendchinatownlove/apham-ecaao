@@ -18,16 +18,29 @@ import TaskList from './components/tasks/TaskList';
 import { initializeApp } from 'firebase/app';
 import LoginPage from './pages/Login';
 
-const FIREBASE_CONFIG = {
-  apiKey: import.meta.env.VITE_REACT_APP_FIREBASE_API_KEY,
-  appId: import.meta.env.VITE_REACT_APP_FIREBASE_APP_ID,
-  authDomain: import.meta.env.VITE_REACT_APP_FIREBASE_AUTH_DOMAIN,
-  messagingSenderId: import.meta.env.VITE_REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
-  projectId: import.meta.env.VITE_REACT_APP_FIREBASE_PROJECT_ID,
-  storageBucket: import.meta.env.VITE_REACT_APP_FIREBASE_STORAGE_BUCKET,
+// const FIREBASE_CONFIG = {
+//   apiKey: import.meta.env.VITE_REACT_APP_FIREBASE_API_KEY,
+//   appId: import.meta.env.VITE_REACT_APP_FIREBASE_APP_ID,
+//   authDomain: import.meta.env.VITE_REACT_APP_FIREBASE_AUTH_DOMAIN,
+//   messagingSenderId: import.meta.env.VITE_REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+//   projectId: import.meta.env.VITE_REACT_APP_FIREBASE_PROJECT_ID,
+//   storageBucket: import.meta.env.VITE_REACT_APP_FIREBASE_STORAGE_BUCKET,
+// };
+
+
+// According to this, this is ok to be public 
+// https://stackoverflow.com/a/37484053/2138186
+const firebaseConfig = {
+  apiKey: "AIzaSyD_KVSLkt8eq7-GEFegX9XGfGNg75tucAc",
+  authDomain: "scl-scavengerhunt.firebaseapp.com",
+  projectId: "scl-scavengerhunt",
+  storageBucket: "scl-scavengerhunt.appspot.com",
+  messagingSenderId: "955910274384",
+  appId: "1:955910274384:web:a9de7ecfaa88aa3b940055"
 };
 
-const firebaseApp = initializeApp(FIREBASE_CONFIG);
+
+const firebaseApp = initializeApp(firebaseConfig);
 const auth = getAuth(firebaseApp);
 
 function App() {
