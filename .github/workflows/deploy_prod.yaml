@@ -51,6 +51,6 @@ jobs:
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
       - name: Deploy to Firebase
-        run: firebase --project ${{ secrets.FIREBASE_PROJECT_ID }}  deploy --only hosting
+        run: firebase --project ${{ secrets.FIREBASE_PROJECT_ID }} hosting:channel:deploy prod
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
