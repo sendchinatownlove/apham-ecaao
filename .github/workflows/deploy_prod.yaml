@@ -1,4 +1,4 @@
-name: Build and Deploy
+name: Build and Deploy Prod
 on:
   push:
     branches:
@@ -6,7 +6,7 @@ on:
 
 jobs:
   build:
-    name: Build
+    name: Build Prod
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -24,7 +24,7 @@ jobs:
           name: dist
           path: app/dist
   deploy:
-    name: Deploy
+    name: Deploy Prod
     needs: build
     runs-on: ubuntu-latest
     defaults:
@@ -38,9 +38,17 @@ jobs:
         with:
           name: dist
           path: app/dist
+      # - name: Deploy to Firebase
+      #   uses: w9jds/firebase-action@master
+      #   with:
+      #     args: deploy --only hosting -p dev
+      #   env:
+      #     FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+      - name: Enable Firebase Experiment
+        run: firebase --project ${{ secrets.FIREBASE_PROJECT_ID }} experiments:enable webframeworks
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
       - name: Deploy to Firebase
-        uses: w9jds/firebase-action@master
-        with:
-          args: deploy --only hosting -p dev
+        run: firebase --project ${{ secrets.FIREBASE_PROJECT_ID }}  deploy --only hosting -p dev
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
