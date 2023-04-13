@@ -45,7 +45,7 @@ jobs:
       #   env:
       #     FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
       - name: Install Firebase CLI
-        run: npm install -g firebase-tools
+        run: npm install -g firebase-tools vite
       - name: Enable Firebase Experiment
         run: firebase --project ${{ secrets.FIREBASE_PROJECT_ID }} experiments:enable webframeworks
         env:
