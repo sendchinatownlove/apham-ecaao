@@ -45,6 +45,6 @@ jobs:
       - name: Deploy to Firebase
         uses: w9jds/firebase-action@master
         with:
-          args: deploy hosting:channel:deploy --preview ${{ github.sha }}
+          args: deploy hosting:channel:deploy ${{ github.head_ref}} --expires 7d
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
