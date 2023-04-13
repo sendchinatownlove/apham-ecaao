@@ -75,7 +75,7 @@ function App() {
     const { user } = props
   return <div>
     <h1>Send Chinatown Love</h1>
-    <h1>APHAM Scavenger Hunt!</h1>
+    <h1>APHAM Scavenger Hunt!!!</h1>
     {user ? (
         <div>
           <h3>Welcome, {user.email}</h3>
