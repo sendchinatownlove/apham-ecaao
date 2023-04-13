@@ -1,4 +1,4 @@
-name: Build and Deploy
+name: Deploy Feature Branch
 on:
   push:
     # re-run on feature push, will toggle off if noisy or expensive 
@@ -10,7 +10,7 @@ on:
 
 jobs:
   build:
-    name: Build
+    name: Build Dev
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -28,7 +28,7 @@ jobs:
           name: dist
           path: app/dist
   deploy:
-    name: Deploy
+    name: Deploy Feature Branch
     needs: build
     runs-on: ubuntu-latest
     defaults:
@@ -45,6 +45,6 @@ jobs:
       - name: Deploy to Firebase
         uses: w9jds/firebase-action@master
         with:
-          args: deploy hosting:channel:deploy ${{ github.head_ref}} --expires 7d
+          args: deploy hosting:channel:deploy ${{ github.head_ref}}
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
