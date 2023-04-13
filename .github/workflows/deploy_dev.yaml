@@ -62,9 +62,13 @@ jobs:
           script: |
             const fs = require('fs');
             const output = fs.readFileSync('firebase_output.txt', 'utf8');
-            const comment = `Deployment output:\n\`\`\`\n${output}\n\
-
-
+            const comment = `Deployment output:\n\`\`\`\n${output}\n\`\`\``;
+            await github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment,
+            });
 
 
 
