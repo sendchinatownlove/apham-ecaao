@@ -133,7 +133,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <link
-          href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,700"
+          href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,700,300italic"
           rel="stylesheet"
           type="text/css"
         />
