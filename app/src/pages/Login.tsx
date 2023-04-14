@@ -1,29 +1,5 @@
-import React from "react";
-
 import styled from "styled-components";
-
-const BrandText = styled.div`
-  font-family: "Open Sans";
-  font-style: normal;
-  font-weight: 700;
-  font-size: 14px;
-  line-height: 19px;
-  text-transform: uppercase;
-
-  color: #a8192e;
-`;
-
-const BrandSubtext = styled.div`
-  font-family: "Open Sans";
-  font-style: italic;
-  font-weight: 300;
-  font-size: 10px;
-  line-height: 14px;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-
-  color: #a8192e;
-`;
+import { BrandSubtext, BrandText } from "../styled-components";
 
 const CtaText = styled.div`
   font-family: "Open Sans";
@@ -37,6 +13,19 @@ const CtaText = styled.div`
 
 const EmailInput = styled.div`
   display: flex;
+`;
+
+const Button = styled.button`
+  background: #8b8b8b;
+  border-radius: 50px;
+  width: 267px;
+`;
+
+const ButtonText = styled.div`
+  font-family: "Open Sans";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
 `;
 
 export default function LoginPage() {
@@ -56,7 +45,9 @@ export default function LoginPage() {
         <CtaText>Email address</CtaText>
         <input type="text" id="email" name="email" />
       </EmailInput>
-      <button>Enter</button>
+      <Button>
+        <ButtonText>ENTER</ButtonText>
+      </Button>
       <BrandText>READ ABOUT THIS EVENT</BrandText>
       <BrandText>@SENDCHINATOWNLOVE</BrandText>
     </div>
