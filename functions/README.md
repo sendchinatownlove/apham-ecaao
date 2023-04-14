@@ -1,6 +1,16 @@
 
 
-each of the functions in the below are parallel functions / and are logically seperate below 
+each of the functions in the below are parallel functions / and are logically seperate below
+
+## local 
+have java installed, it will run a local mirror so you can test.
+```
+brew install java
+# with firebase CLI
+firebase emulators:start
+```
+
+## deploy 
 ```
 # deploy all
 # firebase deploy --functions
