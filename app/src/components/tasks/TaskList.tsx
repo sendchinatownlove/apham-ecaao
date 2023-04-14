@@ -51,12 +51,23 @@ const AvailableTicketsText = styled.div`
   padding: 5px 10px 10px 10px;
 `
 
-interface TaskListProps {
+type Activities = {
+    title: string;
+    description: string;
+    completed: boolean;
+}
+
+export type TaskListData = {
     location: string;
     totalActivities: number;
     activitiesCompleted: number;
+    activities: Activities[]
+}
+
+interface TaskListProps extends TaskListData {
     availableTickets: number;
-  }
+}
+
 
 export default function TaskList(props: TaskListProps) {
   const { location, totalActivities, activitiesCompleted, availableTickets } = props;
