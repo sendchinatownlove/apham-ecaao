@@ -9,19 +9,33 @@ const TaskListContainer = styled.div`
   margin-top: 20px;
 `
 
-const SendChinatownLove = styled.img`
-  content: url("/send-chinatown-love.png");
+const GooglyEye = styled.img`
+  content: url("/googly-eye.png");
   max-width: 30%;
-  display: block;
   margin: 1px auto;
+`
+
+const BackButton = styled.div`
+  display:flex;
+  align-items:center;
+  max-width: 75px;
   padding-top: 10px;
+  padding-left: 10px;
+`
+
+const BackButtonText = styled.text`
+  font-weight: 700;
 `
 
 export default function TaskList() {
   return (
       <TaskListContainer>
-          <SendChinatownLove/>
-        <h2>TaskList!</h2>
+          <BackButton>
+              <GooglyEye/>
+              <BackButtonText>
+                BACK
+              </BackButtonText>
+          </BackButton>
       </TaskListContainer>
   );
 }
