@@ -149,7 +149,7 @@ function App() {
           <Route path="/tasks/manhattan" element={<TaskList />}/>
           <Route path="/tasks/brooklyn" element={<TaskList />}/>
           <Route path="/tasks/queens" element={<TaskList />}/>
-          <Route path="/taskcompletion" element={<TaskCompletion />}/>
+          <Route path="/task-completion" element={<TaskCompletion />}/>
         </Routes>
       </BrowserRouter>
   </div>
