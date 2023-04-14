@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
+import LoginPage from './pages/Login';
 
 import {
   getAuth,
@@ -135,6 +136,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<HomePage user={user}/>}/>
+          <Route path="/login" element={<LoginPage />}/>
           <Route path="/tasks/manhattan" element={<TaskList />}/>
           <Route path="/tasks/brooklyn" element={<TaskList />}/>
           <Route path="/tasks/queens" element={<TaskList />}/>
