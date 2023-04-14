@@ -25,6 +25,10 @@ npm run dev
 # navigate http://localhost:5173/
 ```
 
+### Database/Functions
+
+checkout [`database/README.md`](database/README.md) and [functions/README.md](functions/README.md)
+
 
 ## Deploy
 ```#deploy full domain
