@@ -27,4 +27,6 @@ firebase functions:list
 firebase database:instances:list
 
 
+## check instance here for example
+
 ```
