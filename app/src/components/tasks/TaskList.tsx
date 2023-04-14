@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { FixedSizeList as List } from 'react-window';
 
 const TaskListContainer = styled.div`
   background-color: rgba(255,255,255,0.3);
@@ -50,6 +51,29 @@ const AvailableTicketsText = styled.div`
   justify-content:space-between;
   padding: 5px 10px 10px 10px;
 `
+const ActivitiesList = styled.div`
+  margin-top: 10px;
+  text-align: left;
+  padding-left: 15px;
+  padding-right: 10px;
+`;
+
+const StyledActivityRow = styled.div`
+  border-bottom: 1px solid white;
+  font-size: 0.8rem;
+  line-height: 1rem;
+`;
+
+const ActivityRowTitle = styled.div`
+  font-weight: 600;
+  padding-top: 5px;
+  padding-bottom: 3px;
+`;
+
+const ActivityRowDescription = styled.div`
+  font-weight: 400;
+  padding-bottom: 5px;
+`;
 
 type Activities = {
     title: string;
@@ -68,9 +92,22 @@ interface TaskListProps extends TaskListData {
     availableTickets: number;
 }
 
+const ActivityRow = props => {
+  const { data, index, style } = props;
+  return (
+    <StyledActivityRow style={style}>
+      <ActivityRowTitle>
+         {index + 1}. {data[index].title}
+      </ActivityRowTitle>
+        <ActivityRowDescription>
+            {data[index].description}
+        </ActivityRowDescription>
+    </StyledActivityRow>
+  );
+};
 
 export default function TaskList(props: TaskListProps) {
-  const { location, totalActivities, activitiesCompleted, availableTickets } = props;
+  const { location, totalActivities, activitiesCompleted, availableTickets, activities } = props;
   return (
       <TaskListContainer>
           <BackButton>
@@ -89,6 +126,11 @@ export default function TaskList(props: TaskListProps) {
                   <span>{availableTickets}</span>
               </AvailableTicketsText>
           </TaskListHeader>
+          <ActivitiesList>
+              <List itemSize={160} height={350} itemCount={activities.length} width={300} itemData={activities}>
+                  {ActivityRow}
+              </List>
+          </ActivitiesList>
       </TaskListContainer>
   );
 }
