@@ -146,9 +146,9 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage user={user}/>}/>
           <Route path="/login" element={<LoginPage />}/>
-          <Route path="/tasks/manhattan" element={<TaskList />}/>
-          <Route path="/tasks/brooklyn" element={<TaskList />}/>
-          <Route path="/tasks/queens" element={<TaskList />}/>
+          <Route path="/tasks/manhattan" element={<TaskList location={'manhattan'} totalActivities={33} activitiesCompleted={0} availableTickets={22}/>}/>
+          <Route path="/tasks/brooklyn" element={<TaskList location={'brooklyn'} totalActivities={33} activitiesCompleted={0} availableTickets={22}/>}/>
+          <Route path="/tasks/queens" element={<TaskList location={'queens'} totalActivities={33} activitiesCompleted={0} availableTickets={22}/>}/>
           <Route path="/task-completion" element={<TaskCompletion />}/>
         </Routes>
       </BrowserRouter>

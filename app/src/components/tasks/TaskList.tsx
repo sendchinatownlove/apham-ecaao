@@ -27,7 +27,39 @@ const BackButtonText = styled.text`
   font-weight: 700;
 `
 
-export default function TaskList() {
+const TaskListHeader = styled.div`
+  background-image: url("/task-list-header.png");
+  background-size: 100% 70px;
+  color: #A8192E;
+  min-height: 70px;
+  min-width: 100%;
+  margin-top: 10px;
+`
+
+const LocationText = styled.div`
+  font-weight:700;
+  display:flex;
+  justify-content:space-between;
+  padding: 10px 10px 0px 10px;
+`
+
+const AvailableTicketsText = styled.div`
+  font-weight: 300;
+  font-size: 0.8em;
+  display:flex;
+  justify-content:space-between;
+  padding: 5px 10px 10px 10px;
+`
+
+interface TaskListProps {
+    location: string;
+    totalActivities: number;
+    activitiesCompleted: number;
+    availableTickets: number;
+  }
+
+export default function TaskList(props: TaskListProps) {
+  const { location, totalActivities, activitiesCompleted, availableTickets } = props;
   return (
       <TaskListContainer>
           <BackButton>
@@ -36,6 +68,16 @@ export default function TaskList() {
                 BACK
               </BackButtonText>
           </BackButton>
+          <TaskListHeader>
+              <LocationText>
+                  <span>{location.toUpperCase()}</span>
+                  <span>{activitiesCompleted}/{totalActivities}</span>
+              </LocationText>
+              <AvailableTicketsText>
+                  <span>MY AVAILABLE RAFFLE TICKETS</span>
+                  <span>{availableTickets}</span>
+              </AvailableTicketsText>
+          </TaskListHeader>
       </TaskListContainer>
   );
 }
