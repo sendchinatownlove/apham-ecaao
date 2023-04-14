@@ -22,7 +22,19 @@
     },
     "singleProjectMode": true
   },
-  "functions": {
-    "source": "functions"
+  "functions": [
+    {
+      "source": "functions/api-router",
+      "codebase": "api-router",
+      "runtime": "nodejs16"
+    },
+    {
+      "source": "functions/generate-thumbnail",
+      "codebase": "generate-thumbnail",
+      "runtime": "nodejs16"
+    }
+  ],
+  "database": {
+    "rules": "database/database.rules.json"
   }
 }
