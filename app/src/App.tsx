@@ -14,7 +14,7 @@ import {
 } from 'firebase/auth';
 
 import TaskList from './components/tasks/TaskList';
-import TaskCompletion from './components/tasks/TaskCompletion';
+import TaskCompletion from './pages/TaskCompletion';
 
 import { initializeApp } from 'firebase/app';
 import LoginPage from './pages/Login';
