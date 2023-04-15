@@ -3,10 +3,11 @@ import {useTable} from 'react-table';
 import styled from "styled-components";
 
 const TaskListTableContainer = styled.div`
-    max-height: 480px;
+    max-height: 450px;
     overflow: scroll;
     background-color: rgba(168, 25, 46, 0.52);
     border-radius: 0 0 25px 25px;
+    margin-bottom: 5px;
 `;
 const StyledRow = styled.div`
   max-width: 300px;
@@ -16,10 +17,19 @@ const StyledRow = styled.div`
   text-align: left;
 `;
 
-const ActivityRowTitle = styled.div`
+const ActivityRowTitleContainer = styled.div`
   font-weight: 700;
   padding-top: 5px;
   padding-bottom: 3px;
+  display:flex;
+`;
+
+const EmptyCheckbox = styled.div`
+  content: url("/unchecked-checkbox.png");
+  height: 20px;
+  width: 20px;
+  padding-top: 3px;
+  padding-left: 4px;
 `;
 
 const ActivityRowDescription = styled.div`
@@ -75,13 +85,13 @@ function TaskListTable(props: TaskListTableProps) {
                                         {...cell.getCellProps()}
                                     >
                                         <StyledRow style={{borderTop: borderTop}}>
-                                            <ActivityRowTitle>
-                                                {rowNumber}. {cell.value['title']}
-                                            </ActivityRowTitle>
+                                            <ActivityRowTitleContainer>
+                                                <span>{rowNumber}. {cell.value['title']}</span>
+                                                <EmptyCheckbox/>
+                                            </ActivityRowTitleContainer>
                                             <ActivityRowDescription>
                                                 {cell.value['description']}
                                             </ActivityRowDescription>
-
                                         </StyledRow>
                                     </td>
                                 )
