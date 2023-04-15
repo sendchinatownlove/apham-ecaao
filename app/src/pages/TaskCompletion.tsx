@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import { useState } from 'react';
-import dummyTask from './dummyTask.json'
+import dummyTask from '../components/tasks/dummyTask.json'
 
+import CompletionModal from "../components/tasks/CompletionModal";
 
 export const TaskCompletionWrapper = styled.div`
   text-align: left;
@@ -71,7 +72,6 @@ export const SubmitButton = styled.button`
   font-weight: 700;
 `
 
-
 export default function TaskCompletion() {
 
   const [imageFile, setImageFile] = useState('');
@@ -95,6 +95,8 @@ export default function TaskCompletion() {
           <TaskDescription>{dummyTask.description}</TaskDescription>
         </div>
         <div>
+          {/* TODO: Checkbox should check automatically when image is uploaded, 
+          user tapping on the box will not cause any action  */}
           <Checkbox type="checkbox" className='checkbox' />
         </div>
       </ChecklistItem>
@@ -105,6 +107,9 @@ export default function TaskCompletion() {
       </div>) :
         <img alt="preview image" src={imageFile} />}
       <SubmitButton>upload picture</SubmitButton>
+
+      {/* TODO: add modal */}
+      <CompletionModal/>
 
     </TaskCompletionWrapper>
   );

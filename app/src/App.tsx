@@ -14,10 +14,10 @@ import {
 } from 'firebase/auth';
 
 import TaskList from './components/tasks/TaskList';
-import TaskCompletion from './components/tasks/TaskCompletion';
-import LoginPage from './pages/Login';
+import TaskCompletion from './pages/TaskCompletion';
 
-import {initializeApp} from 'firebase/app';
+import { initializeApp } from 'firebase/app';
+import LoginPage from './pages/Login';
 import {taskListData} from "./mock-data/task-list-data";
 
 // const FIREBASE_CONFIG = {
