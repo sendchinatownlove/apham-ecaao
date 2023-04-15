@@ -148,16 +148,18 @@ function App() {
           <Route path="/" element={<HomePage user={user}/>}/>
           <Route path="/login" element={<LoginPage />}/>
             <Route path="/tasks/manhattan"
-       element={<TaskList location={taskListData[0].location}
-                          totalActivities={taskListData[0].totalActivities}
-                          activitiesCompleted={taskListData[0].activitiesCompleted}
-                          availableTickets={22} activities={taskListData[0].activities}/>}/>
-    <Route path="/tasks/brooklyn"
-       element={<TaskList location={'brooklyn'} totalActivities={33} activitiesCompleted={0}
-                          availableTickets={22}/>}/>
-    <Route path="/tasks/queens"
-       element={<TaskList location={'queens'} totalActivities={33} activitiesCompleted={0}
-                          availableTickets={22}/>}/>
+                           element={<TaskList location={taskListData[0].location}
+                                              totalActivities={taskListData[0].totalActivities}
+                                              activitiesCompleted={taskListData[0].activitiesCompleted}
+                                              availableTickets={22} activities={taskListData[0].activities}/>}/>
+                    <Route path="/tasks/brooklyn"
+                           element={<TaskList location={taskListData[1].location} totalActivities={taskListData[1].totalActivities}
+                                              activitiesCompleted={taskListData[1].activitiesCompleted}
+                                              availableTickets={22} activities={taskListData[1].activities}/>}/>
+                    <Route path="/tasks/queens"
+                           element={<TaskList location={taskListData[2].location} totalActivities={taskListData[2].totalActivities}
+                                              activitiesCompleted={taskListData[2].activitiesCompleted}
+                                              availableTickets={22} activities={taskListData[2].activities}/>}/>
           <Route path="/task-completion" element={<TaskCompletion />}/>
         </Routes>
       </BrowserRouter>
