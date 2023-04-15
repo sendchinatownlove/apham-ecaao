@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 import TaskListTable from "./TaskListTable";
 
 const TaskListContainer = styled.div`
@@ -16,12 +17,21 @@ const GooglyEye = styled.img`
   margin: 1px auto;
 `
 
-const BackButton = styled.div`
+const BackButton = styled.button`
   display:flex;
   align-items:center;
-  max-width: 75px;
-  padding-top: 10px;
+  max-width: 110px;
+  padding-top: 15px;
   padding-left: 10px;
+  background-color: transparent;
+
+  :hover{
+    border:none;
+  }
+
+  :focus {
+    outline:none;
+  }
 `
 
 const BackButtonText = styled.text`
@@ -75,9 +85,11 @@ interface TaskListProps extends TaskListData {
 
 export default function TaskList(props: TaskListProps) {
   const { location, totalActivities, activitiesCompleted, availableTickets, activities } = props;
+  let navigate = useNavigate();
+
   return (
       <TaskListContainer>
-          <BackButton>
+          <BackButton onClick={() => {navigate('/', { replace: true })}}>
               <GooglyEye/>
               <BackButtonText>
                 BACK
