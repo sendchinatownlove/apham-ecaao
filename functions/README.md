@@ -10,6 +10,8 @@ brew install java
 firebase emulators:start
 ```
 
+NOTE for typescript, yoo need to have   `npm run build:watch` running in the typescript directory in order for it to run. We can create a shell-script to skip this in the future where that will be the entry point to orchestrate this.
+
 ## deploy 
 ```
 # deploy all
