@@ -4,7 +4,7 @@ export const taskListData: TaskListData[] = [
     {
         location: 'manhattan',
         totalActivities: 33,
-        activitiesCompleted: 0,
+        activitiesCompleted: 1,
         activities: [
             {
                 activity: {
