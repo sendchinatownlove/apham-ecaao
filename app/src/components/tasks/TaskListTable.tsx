@@ -5,10 +5,27 @@ import styled from "styled-components";
 const TaskListTableContainer = styled.div`
     max-height: 480px;
     overflow: scroll;
+    background-color: rgba(168, 25, 46, 0.52);
+    border-radius: 0 0 25px 25px;
 `;
 const StyledRow = styled.div`
   max-width: 300px;
+  font-size: 0.8rem;
+  line-height: 1rem;
+  padding: 5px 10px 10px 10px;
+  text-align: left;
 `;
+
+const ActivityRowTitle = styled.div`
+  font-weight: 700;
+  padding-top: 5px;
+  padding-bottom: 3px;
+`;
+
+const ActivityRowDescription = styled.div`
+  font-weight: 400;
+`;
+
 type TaskListTableProps = {
     activities: { activity: { title: string, description: string, completed: boolean } }[]
 }
@@ -32,6 +49,8 @@ function TaskListTable(props: TaskListTableProps) {
         // @ts-ignore
     } = useTable({columns, data: activities})
 
+    let rowNumber = 0;
+
     return (
         <TaskListTableContainer>
             <table>
@@ -41,15 +60,28 @@ function TaskListTable(props: TaskListTableProps) {
                     return (
                         <tr {...row.getRowProps()}>
                             {row.cells.map(cell => {
+                                rowNumber += 1;
+                                let borderTop;
+
+                                // gross hacky way to hide border from first row. I tried using tr first child styling
+                                // but it wasn't working
+                                if (rowNumber === 1) {
+                                    borderTop = '0px'
+                                } else {
+                                    borderTop = '1px solid white'
+                                }
                                 return (
                                     <td
                                         {...cell.getCellProps()}
-                                        style={{
-                                            padding: '10px',
-                                        }}
                                     >
-                                        <StyledRow>
-                                            {cell.value['title']} {cell.value['description']}
+                                        <StyledRow style={{borderTop: borderTop}}>
+                                            <ActivityRowTitle>
+                                                {rowNumber}. {cell.value['title']}
+                                            </ActivityRowTitle>
+                                            <ActivityRowDescription>
+                                                {cell.value['description']}
+                                            </ActivityRowDescription>
+
                                         </StyledRow>
                                     </td>
                                 )

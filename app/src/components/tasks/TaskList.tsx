@@ -51,29 +51,6 @@ const AvailableTicketsText = styled.div`
   justify-content:space-between;
   padding: 5px 10px 10px 10px;
 `
-const ActivitiesList = styled.div`
-  margin-top: 10px;
-  text-align: left;
-  padding-left: 15px;
-  padding-right: 10px;
-`;
-
-const StyledActivityRow = styled.div`
-  border-bottom: 1px solid white;
-  font-size: 0.8rem;
-  line-height: 1rem;
-`;
-
-const ActivityRowTitle = styled.div`
-  font-weight: 600;
-  padding-top: 5px;
-  padding-bottom: 3px;
-`;
-
-const ActivityRowDescription = styled.div`
-  font-weight: 400;
-  padding-bottom: 5px;
-`;
 
 export type Activities = {
     activity: ActivityInfo
