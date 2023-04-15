@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { FixedSizeList as List } from 'react-window';
+import TaskListTable from "./TaskListTable";
 
 const TaskListContainer = styled.div`
   background-color: rgba(255,255,255,0.3);
@@ -75,7 +75,11 @@ const ActivityRowDescription = styled.div`
   padding-bottom: 5px;
 `;
 
-type Activities = {
+export type Activities = {
+    activity: ActivityInfo
+}
+
+export type ActivityInfo = {
     title: string;
     description: string;
     completed: boolean;
@@ -91,20 +95,6 @@ export type TaskListData = {
 interface TaskListProps extends TaskListData {
     availableTickets: number;
 }
-
-const ActivityRow = props => {
-  const { data, index, style } = props;
-  return (
-    <StyledActivityRow style={style}>
-      <ActivityRowTitle>
-         {index + 1}. {data[index].title}
-      </ActivityRowTitle>
-        <ActivityRowDescription>
-            {data[index].description}
-        </ActivityRowDescription>
-    </StyledActivityRow>
-  );
-};
 
 export default function TaskList(props: TaskListProps) {
   const { location, totalActivities, activitiesCompleted, availableTickets, activities } = props;
@@ -126,11 +116,7 @@ export default function TaskList(props: TaskListProps) {
                   <span>{availableTickets}</span>
               </AvailableTicketsText>
           </TaskListHeader>
-          <ActivitiesList>
-              <List itemSize={160} height={350} itemCount={activities.length} width={300} itemData={activities}>
-                  {ActivityRow}
-              </List>
-          </ActivitiesList>
+          <TaskListTable activities={activities}/>
       </TaskListContainer>
   );
 }
