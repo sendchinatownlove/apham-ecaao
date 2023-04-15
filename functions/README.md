@@ -13,7 +13,7 @@ firebase emulators:start
 ## deploy 
 ```
 # deploy all
-# firebase deploy --functions
+# firebase deploy --only functions
 # firebase deploy --only functions:api-router
 # firebase deploy --only functions:generate-thumbnail
 ```

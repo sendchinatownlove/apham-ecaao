@@ -70,3 +70,26 @@ Frontend
 
 - Product/Social
   - Analytics / Reach 
+
+```firebase hosting
+
+
+  "functions": [
+    {
+      "predeploy": [
+        "npm --prefix \"$RESOURCE_DIR\" install"
+      ],
+      "source": "functions/api-router",
+      "codebase": "api-router",
+      "runtime": "nodejs18"
+    },
+    {
+    "predeploy": [
+        "npm --prefix \"$RESOURCE_DIR\" install"
+      ],
+      "source": "functions/generate-thumbnail",
+      "codebase": "generate-thumbnail",
+      "runtime": "nodejs18"
+    }
+  ],
+```
