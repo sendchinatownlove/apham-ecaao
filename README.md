@@ -25,6 +25,10 @@ npm run dev
 # navigate http://localhost:5173/
 ```
 
+### Database/Functions
+
+checkout [`database/README.md`](database/README.md) and [functions/README.md](functions/README.md)
+
 
 ## Deploy
 ```#deploy full domain
@@ -66,3 +70,30 @@ Frontend
 
 - Product/Social
   - Analytics / Reach 
+
+```firebase hosting
+
+
+  "functions": [
+    {
+      "predeploy": [
+        "npm --prefix \"$RESOURCE_DIR\" install",
+        "npm --prefix \"$RESOURCE_DIR\" run lint",
+        "npm --prefix \"$RESOURCE_DIR\" run build"
+      ],
+      "source": "functions/api-router",
+      "codebase": "api-router",
+      "runtime": "nodejs18"
+    },
+    {
+    "predeploy": [
+        "npm --prefix \"$RESOURCE_DIR\" install",
+        "npm --prefix \"$RESOURCE_DIR\" run lint",
+        "npm --prefix \"$RESOURCE_DIR\" run build"
+      ],
+      "source": "functions/generate-thumbnail",
+      "codebase": "generate-thumbnail",
+      "runtime": "nodejs18"
+    }
+  ],
+```
