@@ -77,7 +77,9 @@ Frontend
   "functions": [
     {
       "predeploy": [
-        "npm --prefix \"$RESOURCE_DIR\" install"
+        "npm --prefix \"$RESOURCE_DIR\" install",
+        "npm --prefix \"$RESOURCE_DIR\" run lint",
+        "npm --prefix \"$RESOURCE_DIR\" run build"
       ],
       "source": "functions/api-router",
       "codebase": "api-router",
@@ -85,7 +87,9 @@ Frontend
     },
     {
     "predeploy": [
-        "npm --prefix \"$RESOURCE_DIR\" install"
+        "npm --prefix \"$RESOURCE_DIR\" install",
+        "npm --prefix \"$RESOURCE_DIR\" run lint",
+        "npm --prefix \"$RESOURCE_DIR\" run build"
       ],
       "source": "functions/generate-thumbnail",
       "codebase": "generate-thumbnail",

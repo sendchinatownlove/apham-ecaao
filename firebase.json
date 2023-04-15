@@ -34,7 +34,7 @@
       ],
       "source": "functions/api-router",
       "codebase": "api-router",
-      "runtime": "nodejs16"
+      "runtime": "nodejs18"
     },
     {
     "predeploy": [
@@ -42,7 +42,7 @@
       ],
       "source": "functions/generate-thumbnail",
       "codebase": "generate-thumbnail",
-      "runtime": "nodejs16"
+      "runtime": "nodejs18"
     }
   ],
   "database": {
