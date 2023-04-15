@@ -37,12 +37,27 @@
       "runtime": "nodejs18"
     },
     {
-    "predeploy": [
+      "predeploy": [
         "npm --prefix \"$RESOURCE_DIR\" install"
       ],
       "source": "functions/generate-thumbnail",
       "codebase": "generate-thumbnail",
       "runtime": "nodejs18"
+    },
+    {
+      "source": "functions/analytics",
+      "codebase": "analytics",
+      "runtime": "nodejs18",
+      "ignore": [
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log"
+      ],
+      "predeploy": [
+        "npm --prefix \"$RESOURCE_DIR\" run lint",
+        "npm --prefix \"$RESOURCE_DIR\" run build"
+      ]
     }
   ],
   "database": {
