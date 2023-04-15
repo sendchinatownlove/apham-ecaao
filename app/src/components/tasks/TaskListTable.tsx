@@ -24,8 +24,16 @@ const ActivityRowTitleContainer = styled.div`
   display:flex;
 `;
 
-const EmptyCheckbox = styled.div`
+const UncheckedCheckbox = styled.div`
   content: url("/unchecked-checkbox.png");
+  height: 20px;
+  width: 20px;
+  padding-top: 3px;
+  padding-left: 4px;
+`;
+
+const CheckedCheckbox = styled.div`
+  content: url("/checked-checkbox.png");
   height: 20px;
   width: 20px;
   padding-top: 3px;
@@ -87,7 +95,12 @@ function TaskListTable(props: TaskListTableProps) {
                                         <StyledRow style={{borderTop: borderTop}}>
                                             <ActivityRowTitleContainer>
                                                 <span>{rowNumber}. {cell.value['title']}</span>
-                                                <EmptyCheckbox/>
+                                                {cell.value['completed'] && (
+                                                    <CheckedCheckbox/>
+                                                  )}
+                                                {!cell.value['completed'] && (
+                                                    <UncheckedCheckbox/>
+                                                )}
                                             </ActivityRowTitleContainer>
                                             <ActivityRowDescription>
                                                 {cell.value['description']}

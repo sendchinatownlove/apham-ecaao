@@ -10,7 +10,7 @@ export const taskListData: TaskListData[] = [
                 activity: {
                     title: 'Visit 47 Division St Trading Inc., Chinatown’s oldest meat shop, to buy some produce!',
                     description: 'They sell dried goods, eggs, and various cuts of meat. A true community staple, they try to keep their prices low (at wholesale prices) to serve their customer base, many of whom are aunties and grandmas who are on food assistance and have limited income.',
-                    completed: false
+                    completed: true
                 }
             },
             {
