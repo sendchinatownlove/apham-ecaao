@@ -14,6 +14,7 @@ import {
 } from 'firebase/auth';
 
 import TaskList from './components/tasks/TaskList';
+import TaskCompletion from './components/tasks/TaskCompletion';
 
 import { initializeApp } from 'firebase/app';
 import LoginPage from './pages/Login';
@@ -148,6 +149,7 @@ function App() {
           <Route path="/tasks/manhattan" element={<TaskList />}/>
           <Route path="/tasks/brooklyn" element={<TaskList />}/>
           <Route path="/tasks/queens" element={<TaskList />}/>
+          <Route path="/task-completion" element={<TaskCompletion />}/>
         </Routes>
       </BrowserRouter>
   </div>
