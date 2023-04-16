@@ -66,28 +66,38 @@ const InputLabel = styled(BrandText)`
   text-align: left;
 `;
 
-const EmailInput = styled.input`
+const EmailInput = styled.input<{ error: boolean }>`
   width: 331px;
   height: 50px;
   box-sizing: border-box;
   background: #ffffff;
-  border: 1px solid #dadada;
+  ${(props) =>
+    props.error ? `border: 1px solid #DD678A` : `border: 1px solid #dadada`};
   border-radius: 5px;
   margin-top: 12px;
   color: #000000;
   font-family: "Open Sans";
   font-style: normal;
   padding-left: 14px;
-  font-size: 14px;
+  font-size: 18px;
 `;
 
 const ButtonWrapper = styled.button`
-  background: #8b8b8b;
+  background: #000000;
   border-radius: 50px;
   width: 267px;
   height: 45px;
-  margin-top: 74px;
+  margin-top: 64px;
   margin-bottom: 80px;
+
+  &:disabled {
+    cursor: not-allowed;
+    background: #8b8b8b;
+  }
+
+  &:hover {
+    border: none;
+  }
 `;
 
 const ButtonText = styled(BrandText)`
@@ -122,7 +132,17 @@ const LogoWrapper = styled.div`
   }
 `;
 
-const ErrorText = styled(BrandText)``;
+const ErrorWrapper = styled.div`
+  height: 10px;
+`;
+
+const ErrorText = styled(BrandText)`
+  font-size: 10px;
+  text-align: left;
+  padding-top: 4px;
+  padding-left: 16px;
+  color: #dd678a;
+`;
 
 function validateEmail(input: string) {
   if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(input)) {
@@ -133,7 +153,12 @@ function validateEmail(input: string) {
 
 export default function Login() {
   const [error, setError] = useState(false);
-  const errorText = "Please enter a valid email";
+  const [email, setEmail] = useState("");
+
+  const handleSubmit = (event: React.FormEvent) => {
+    console.log("hi");
+    event.preventDefault();
+  };
 
   return (
     <PageContainer>
@@ -145,13 +170,37 @@ export default function Login() {
         Enter your email below to start exploring the Chinatowns across the
         boroughs and log your completed activities for chances to win prizes.
       </CtaText>
-      <InputWrapper>
-        <InputLabel>Email address</InputLabel>
-        <EmailInput type="text" id="email" name="email" />
-      </InputWrapper>
-      <ButtonWrapper>
-        <ButtonText>ENTER</ButtonText>
-      </ButtonWrapper>
+      <form onSubmit={handleSubmit}>
+        <InputWrapper>
+          <InputLabel>Email address</InputLabel>
+          <EmailInput
+            error={error}
+            type="text"
+            id="email"
+            name="email"
+            onChange={(e) => {
+              if (validateEmail(e.target.value)) {
+                setError(false);
+                setEmail(e.target.value);
+              } else {
+                setError(true);
+              }
+            }}
+          />
+          <ErrorWrapper>
+            {error && <ErrorText>Please enter a valid email</ErrorText>}
+          </ErrorWrapper>
+        </InputWrapper>
+        <ButtonWrapper
+          type="submit"
+          onClick={() => {
+            console.log("hi");
+          }}
+          disabled={error || email == ""}
+        >
+          <ButtonText>ENTER</ButtonText>
+        </ButtonWrapper>
+      </form>
       <LogoWrapper>
         <img alt="logo" src={Logo} />
       </LogoWrapper>
