@@ -1,0 +1,17 @@
+{
+    "rules": {
+      "items": {
+        ".read": "true",
+        
+        ".write": "!data.exists()",
+        
+        "$itemId": {
+          ".read": "true",
+          
+          ".write": "data.exists() && newData.exists()",
+          
+          ".validate": "newData.exists() || !data.exists()"
+        }
+      }
+    }
+  }
