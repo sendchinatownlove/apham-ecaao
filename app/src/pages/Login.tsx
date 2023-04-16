@@ -1,23 +1,22 @@
 import styled from "styled-components";
 
+import Arch from "../assets/arch.svg";
 import Logo from "../assets/logo.svg";
 import { BrandText } from "../styled-components";
 
 import { useState } from "react";
 
-const PageContainer = styled.div`
+const LoginWrapper = styled.div`
   background: #ffffff;
   width: 367px;
-  height: 611px;
-  padding: 14px;
+  max-height: 656px;
+  min-height: 656px;
+  border-radius: 26px;
 `;
 
-const HeaderText = styled(BrandText)<{ fontSize?: number }>`
+const HeaderText = styled(BrandText)`
   letter-spacing: 0.15em;
   font-weight: 700;
-  padding-bottom: 4px;
-
-  ${(props) => props.fontSize && `font-size: ${props.fontSize}px`};
 `;
 
 const SubheaderText = styled(BrandText)`
@@ -87,8 +86,8 @@ const ButtonWrapper = styled.button`
   border-radius: 50px;
   width: 267px;
   height: 45px;
-  margin-top: 64px;
-  margin-bottom: 80px;
+  margin-top: 51px;
+  margin-bottom: 94px;
 
   &:disabled {
     cursor: not-allowed;
@@ -110,6 +109,7 @@ const LogoWrapper = styled.div`
   display: block;
   position: relative;
   margin: auto;
+  margin-bottom: 20px;
 
   &:before {
     content: "";
@@ -156,60 +156,75 @@ export default function Login() {
   const [email, setEmail] = useState("");
 
   const handleSubmit = (event: React.FormEvent) => {
-    console.log("hi");
     event.preventDefault();
+    console.log("hi");
   };
 
   return (
-    <PageContainer>
-      <HeaderText>100* WAYS TO SEND CHINATOWN LOVE</HeaderText>
-      <SubheaderText>EVERYTHING CHINATOWN ALL AT ONCE</SubheaderText>
-      <CtaText>
-        <b>Hey explorer!</b>
-        <br />
-        Enter your email below to start exploring the Chinatowns across the
-        boroughs and log your completed activities for chances to win prizes.
-      </CtaText>
-      <form onSubmit={handleSubmit}>
-        <InputWrapper>
-          <InputLabel>Email address</InputLabel>
-          <EmailInput
-            error={error}
-            type="text"
-            id="email"
-            name="email"
-            onChange={(e) => {
-              if (validateEmail(e.target.value)) {
-                setError(false);
-                setEmail(e.target.value);
-              } else {
-                setError(true);
-              }
-            }}
-          />
-          <ErrorWrapper>
-            {error && <ErrorText>Please enter a valid email</ErrorText>}
-          </ErrorWrapper>
-        </InputWrapper>
-        <ButtonWrapper
-          type="submit"
-          onClick={() => {
-            console.log("hi");
+    <>
+      <img
+        alt="arch"
+        src={Arch}
+        style={{ top: "55px", position: "relative" }}
+      />
+      <LoginWrapper>
+        <HeaderText
+          style={{
+            paddingTop: "40px",
+            paddingBottom: "4px",
+            position: "relative",
           }}
-          disabled={error || email == ""}
         >
-          <ButtonText>ENTER</ButtonText>
-        </ButtonWrapper>
-      </form>
-      <LogoWrapper>
-        <img alt="logo" src={Logo} />
-      </LogoWrapper>
-      <div style={{ paddingTop: "12px" }}>
-        <HeaderText fontSize={12}>READ ABOUT THIS EVENT</HeaderText>
-      </div>
-      <div style={{ paddingTop: "12px" }}>
-        <HeaderText fontSize={12}>@SENDCHINATOWNLOVE</HeaderText>
-      </div>
-    </PageContainer>
+          100* WAYS TO SEND CHINATOWN LOVE
+        </HeaderText>
+        <SubheaderText>EVERYTHING CHINATOWN ALL AT ONCE</SubheaderText>
+        <CtaText>
+          <b>Hey explorer!</b>
+          <br />
+          Enter your email below to start exploring the Chinatowns across the
+          boroughs and log your completed activities for chances to win prizes.
+        </CtaText>
+        <form onSubmit={handleSubmit}>
+          <InputWrapper>
+            <InputLabel>Email address</InputLabel>
+            <EmailInput
+              error={error}
+              type="text"
+              id="email"
+              name="email"
+              onChange={(e) => {
+                if (validateEmail(e.target.value)) {
+                  setError(false);
+                  setEmail(e.target.value);
+                } else {
+                  setError(true);
+                }
+              }}
+            />
+            <ErrorWrapper>
+              {error && <ErrorText>Please enter a valid email</ErrorText>}
+            </ErrorWrapper>
+          </InputWrapper>
+          <ButtonWrapper
+            type="submit"
+            onClick={() => {
+              console.log("hi");
+            }}
+            disabled={error || email == ""}
+          >
+            <ButtonText>ENTER</ButtonText>
+          </ButtonWrapper>
+        </form>
+        <LogoWrapper>
+          <img alt="logo" src={Logo} />
+        </LogoWrapper>
+        <HeaderText style={{ paddingBottom: "21px", fontSize: "12px" }}>
+          READ ABOUT THIS EVENT
+        </HeaderText>
+        <HeaderText style={{ fontSize: "12px", paddingBottom: "42px" }}>
+          @SENDCHINATOWNLOVE
+        </HeaderText>
+      </LoginWrapper>
+    </>
   );
 }
