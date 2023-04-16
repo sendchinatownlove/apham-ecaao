@@ -1,15 +1,17 @@
 import styled from "styled-components";
 
-export const FileInputWrapper = styled.div`
-  padding: 0px 10px 10px 10px;
+const FileInputWrapper = styled.div`
+  margin-top: 0;
+  min-height: 280px;
 `
 
-export const FileInputLabel = styled.label`
+const FileInputLabel = styled.label`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 20px 0;
+  margin: 20px 0;
   cursor: pointer;
   color: #DD678A;
   background: rgba(221, 103, 138, 0.2);
@@ -20,32 +22,29 @@ export const FileInputLabel = styled.label`
   font-weight: 700;
 `
 
-export const FileInput = styled.input`
+const FileInput = styled.input`
   opacity: 0;
   width: 0.1px;
   height: 0.1px;
   position: absolute;
 `
 
-export const UploadIcon = styled.img`
+const UploadIcon = styled.img`
   content: url("/upload.png");
   max-width: 40px;
   margin: 5px auto;
 `
 
-export const UserUploadedImg = styled.img`
-  margin: 10px; 
+const UserUploadedImg = styled.img`
   width: 100%;
+  max-height: 200px;
   border: 1px solid #DD678A;
   border-radius: 6px;
+  object-fit: cover;
 `
 
 const UploadedImgWrapper = styled.div`
   position: relative;
-`
-
-const ReplaceFileInputWrapper = styled.div`
-
 `
 
 const ReplaceFileInput = styled.input`
@@ -58,14 +57,15 @@ const ReplaceFileInput = styled.input`
 const ReplaceFileInputLabel = styled.label`
   position: absolute;
   bottom: 10px;
-  right: 10px;
+  right: 2px;
+  padding: 0 10px;
   background: #DD678A;
   border-radius: 25px;
   color: white;
   font-weight: 700;
 `
 
-export type TaskUploadProps = {
+type TaskUploadProps = {
   imageFileSrc: string;
   setImageFile: React.Dispatch<React.SetStateAction<string>>;
 }
@@ -82,23 +82,26 @@ export default function TaskUpload(props: TaskUploadProps) {
 
   return (
     <>
-      {imageFileSrc === "" ? (
-        <FileInputWrapper>
-          <FileInput type="file" id="file" onChange={onImageChange} accept="image/*" />
-          <FileInputLabel htmlFor="file">
-            <UploadIcon />
-            Tap to upload a picture of your completed task
-          </FileInputLabel>
-        </FileInputWrapper>) :
-        <UploadedImgWrapper>
-          <UserUploadedImg alt="preview image" src={imageFileSrc} />
-          <ReplaceFileInputWrapper>
-          <ReplaceFileInput type="file" id="file" onChange={onImageChange} accept="image/*" />
-          <ReplaceFileInputLabel htmlFor="file">
-            Tap to replace
-          </ReplaceFileInputLabel>
-        </ReplaceFileInputWrapper>
-        </UploadedImgWrapper>}
+      <FileInputWrapper>
+        {imageFileSrc === "" ? (
+          <>
+            <FileInput type="file" id="file" onChange={onImageChange} accept="image/*" />
+            <FileInputLabel htmlFor="file">
+              <UploadIcon />
+              Tap to upload a picture of your completed task
+            </FileInputLabel>
+          </>
+        ) :
+          <UploadedImgWrapper>
+            <UserUploadedImg alt="preview image" src={imageFileSrc} />
+            <div>
+              <ReplaceFileInput type="file" id="file" onChange={onImageChange} accept="image/*" />
+              <ReplaceFileInputLabel htmlFor="file">
+                Tap to replace
+              </ReplaceFileInputLabel>
+            </div>
+          </UploadedImgWrapper>}
+      </FileInputWrapper>
     </>
   )
 }

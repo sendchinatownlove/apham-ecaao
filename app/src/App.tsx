@@ -174,7 +174,13 @@ function App() {
               availableTickets={22} activities={taskListData[2].activities}
             />}
           />
-          <Route path="/task-completion" element={<TaskCompletion location={dummyTask.location} taskHeader={dummyTask.header} taskDescription={dummyTask.description} />} />
+          {/* TODO: connect this route with the tasks page */}
+          <Route path="/task-completion" element={
+            <TaskCompletion location={dummyTask.location} 
+              taskHeader={dummyTask.header} 
+              taskDescription={dummyTask.description} 
+            />} 
+          />
         </Routes>
       </BrowserRouter>
     </div>
