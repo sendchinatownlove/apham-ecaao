@@ -1,19 +1,27 @@
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 import { useState } from 'react';
-import dummyTask from '../components/tasks/dummyTask.json'
-import uploadImg from '../assets/upload.png'
 import CompletionModal from "../components/tasks/CompletionModal";
 
+import TaskChecklistItem from "../components/task-completion/TaskChecklistItem";
+import TaskUpload from "../components/task-completion/TaskUpload";
+
 export const TaskCompletionWrapper = styled.div`
+  border-radius: 25px;
+  min-height: 480px;
+  max-width: 350px;
   text-align: left;
-  margin: 0 100px;
+  background: rgba(255, 255, 255, 0.3);
 `
 
-export const ChecklistItem = styled.div`
-  display: flex;
-  font-weight: 700;
-  font-size: 12px;
-  color: #343434;
+export const TaskCompletionContainer = styled.div`
+  background-color: #FFF1F1;
+  border-radius: 0 0 25px 25px;
+`
+
+export const HeaderWrapper = styled.div`
+  padding: 10px;
+  border-bottom: 1px solid #A8192E;
 `
 
 export const HeaderText = styled.h1`
@@ -24,47 +32,15 @@ export const HeaderText = styled.h1`
 `
 
 export const HeaderDescription = styled.p`
-  font-size: 14px;
+  margin: 0;
+  font-size: 11px;
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: #A8192E;
 `
 
-export const TaskHeader = styled.p`
-  margin-top: 0;
-`
-export const TaskDescription = styled.p``
-
-
-export const Checkbox = styled.input`
-
-`
-
-export const FileInputLabel = styled.label`
-  margin-bottom: 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 142px;
-  cursor: pointer;
-  color: #A8192E;
-  background: rgba(221, 103, 138, 0.2);
-  border: 1px solid #DD678A;
-  border-radius: 6px;
-  text-align: center;
-`
-
-export const FileInput = styled.input`
-  opacity: 0;
-  width: 0.1px;
-  height: 0.1px;
-  position: absolute;
-`
-
-export const SubmitButton = styled.button`
-  // TODO: if no image, show disabled button color: #8B8B8B;
-  background: #343434;
+export const SubmitButton = styled.button<{ isDisabled: boolean }>`
+  background: ${props => props.isDisabled ? "#8B8B8B" : "#343434"};
   border-radius: 50px;
   width: 100%;
   text-transform: uppercase;
@@ -73,47 +49,56 @@ export const SubmitButton = styled.button`
   font-weight: 700;
 `
 
-export default function TaskCompletion() {
+export const CancelButton = styled.button`
+  display: flex;
+  align-items: center;
+  padding-top: 15px;
+  padding-left: 10px;
+  background: transparent;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
 
-  const [imageFile, setImageFile] = useState('');
-
-  const onImageChange = (event: any) => {
-    if (event.target.files && event.target.files[0]) {
-      setImageFile(URL.createObjectURL(event.target.files[0]));
-    }
+  :hover{
+    border:none;
   }
+
+  :focus {
+    outline:none;
+  }
+`
+
+export const ClosedEye = styled.img`
+  content: url("/closed-eye.png");
+  max-width: 20px;
+  margin: 5px auto;
+`
+
+export type TaskCompletionProps = {
+  location: string;
+  taskHeader: string;
+  taskDescription: string;
+}
+
+export default function TaskCompletion(props: TaskCompletionProps) {
+  const { location, taskHeader, taskDescription } = props;
+  let navigate = useNavigate();
+  const [imageFile, setImageFile] = useState('');
 
   return (
     <TaskCompletionWrapper>
-      {/* TODO: add cancel button */}
-      <div className='header'>
-        <HeaderText>Manhattan</HeaderText>
-        <HeaderDescription>Upload a photo of the completed activity</HeaderDescription>
-      </div>
-      <ChecklistItem>
-        <div>
-          <TaskHeader>{dummyTask.header}</TaskHeader>
-          <TaskDescription>{dummyTask.description}</TaskDescription>
-        </div>
-        <div>
-          {/* TODO: Checkbox should check automatically when image is uploaded, 
-          user tapping on the box will not cause any action  */}
-          <Checkbox type="checkbox" className='checkbox' />
-        </div>
-      </ChecklistItem>
+      <CancelButton onClick={() => { navigate('/', { replace: true }) }}><ClosedEye />Cancel</CancelButton>
+      <TaskCompletionContainer>
+        <HeaderWrapper>
+          <HeaderText>{location}</HeaderText>
+          <HeaderDescription>Upload a photo of the completed activity</HeaderDescription>
+        </HeaderWrapper>
+        <TaskChecklistItem taskHeader={taskHeader} taskDescription={taskDescription} isChecked={imageFile !== ''} />
+        <TaskUpload imageFileSrc={imageFile} setImageFile={setImageFile} />
+        <SubmitButton disabled={imageFile === ''} isDisabled={imageFile === ''} onClick={() => { navigate(`/tasks/${location}`, { replace: true }) }}>upload picture</SubmitButton>
 
-      {imageFile === "" ? (<div className="file-input">
-        <FileInput type="file" id="file" onChange={onImageChange} accept="image/*" />
-        <FileInputLabel htmlFor="file">
-          <img src={uploadImg}></img>
-          Tap to upload a picture of your completed task
-        </FileInputLabel>
-      </div>) :
-        <img alt="preview image" src={imageFile} />}
-      <SubmitButton>upload picture</SubmitButton>
-
-      {/* TODO: add modal */}
-      {/* <CompletionModal/> */}
+        {/* TODO: add modal */}
+        {/* <CompletionModal/> */}
+      </TaskCompletionContainer>
 
     </TaskCompletionWrapper>
   );
