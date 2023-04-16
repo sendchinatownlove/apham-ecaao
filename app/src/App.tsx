@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './App.css';
@@ -5,21 +6,22 @@ import Home from "./home";
 import Layout from "./layout";
 
 import {
-  getAuth,
-  User,
-  signInWithPopup,
-  GoogleAuthProvider,
-  sendSignInLinkToEmail,
-  isSignInWithEmailLink,
-  signInWithEmailLink,
-  signOut,
+    getAuth,
+    User,
+    signInWithPopup,
+    GoogleAuthProvider,
+    sendSignInLinkToEmail,
+    isSignInWithEmailLink,
+    signInWithEmailLink,
+    signOut,
 } from 'firebase/auth';
 
 import TaskList from './components/tasks/TaskList';
 import TaskCompletion from './components/tasks/TaskCompletion';
-
-import { initializeApp } from 'firebase/app';
 import LoginPage from './pages/Login';
+
+import {initializeApp} from 'firebase/app';
+import {taskListData} from "./mock-data/task-list-data";
 
 // const FIREBASE_CONFIG = {
 //   apiKey: import.meta.env.VITE_REACT_APP_FIREBASE_API_KEY,
@@ -34,12 +36,12 @@ import LoginPage from './pages/Login';
 // According to this, this is ok to be public 
 // https://stackoverflow.com/a/37484053/2138186
 const firebaseConfig = {
-  apiKey: "AIzaSyD_KVSLkt8eq7-GEFegX9XGfGNg75tucAc",
-  authDomain: "scl-scavengerhunt.firebaseapp.com",
-  projectId: "scl-scavengerhunt",
-  storageBucket: "scl-scavengerhunt.appspot.com",
-  messagingSenderId: "955910274384",
-  appId: "1:955910274384:web:a9de7ecfaa88aa3b940055"
+    apiKey: "AIzaSyD_KVSLkt8eq7-GEFegX9XGfGNg75tucAc",
+    authDomain: "scl-scavengerhunt.firebaseapp.com",
+    projectId: "scl-scavengerhunt",
+    storageBucket: "scl-scavengerhunt.appspot.com",
+    messagingSenderId: "955910274384",
+    appId: "1:955910274384:web:a9de7ecfaa88aa3b940055"
 };
 
 
@@ -47,55 +49,55 @@ const firebaseApp = initializeApp(firebaseConfig);
 const auth = getAuth(firebaseApp);
 
 function App() {
-  const [user, setUser] = useState<User | null>(null);
-  const [email, setEmail] = useState('');
-  const [error, setError] = useState('');
+    const [user, setUser] = useState<User | null>(null);
+    const [email, setEmail] = useState('');
+    const [error, setError] = useState('');
 
-  const signInWithGoogle = async () => {
-    const provider = new GoogleAuthProvider();
-    try {
-      await signInWithPopup(auth, provider);
-    } catch (error : any) {
-      setError(error.message);
-    }
-  };
-
-  const sendSignInEmail = async (email: string) => {
-    const actionCodeSettings = {
-      url: window.location.href,
-      handleCodeInApp: true,
+    const signInWithGoogle = async () => {
+        const provider = new GoogleAuthProvider();
+        try {
+            await signInWithPopup(auth, provider);
+        } catch (error: any) {
+            setError(error.message);
+        }
     };
-    try {
-      await sendSignInLinkToEmail(auth, email, actionCodeSettings);
-      window.localStorage.setItem('emailForSignIn', email);
-      setEmail('');
-      setError('Email sent. Please check your inbox.');
-    } catch (error : any) {
-      setError(error.message);
-    }
-  };
 
-  const signInWithEmail = async (email: string, emailLink: string) => {
-    try {
-      await signInWithEmailLink(auth, email, emailLink);
-    } catch (error : any) {
-      setError(error.message);
-    }
-  };
+    const sendSignInEmail = async (email: string) => {
+        const actionCodeSettings = {
+            url: window.location.href,
+            handleCodeInApp: true,
+        };
+        try {
+            await sendSignInLinkToEmail(auth, email, actionCodeSettings);
+            window.localStorage.setItem('emailForSignIn', email);
+            setEmail('');
+            setError('Email sent. Please check your inbox.');
+        } catch (error: any) {
+            setError(error.message);
+        }
+    };
 
-  interface UserProps {
-    user: User | null;
-  }
+    const signInWithEmail = async (email: string, emailLink: string) => {
+        try {
+            await signInWithEmailLink(auth, email, emailLink);
+        } catch (error: any) {
+            setError(error.message);
+        }
+    };
+
+    interface UserProps {
+        user: User | null;
+    }
 
   function HomePage(props: UserProps) {
     const { user } = props
   return <div>
+    <h1>Send Chinatown Love</h1>
+    <h1>APHAM Scavenger Hunt!</h1>
     {user ? (
         <Home user={user}/>
       ) : (
         <>
-          <h1>Send Chinatown Love</h1>
-          <h1>APHAM Scavenger Hunt!</h1>
           <h3>Sign in to get started!</h3>
           <button onClick={signInWithGoogle}>Sign in with Google</button>
           <form onSubmit={handleSubmit}>
@@ -149,8 +151,34 @@ function App() {
       element: <LoginPage />,
     },
     {
-      path: "/tasks/:borough",
-      element: <TaskList />,
+      path: "/tasks/manhattan",
+      element: (
+      <TaskList
+        location={taskListData[0].location}
+        availableTickets={22}
+        activities={taskListData[0].activities}
+      />
+      )
+    },
+    {
+      path: "/tasks/brooklyn",
+      element: (
+      <TaskList
+        location={taskListData[1].location}
+        availableTickets={22}
+        activities={taskListData[1].activities}
+      />
+      )
+    },
+    {
+      path: "/tasks/queens",
+      element: (
+      <TaskList
+        location={taskListData[2].location}
+        availableTickets={22}
+        activities={taskListData[2].activities}
+      />
+      )
     },
     {
       path: "/task-completion",
