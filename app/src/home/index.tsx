@@ -4,7 +4,7 @@ import BoroughButton from './borough';
 import '../App.css';
 
 interface Props {
-  user: Object;
+  user: Object,
 }
 
 function Home(props: Props) {

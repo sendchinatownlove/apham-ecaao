@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './App.css';
 import Home from "./home";
+import Layout from "./layout";
 
 import {
   getAuth,
@@ -138,18 +139,28 @@ function App() {
     sendSignInEmail(email);
   };
 
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Layout><HomePage user={user}/></Layout>,
+    },
+    {
+      path: "/login",
+      element: <LoginPage />,
+    },
+    {
+      path: "/tasks/:borough",
+      element: <TaskList />,
+    },
+    {
+      path: "/task-completion",
+      element: <TaskCompletion />,
+    },
+  ]);
+
   return (
     <div className="App">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<HomePage user={user}/>}/>
-          <Route path="/login" element={<LoginPage />}/>
-          <Route path="/tasks/manhattan" element={<TaskList />}/>
-          <Route path="/tasks/brooklyn" element={<TaskList />}/>
-          <Route path="/tasks/queens" element={<TaskList />}/>
-          <Route path="/task-completion" element={<TaskCompletion />}/>
-        </Routes>
-      </BrowserRouter>
+      <RouterProvider router={router} />
   </div>
 );
 }
