@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useState } from 'react';
 import dummyTask from '../components/tasks/dummyTask.json'
-
+import uploadImg from '../assets/upload.png'
 import CompletionModal from "../components/tasks/CompletionModal";
 
 export const TaskCompletionWrapper = styled.div`
@@ -43,6 +43,7 @@ export const Checkbox = styled.input`
 export const FileInputLabel = styled.label`
   margin-bottom: 10px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 142px;
@@ -103,13 +104,16 @@ export default function TaskCompletion() {
 
       {imageFile === "" ? (<div className="file-input">
         <FileInput type="file" id="file" onChange={onImageChange} accept="image/*" />
-        <FileInputLabel htmlFor="file">Tap to upload a picture of your completed task</FileInputLabel>
+        <FileInputLabel htmlFor="file">
+          <img src={uploadImg}></img>
+          Tap to upload a picture of your completed task
+        </FileInputLabel>
       </div>) :
         <img alt="preview image" src={imageFile} />}
       <SubmitButton>upload picture</SubmitButton>
 
       {/* TODO: add modal */}
-      <CompletionModal/>
+      {/* <CompletionModal/> */}
 
     </TaskCompletionWrapper>
   );
