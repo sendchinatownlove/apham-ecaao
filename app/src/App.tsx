@@ -15,9 +15,9 @@ import {
 
 import TaskList from './components/tasks/TaskList';
 import TaskCompletion from './components/tasks/TaskCompletion';
+import LoginPage from './pages/Login';
 
 import {initializeApp} from 'firebase/app';
-import LoginPage from './pages/Login';
 import {taskListData} from "./mock-data/task-list-data";
 
 // const FIREBASE_CONFIG = {
@@ -143,6 +143,11 @@ function App() {
 
   return (
     <div className="App">
+      <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,700,300italic"
+        rel="stylesheet"
+        type="text/css"
+      />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<HomePage user={user}/>}/>
