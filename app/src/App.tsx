@@ -90,12 +90,12 @@ function App() {
   function HomePage(props: UserProps) {
     const { user } = props
   return <div>
-    <h1>Send Chinatown Love</h1>
-    <h1>APHAM Scavenger Hunt!</h1>
     {user ? (
         <Home user={user}/>
       ) : (
         <>
+          <h1>Send Chinatown Love</h1>
+          <h1>APHAM Scavenger Hunt!</h1>
           <h3>Sign in to get started!</h3>
           <button onClick={signInWithGoogle}>Sign in with Google</button>
           <form onSubmit={handleSubmit}>
