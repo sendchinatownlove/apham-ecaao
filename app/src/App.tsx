@@ -15,7 +15,7 @@ import {
 
 import TaskList from './components/tasks/TaskList';
 import TaskCompletion from './components/tasks/TaskCompletion';
-import LoginPage from './pages/Login';
+import Login from './pages/Login';
 
 import {initializeApp} from 'firebase/app';
 import {taskListData} from "./mock-data/task-list-data";
@@ -151,7 +151,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<HomePage user={user}/>}/>
-          <Route path="/login" element={<LoginPage />}/>
+          <Route path="/login" element={<Login />}/>
           <Route path="/tasks/manhattan" element={
               <TaskList location={taskListData[0].location}
                         totalActivities={taskListData[0].totalActivities}

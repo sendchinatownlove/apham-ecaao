@@ -3,6 +3,8 @@ import styled from "styled-components";
 import Logo from "../assets/logo.svg";
 import { BrandText } from "../styled-components";
 
+import { useState } from "react";
+
 const PageContainer = styled.div`
   background: #ffffff;
   width: 367px;
@@ -72,6 +74,11 @@ const EmailInput = styled.input`
   border: 1px solid #dadada;
   border-radius: 5px;
   margin-top: 12px;
+  color: #000000;
+  font-family: "Open Sans";
+  font-style: normal;
+  padding-left: 14px;
+  font-size: 14px;
 `;
 
 const ButtonWrapper = styled.button`
@@ -115,7 +122,19 @@ const LogoWrapper = styled.div`
   }
 `;
 
-export default function LoginPage() {
+const ErrorText = styled(BrandText)``;
+
+function validateEmail(input: string) {
+  if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(input)) {
+    return true;
+  }
+  return false;
+}
+
+export default function Login() {
+  const [error, setError] = useState(false);
+  const errorText = "Please enter a valid email";
+
   return (
     <PageContainer>
       <HeaderText>100* WAYS TO SEND CHINATOWN LOVE</HeaderText>
