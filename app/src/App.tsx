@@ -154,23 +154,20 @@ function App() {
           <Route path="/login" element={<LoginPage />}/>
           <Route path="/tasks/manhattan" element={
               <TaskList location={taskListData[0].location}
-                        totalActivities={taskListData[0].totalActivities}
-                        activitiesCompleted={taskListData[0].activitiesCompleted}
-                        availableTickets={22} activities={taskListData[0].activities}
+                        availableTickets={22}
+                        activities={taskListData[0].activities}
               />}
           />
           <Route path="/tasks/brooklyn" element={
               <TaskList location={taskListData[1].location}
-                        totalActivities={taskListData[1].totalActivities}
-                        activitiesCompleted={taskListData[1].activitiesCompleted}
-                        availableTickets={22} activities={taskListData[1].activities}
+                        availableTickets={22}
+                        activities={taskListData[1].activities}
               />}
           />
           <Route path="/tasks/queens" element={
               <TaskList location={taskListData[2].location}
-                        totalActivities={taskListData[2].totalActivities}
-                        activitiesCompleted={taskListData[2].activitiesCompleted}
-                        availableTickets={22} activities={taskListData[2].activities}
+                        availableTickets={22}
+                        activities={taskListData[2].activities}
               />}
           />
           <Route path="/task-completion" element={<TaskCompletion />}/>
