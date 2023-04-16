@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
+import Home from "./home";
 
 import {
   getAuth,
@@ -91,10 +92,7 @@ function App() {
     <h1>Send Chinatown Love</h1>
     <h1>APHAM Scavenger Hunt!</h1>
     {user ? (
-        <div>
-          <h3>Welcome, {user.email}</h3>
-          <button onClick={() => signOut(auth)}>Sign out</button>
-        </div>
+        <Home user={user}/>
       ) : (
         <>
           <h3>Sign in to get started!</h3>
