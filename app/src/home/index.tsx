@@ -39,9 +39,9 @@ function Home(props: Props) {
         <BodyTextMedium bold>3. WITH EVERY COMPLETION, you get a raffle ticket to enter for a chance to win a giveaway prize of your choice!</BodyTextMedium>
       </Instructions>
       <Boroughs>
-        <BoroughButton borough="Manhattan"/>
-        <BoroughButton borough="Queens"/>
-        <BoroughButton borough="Brooklyn"/>
+        <BoroughButton borough="Manhattan" totalTasks={33} completedTasks={0}/>
+        <BoroughButton borough="Queens" totalTasks={33} completedTasks={0}/>
+        <BoroughButton borough="Brooklyn" totalTasks={33} completedTasks={0}/>
       </Boroughs>
       <TicketsCounter/>
     </HomeContainer>
