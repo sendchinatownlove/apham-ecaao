@@ -1,24 +1,26 @@
-import React, {useEffect, useState} from 'react';
-import {BrowserRouter, Route, Routes} from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
 
 import {
-    getAuth,
-    User,
-    signInWithPopup,
-    GoogleAuthProvider,
-    sendSignInLinkToEmail,
-    isSignInWithEmailLink,
-    signInWithEmailLink,
-    signOut,
+  getAuth,
+  User,
+  signInWithPopup,
+  GoogleAuthProvider,
+  sendSignInLinkToEmail,
+  isSignInWithEmailLink,
+  signInWithEmailLink,
+  signOut,
 } from 'firebase/auth';
 
 import TaskList from './components/tasks/TaskList';
-import TaskCompletion from './components/tasks/TaskCompletion';
+import TaskCompletion from './pages/TaskCompletion';
 import Login from './pages/Login';
 
-import {initializeApp} from 'firebase/app';
-import {taskListData} from "./mock-data/task-list-data";
+import { initializeApp } from 'firebase/app';
+import LoginPage from './pages/Login';
+import { taskListData } from "./mock-data/task-list-data";
+import dummyTask from './mock-data/dummyTask.json'
 
 // const FIREBASE_CONFIG = {
 //   apiKey: import.meta.env.VITE_REACT_APP_FIREBASE_API_KEY,
@@ -33,12 +35,12 @@ import {taskListData} from "./mock-data/task-list-data";
 // According to this, this is ok to be public 
 // https://stackoverflow.com/a/37484053/2138186
 const firebaseConfig = {
-    apiKey: "AIzaSyD_KVSLkt8eq7-GEFegX9XGfGNg75tucAc",
-    authDomain: "scl-scavengerhunt.firebaseapp.com",
-    projectId: "scl-scavengerhunt",
-    storageBucket: "scl-scavengerhunt.appspot.com",
-    messagingSenderId: "955910274384",
-    appId: "1:955910274384:web:a9de7ecfaa88aa3b940055"
+  apiKey: "AIzaSyD_KVSLkt8eq7-GEFegX9XGfGNg75tucAc",
+  authDomain: "scl-scavengerhunt.firebaseapp.com",
+  projectId: "scl-scavengerhunt",
+  storageBucket: "scl-scavengerhunt.appspot.com",
+  messagingSenderId: "955910274384",
+  appId: "1:955910274384:web:a9de7ecfaa88aa3b940055"
 };
 
 
@@ -46,52 +48,52 @@ const firebaseApp = initializeApp(firebaseConfig);
 const auth = getAuth(firebaseApp);
 
 function App() {
-    const [user, setUser] = useState<User | null>(null);
-    const [email, setEmail] = useState('');
-    const [error, setError] = useState('');
+  const [user, setUser] = useState<User | null>(null);
+  const [email, setEmail] = useState('');
+  const [error, setError] = useState('');
 
-    const signInWithGoogle = async () => {
-        const provider = new GoogleAuthProvider();
-        try {
-            await signInWithPopup(auth, provider);
-        } catch (error: any) {
-            setError(error.message);
-        }
-    };
-
-    const sendSignInEmail = async (email: string) => {
-        const actionCodeSettings = {
-            url: window.location.href,
-            handleCodeInApp: true,
-        };
-        try {
-            await sendSignInLinkToEmail(auth, email, actionCodeSettings);
-            window.localStorage.setItem('emailForSignIn', email);
-            setEmail('');
-            setError('Email sent. Please check your inbox.');
-        } catch (error: any) {
-            setError(error.message);
-        }
-    };
-
-    const signInWithEmail = async (email: string, emailLink: string) => {
-        try {
-            await signInWithEmailLink(auth, email, emailLink);
-        } catch (error: any) {
-            setError(error.message);
-        }
-    };
-
-    interface UserProps {
-        user: User | null;
+  const signInWithGoogle = async () => {
+    const provider = new GoogleAuthProvider();
+    try {
+      await signInWithPopup(auth, provider);
+    } catch (error: any) {
+      setError(error.message);
     }
+  };
+
+  const sendSignInEmail = async (email: string) => {
+    const actionCodeSettings = {
+      url: window.location.href,
+      handleCodeInApp: true,
+    };
+    try {
+      await sendSignInLinkToEmail(auth, email, actionCodeSettings);
+      window.localStorage.setItem('emailForSignIn', email);
+      setEmail('');
+      setError('Email sent. Please check your inbox.');
+    } catch (error: any) {
+      setError(error.message);
+    }
+  };
+
+  const signInWithEmail = async (email: string, emailLink: string) => {
+    try {
+      await signInWithEmailLink(auth, email, emailLink);
+    } catch (error: any) {
+      setError(error.message);
+    }
+  };
+
+  interface UserProps {
+    user: User | null;
+  }
 
   function HomePage(props: UserProps) {
     const { user } = props
-  return <div>
-    <h1>Send Chinatown Love</h1>
-    <h1>APHAM Scavenger Hunt!</h1>
-    {user ? (
+    return <div>
+      <h1>Send Chinatown Love</h1>
+      <h1>APHAM Scavenger Hunt!</h1>
+      {user ? (
         <div>
           <h3>Welcome, {user.email}</h3>
           <button onClick={() => signOut(auth)}>Sign out</button>
@@ -102,18 +104,18 @@ function App() {
           <button onClick={signInWithGoogle}>Sign in with Google</button>
           <form onSubmit={handleSubmit}>
             <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <button type="submit">Send sign-in email</button>
-        </form>
-        {error && <p>{error}</p>}
-      </>
-    )}
-  </div>;
-}
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <button type="submit">Send sign-in email</button>
+          </form>
+          {error && <p>{error}</p>}
+        </>
+      )}
+    </div>;
+  }
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -150,31 +152,36 @@ function App() {
       />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<HomePage user={user}/>}/>
-          <Route path="/login" element={<Login />}/>
+          <Route path="/" element={<HomePage user={user} />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/tasks/manhattan" element={
-              <TaskList location={taskListData[0].location}
-                        availableTickets={22}
-                        activities={taskListData[0].activities}
-              />}
+            <TaskList location={taskListData[0].location}
+              availableTickets={22}
+              activities={taskListData[0].activities}
+            />}
           />
           <Route path="/tasks/brooklyn" element={
-              <TaskList location={taskListData[1].location}
-                        availableTickets={22}
-                        activities={taskListData[1].activities}
-              />}
+            <TaskList location={taskListData[1].location}
+              availableTickets={22}
+              activities={taskListData[1].activities}
+            />}
           />
           <Route path="/tasks/queens" element={
-              <TaskList location={taskListData[2].location}
-                        availableTickets={22}
-                        activities={taskListData[2].activities}
-              />}
+            <TaskList location={taskListData[2].location}
+              availableTickets={22}
+              activities={taskListData[2].activities}
+            />}
           />
-          <Route path="/task-completion" element={<TaskCompletion />}/>
+          {/* TODO: connect this route with the tasks page */}
+          <Route path="/task-completion" element={
+            <TaskCompletion location={dummyTask.location}
+              taskHeader={dummyTask.header}
+              taskDescription={dummyTask.description}
+            />} />
         </Routes>
       </BrowserRouter>
-  </div>
-);
+    </div>
+  );
 }
 
 export default App;
