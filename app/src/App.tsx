@@ -15,12 +15,12 @@ import {
 
 import TaskList from './components/tasks/TaskList';
 import TaskCompletion from './components/tasks/TaskCompletion';
+import RaffleListView from './components/raffle/RaffleListView';
 import Login from './pages/Login';
 
 import {initializeApp} from 'firebase/app';
 import {taskListData} from "./mock-data/task-list-data";
-import RaffleView from './components/raffle/RaffleView';
-import { raffleListData } from './mock-data/raffle-list-data';
+import {raffleListData} from './mock-data/raffle-list-data';
 
 // const FIREBASE_CONFIG = {
 //   apiKey: import.meta.env.VITE_REACT_APP_FIREBASE_API_KEY,
@@ -173,7 +173,7 @@ function App() {
               />}
           />
           <Route path="/task-completion" element={<TaskCompletion />}/>
-          <Route path="/raffles" element={<RaffleView prizeData={raffleListData} />}/>
+          <Route path="/raffles" element={<RaffleListView prizeData={raffleListData} />}/>
         </Routes>
       </BrowserRouter>
   </div>
