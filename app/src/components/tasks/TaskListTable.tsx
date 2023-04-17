@@ -22,6 +22,7 @@ const ActivityRowTitleContainer = styled.div`
   padding-top: 5px;
   padding-bottom: 3px;
   display:flex;
+  justify-content: space-between;
 `;
 
 const UncheckedCheckbox = styled.div`
