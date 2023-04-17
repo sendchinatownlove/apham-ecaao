@@ -1,0 +1,28 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /Activities/{activityId} {
+      allow read: if true;
+      allow write: if request.auth.uid != null && request.auth.token.admin == true;
+    }
+
+    match /Prizes/{prizeId} {
+      allow read: if true;
+      allow write: if request.auth.uid != null && request.auth.token.admin == true;
+    }
+
+    match /Users/{userId} {
+      allow read, write: if request.auth.uid == userId;
+    }
+
+    match /Users/{userId}/UserActivities/{activityId} {
+      allow read, create: if request.auth.uid == userId;
+      allow write: if request.auth.uid == userId && request.resource.data.completedAt == resource.data.completedAt;
+    }
+
+    match /Users/{userId}/UserEntries/{entryId} {
+      allow read, create: if request.auth.uid == userId;
+      allow write: if request.auth.uid == userId && request.resource.data.prizeId == resource.data.prizeId;
+    }
+  }
+}

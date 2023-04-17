@@ -1,0 +1,86 @@
+{
+    "collections": [
+      {
+        "name": "Activities",
+        "fields": [
+          { "name": "activityId", "type": "Document ID" },
+          { "name": "description", "type": "String" },
+          { "name": "tickets", "type": "Number" }
+        ]
+      },
+      {
+        "name": "Prizes",
+        "fields": [
+          { "name": "prizeId", "type": "Document ID" },
+          { "name": "name", "type": "String" },
+          { "name": "ticketCost", "type": "Number" }
+        ]
+      },
+      {
+        "name": "Users",
+        "fields": [
+          { "name": "userId", "type": "Document ID" },
+          { "name": "email", "type": "String" },
+          { "name": "displayName", "type": "String" },
+          { "name": "totalTickets", "type": "Number" }
+        ],
+        "subcollections": [
+          {
+            "name": "UserActivities",
+            "fields": [
+              { "name": "activityId", "type": "Document ID" },
+              { "name": "completedAt", "type": "Timestamp" },
+              { "name": "photos", "type": "Array of Strings - URLs" }
+            ]
+          },
+          {
+            "name": "UserEntries",
+            "fields": [
+              { "name": "entryId", "type": "Document ID" },
+              { "name": "prizeId", "type": "String" },
+              { "name": "ticketsUsed", "type": "Number" }
+            ]
+          }
+        ]
+      }
+    ],
+    "rules": {
+      "rules_version": "2",
+      "service": "cloud.firestore",
+      "match": [
+        {
+          "path": "/databases/{database}/documents",
+          "children": [
+            {
+              "path": "/Activities/{activityId}",
+              "read": "true",
+              "write": "request.auth.uid != null && request.auth.token.admin == true"
+            },
+            {
+              "path": "/Prizes/{prizeId}",
+              "read": "true",
+              "write": "request.auth.uid != null && request.auth.token.admin == true"
+            },
+            {
+              "path": "/Users/{userId}",
+              "read": "request.auth.uid == userId",
+              "write": "request.auth.uid == userId"
+            },
+            {
+              "path": "/Users/{userId}/UserActivities/{activityId}",
+              "read": "request.auth.uid == userId",
+              "create": "request.auth.uid == userId",
+              "write": "request.auth.uid == userId && request.resource.data.completedAt == resource.data.completedAt"
+            },
+            {
+              "path": "/Users/{userId}/UserEntries/{entryId}",
+              "read": "request.auth.uid == userId",
+              "create": "request.auth.uid == userId",
+              "write": "request.auth.uid == userId && request.resource.data.prizeId == resource.data.prizeId"
+            }
+          ]
+        }
+      ]
+    }
+  }
+  
