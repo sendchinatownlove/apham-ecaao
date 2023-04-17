@@ -1,24 +1,17 @@
 import styled from "styled-components";
 
+// Branded text wrapper imported by Google fonts in App.tsx
+// Can inherit this to be customized/overwrite default values for different use cases
+// For example:
+// export const StyledBrandText = styled(BrandText)`
+//   font-size: 8px;
+//   font-weight: 700;
+//   color: #000;
+// `;
 export const BrandText = styled.div`
   font-family: "Open Sans";
   font-style: normal;
-  font-weight: 700;
   font-size: 14px;
   line-height: 19px;
-  text-transform: uppercase;
-
-  color: #a8192e;
-`;
-
-export const BrandSubtext = styled.div`
-  font-family: "Open Sans";
-  font-style: italic;
-  font-weight: 300;
-  font-size: 10px;
-  line-height: 14px;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-
   color: #a8192e;
 `;
