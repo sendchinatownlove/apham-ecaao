@@ -17,7 +17,7 @@ import {
 
 import TaskList from './components/tasks/TaskList';
 import TaskCompletion from './components/tasks/TaskCompletion';
-import LoginPage from './pages/Login';
+import Login from './pages/Login';
 
 import {initializeApp} from 'firebase/app';
 import {taskListData} from "./mock-data/task-list-data";
@@ -188,6 +188,7 @@ function App() {
   return (
     <div className="App">
       <RouterProvider router={router} />
+
   </div>
 );
 }
