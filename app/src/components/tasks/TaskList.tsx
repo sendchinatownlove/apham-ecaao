@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import TaskListTable from "./TaskListTable";
 import TaskListBackButton from "./TaskListBackButton";
 import TaskListHeader from "./TaskListHeader";
+import {getNumberOfCompletedActivities} from "../../utils/activities";
 
 const TaskListContainer = styled.div`
   background-color: rgba(255,255,255,0.3);
@@ -25,8 +26,6 @@ export type ActivityInfo = {
 
 export type TaskListData = {
     location: string;
-    totalActivities: number;
-    activitiesCompleted: number;
     activities: Activities[]
 }
 
@@ -35,13 +34,18 @@ interface TaskListProps extends TaskListData {
 }
 
 export default function TaskList(props: TaskListProps) {
-  const { location, totalActivities, activitiesCompleted, availableTickets, activities } = props;
+  const { location, availableTickets, activities } = props;
   let navigate = useNavigate();
 
   return (
       <TaskListContainer>
           <TaskListBackButton onClick={() => {navigate('/', { replace: true })}}/>
-          <TaskListHeader location={location} activitiesCompleted={activitiesCompleted} totalActivities={totalActivities} availableTickets={availableTickets}/>
+          <TaskListHeader
+              location={location}
+              activitiesCompleted={getNumberOfCompletedActivities(activities)}
+              totalActivities={activities.length}
+              availableTickets={availableTickets}
+          />
           <TaskListTable activities={activities}/>
       </TaskListContainer>
   );
