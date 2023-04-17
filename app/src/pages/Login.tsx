@@ -205,13 +205,7 @@ export default function Login() {
               {error && <ErrorText>Please enter a valid email</ErrorText>}
             </ErrorWrapper>
           </InputWrapper>
-          <ButtonWrapper
-            type="submit"
-            onClick={() => {
-              console.log("hi");
-            }}
-            disabled={error || email == ""}
-          >
+          <ButtonWrapper type="submit" disabled={error || email == ""}>
             <ButtonText>ENTER</ButtonText>
           </ButtonWrapper>
         </form>
