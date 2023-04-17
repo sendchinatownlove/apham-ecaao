@@ -5,22 +5,24 @@ import Home from "./home";
 import Layout from "./layout";
 
 import {
-    getAuth,
-    User,
-    signInWithPopup,
-    GoogleAuthProvider,
-    sendSignInLinkToEmail,
-    isSignInWithEmailLink,
-    signInWithEmailLink,
-    signOut,
+  getAuth,
+  User,
+  signInWithPopup,
+  GoogleAuthProvider,
+  sendSignInLinkToEmail,
+  isSignInWithEmailLink,
+  signInWithEmailLink,
+  signOut,
 } from 'firebase/auth';
 
 import TaskList from './components/tasks/TaskList';
-import TaskCompletion from './components/tasks/TaskCompletion';
+import TaskCompletion from './pages/TaskCompletion';
 import Login from './pages/Login';
 
-import {initializeApp} from 'firebase/app';
-import {taskListData} from "./mock-data/task-list-data";
+import { initializeApp } from 'firebase/app';
+import LoginPage from './pages/Login';
+import { taskListData } from "./mock-data/task-list-data";
+import dummyTask from './mock-data/dummyTask.json'
 
 // const FIREBASE_CONFIG = {
 //   apiKey: import.meta.env.VITE_REACT_APP_FIREBASE_API_KEY,
@@ -35,12 +37,12 @@ import {taskListData} from "./mock-data/task-list-data";
 // According to this, this is ok to be public 
 // https://stackoverflow.com/a/37484053/2138186
 const firebaseConfig = {
-    apiKey: "AIzaSyD_KVSLkt8eq7-GEFegX9XGfGNg75tucAc",
-    authDomain: "scl-scavengerhunt.firebaseapp.com",
-    projectId: "scl-scavengerhunt",
-    storageBucket: "scl-scavengerhunt.appspot.com",
-    messagingSenderId: "955910274384",
-    appId: "1:955910274384:web:a9de7ecfaa88aa3b940055"
+  apiKey: "AIzaSyD_KVSLkt8eq7-GEFegX9XGfGNg75tucAc",
+  authDomain: "scl-scavengerhunt.firebaseapp.com",
+  projectId: "scl-scavengerhunt",
+  storageBucket: "scl-scavengerhunt.appspot.com",
+  messagingSenderId: "955910274384",
+  appId: "1:955910274384:web:a9de7ecfaa88aa3b940055"
 };
 
 
@@ -48,45 +50,45 @@ const firebaseApp = initializeApp(firebaseConfig);
 const auth = getAuth(firebaseApp);
 
 function App() {
-    const [user, setUser] = useState<User | null>(null);
-    const [email, setEmail] = useState('');
-    const [error, setError] = useState('');
+  const [user, setUser] = useState<User | null>(null);
+  const [email, setEmail] = useState('');
+  const [error, setError] = useState('');
 
-    const signInWithGoogle = async () => {
-        const provider = new GoogleAuthProvider();
-        try {
-            await signInWithPopup(auth, provider);
-        } catch (error: any) {
-            setError(error.message);
-        }
-    };
-
-    const sendSignInEmail = async (email: string) => {
-        const actionCodeSettings = {
-            url: window.location.href,
-            handleCodeInApp: true,
-        };
-        try {
-            await sendSignInLinkToEmail(auth, email, actionCodeSettings);
-            window.localStorage.setItem('emailForSignIn', email);
-            setEmail('');
-            setError('Email sent. Please check your inbox.');
-        } catch (error: any) {
-            setError(error.message);
-        }
-    };
-
-    const signInWithEmail = async (email: string, emailLink: string) => {
-        try {
-            await signInWithEmailLink(auth, email, emailLink);
-        } catch (error: any) {
-            setError(error.message);
-        }
-    };
-
-    interface UserProps {
-        user: User | null;
+  const signInWithGoogle = async () => {
+    const provider = new GoogleAuthProvider();
+    try {
+      await signInWithPopup(auth, provider);
+    } catch (error: any) {
+      setError(error.message);
     }
+  };
+
+  const sendSignInEmail = async (email: string) => {
+    const actionCodeSettings = {
+      url: window.location.href,
+      handleCodeInApp: true,
+    };
+    try {
+      await sendSignInLinkToEmail(auth, email, actionCodeSettings);
+      window.localStorage.setItem('emailForSignIn', email);
+      setEmail('');
+      setError('Email sent. Please check your inbox.');
+    } catch (error: any) {
+      setError(error.message);
+    }
+  };
+
+  const signInWithEmail = async (email: string, emailLink: string) => {
+    try {
+      await signInWithEmailLink(auth, email, emailLink);
+    } catch (error: any) {
+      setError(error.message);
+    }
+  };
+
+  interface UserProps {
+    user: User | null;
+  }
 
   function HomePage(props: UserProps) {
     const { user } = props
@@ -101,18 +103,18 @@ function App() {
           <button onClick={signInWithGoogle}>Sign in with Google</button>
           <form onSubmit={handleSubmit}>
             <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <button type="submit">Send sign-in email</button>
-        </form>
-        {error && <p>{error}</p>}
-      </>
-    )}
-  </div>;
-}
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <button type="submit">Send sign-in email</button>
+          </form>
+          {error && <p>{error}</p>}
+        </>
+      )}
+    </div>;
+  }
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -181,7 +183,11 @@ function App() {
     },
     {
       path: "/task-completion",
-      element: <TaskCompletion />,
+      element: (
+        <TaskCompletion location={dummyTask.location}
+        taskHeader={dummyTask.header}
+        taskDescription={dummyTask.description}/>
+      )
     },
   ]);
 
