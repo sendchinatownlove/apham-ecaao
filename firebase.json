@@ -37,6 +37,19 @@
       "runtime": "nodejs18"
     },
     {
+      "predeploy": ["npm --prefix \"$RESOURCE_DIR\" install"],
+      "source": "functions/airtable-proxy",
+      "codebase": "airtable-proxy",
+      "runtime": "nodejs18",
+      "ignore": [
+        "node_modules",
+        ".git",
+        ".env",
+        "firebase-debug.log",
+        "firebase-debug.*.log"
+      ]
+    },
+    {
       "source": "functions/analytics",
       "codebase": "analytics",
       "runtime": "nodejs18",
