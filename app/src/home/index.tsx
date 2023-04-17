@@ -1,6 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
 import BoroughButton from './borough';
+import TicketsCounter from './ticketsCounter';
 import { BodyTextMedium } from "../components/theme";
 import styled from "styled-components";
 
@@ -42,16 +43,7 @@ function Home(props: Props) {
         <BoroughButton borough="Queens"/>
         <BoroughButton borough="Brooklyn"/>
       </Boroughs>
-      <div className="raffleTicketsCopy">
-        <p className='raffleLabel'>MY raffle tickets</p>
-        <div className="ticketsData">
-          <span>10 Available</span>
-          <span>2 Entered</span>
-        </div>
-        <button>
-          Enter Raffles
-        </button>
-      </div>
+      <TicketsCounter/>
     </HomeContainer>
   );
 }
