@@ -3,6 +3,9 @@ on:
   push:
     branches:
       - main
+    paths:
+      - functions/*
+      - database/*
 env:
   - GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   - VITE_REACT_APP_FIREBASE_API_KEY: ${{ secrets.VITE_REACT_APP_FIREBASE_API_KEY }}
@@ -12,31 +15,13 @@ env:
   - VITE_REACT_APP_FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.VITE_REACT_APP_FIREBASE_MESSAGING_SENDER_ID }}
   - VITE_REACT_APP_FIREBASE_STORAGE_BUCKET: ${{ secrets.VITE_REACT_APP_FIREBASE_STORAGE_BUCKET }}
 jobs:
-  build:
-    name: Build Prod
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: app
-    steps:
-      - name: Checkout Repo
-        uses: actions/checkout@master
-      - name: Install Dependencies
-        run: npm install
-      - name: Build
-        run: npm run build
-      - name: Archive Production Artifact
-        uses: actions/upload-artifact@master
-        with:
-          name: dist
-          path: app/dist
   deploy:
     name: Deploy Prod
     needs: build
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: app
+    # defaults:
+    #   run:
+    #     working-directory: app
     steps:
       - name: Checkout Repo
         uses: actions/checkout@master
@@ -56,7 +41,7 @@ jobs:
       - name: Install Dependencies
         run: npm install
       - name: Enable Firebase Experiment
-        run: firebase --project ${{ secrets.FIREBASE_PROJECT_ID }} experiments:enable webframeworks
+        run: firebase --project ${{ secrets.FIREBASE_PROJECT_ID }} deploy
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
       - name: Deploy to Firebase

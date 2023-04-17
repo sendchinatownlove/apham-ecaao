@@ -15,6 +15,7 @@ import {
 
 import TaskList from './components/tasks/TaskList';
 import TaskCompletion from './pages/TaskCompletion';
+import Login from './pages/Login';
 
 import { initializeApp } from 'firebase/app';
 import LoginPage from './pages/Login';
@@ -152,35 +153,31 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<HomePage user={user} />} />
-          <Route path="/login" element={<LoginPage />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/tasks/manhattan" element={
             <TaskList location={taskListData[0].location}
-              totalActivities={taskListData[0].totalActivities}
-              activitiesCompleted={taskListData[0].activitiesCompleted}
-              availableTickets={22} activities={taskListData[0].activities}
+              availableTickets={22}
+              activities={taskListData[0].activities}
             />}
           />
           <Route path="/tasks/brooklyn" element={
             <TaskList location={taskListData[1].location}
-              totalActivities={taskListData[1].totalActivities}
-              activitiesCompleted={taskListData[1].activitiesCompleted}
-              availableTickets={22} activities={taskListData[1].activities}
+              availableTickets={22}
+              activities={taskListData[1].activities}
             />}
           />
           <Route path="/tasks/queens" element={
             <TaskList location={taskListData[2].location}
-              totalActivities={taskListData[2].totalActivities}
-              activitiesCompleted={taskListData[2].activitiesCompleted}
-              availableTickets={22} activities={taskListData[2].activities}
+              availableTickets={22}
+              activities={taskListData[2].activities}
             />}
           />
           {/* TODO: connect this route with the tasks page */}
           <Route path="/task-completion" element={
-            <TaskCompletion location={dummyTask.location} 
-              taskHeader={dummyTask.header} 
-              taskDescription={dummyTask.description} 
-            />} 
-          />
+            <TaskCompletion location={dummyTask.location}
+              taskHeader={dummyTask.header}
+              taskDescription={dummyTask.description}
+            />} />
         </Routes>
       </BrowserRouter>
     </div>
