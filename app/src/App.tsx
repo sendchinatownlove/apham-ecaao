@@ -16,13 +16,14 @@ import {
 } from 'firebase/auth';
 
 import TaskList from './components/tasks/TaskList';
+import RaffleListView from './components/raffle/RaffleListView';
 import TaskCompletion from './pages/TaskCompletion';
 import Login from './pages/Login';
 
 import { initializeApp } from 'firebase/app';
-import LoginPage from './pages/Login';
 import { taskListData } from "./mock-data/task-list-data";
-import dummyTask from './mock-data/dummyTask.json'
+import { raffleListData } from './mock-data/raffle-list-data';
+import dummyTask from './mock-data/dummyTask.json';
 
 // const FIREBASE_CONFIG = {
 //   apiKey: import.meta.env.VITE_REACT_APP_FIREBASE_API_KEY,
@@ -149,7 +150,7 @@ function App() {
     },
     {
       path: "/login",
-      element: <LoginPage />,
+      element: <Login />,
     },
     {
       path: "/tasks/manhattan",
@@ -189,13 +190,18 @@ function App() {
         taskDescription={dummyTask.description}/>
       )
     },
+    {
+      path: "/raffles",
+      element: (
+        <RaffleListView prizeData={raffleListData} />
+      )
+    }
   ]);
 
   return (
     <div className="App">
       <RouterProvider router={router} />
-
-  </div>
+    </div>
 );
 }
 
