@@ -165,7 +165,7 @@ function App() {
   
       // Increment the tickets_remaining
       const incrementTickets = async () => {
-        const incrementValue = 1;
+        const incrementValue = 5;
         await firebaseService.incrementTicketsRemaining(user.uid, incrementValue);
       };
   
@@ -173,7 +173,8 @@ function App() {
   
       // Decrement the tickets_remaining
       const decrementTickets = async () => {
-        const decrementValue = 1;
+        // spending
+        const decrementValue = 2;
         await firebaseService.decrementTicketsRemaining(user.uid, decrementValue);
       };
   

@@ -47,7 +47,6 @@ export class FirebaseService {
     try {
       const userId = user.uid
       const snapshot = await get(ref(this.db, `users/${userId}`));
-      debugger;
       // user is not initialized yet (firebase on login default sets a UID but no other data)
       if (snapshot.val().email === undefined) {
         await this.registerUser(user);
@@ -70,10 +69,13 @@ export class FirebaseService {
     }
   }
 
+  // @TODO translate to task 
   async addUserActivity(userId: string, activityId: string, completed: boolean): Promise<void> {
     try {
-      console.log("the args: ", arguments)
-      await set(ref(this.db, `users/${userId}/brooklyn_created_tasks/${activityId}`), completed);
+      console.log("the args: ", arguments) 
+      let burough = "brooklyn"
+      // @TODO from activityID / airtable object we should know which borough to decide which one to add to.  Default set to Brooklyn for now
+      await set(ref(this.db, `users/${userId}/${burough}_completed_tasks/${activityId}`), completed);
       console.log("User activity added successfully.");
     } catch (error) {
       console.error("Error adding user activity:", error);
