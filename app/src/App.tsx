@@ -1,5 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
+
+import {FirebaseService} from './Api';
+
 import './App.css';
 
 import {
@@ -44,6 +47,7 @@ const firebaseConfig = {
 
 const firebaseApp = initializeApp(firebaseConfig);
 const auth = getAuth(firebaseApp);
+const firebaseService = new FirebaseService();
 
 function App() {
     const [user, setUser] = useState<User | null>(null);
@@ -132,9 +136,53 @@ function App() {
         window.localStorage.removeItem('emailForSignIn');
       }
     }
+    if (user) {
+      console.log("Entered here")
+      // Fetch user data
+      const fetchUserData = async () => {
+        const userData = await firebaseService.getUser(user);
+        console.log("users data: ", userData?.val());
+      };
+  
+      fetchUserData();
+  
+      // Add an activity entry
+      const addActivityEntry = async () => {
+        const activityId = 'some_activity_id2';
+        await firebaseService.addUserActivity(user.uid, activityId, true);
+      };
+  
+      // addActivityEntry();
+  
+      // Add a raffle ticket entry
+      const addRaffleTicketEntry = async () => {
+        const raffleId = 'some_raffle_id';
+        const numberOfEntries = 1;
+        await firebaseService.addRaffleEntry(user.uid, raffleId, numberOfEntries);
+      };
+  
+      addRaffleTicketEntry();
+  
+      // Increment the tickets_remaining
+      const incrementTickets = async () => {
+        const incrementValue = 1;
+        await firebaseService.incrementTicketsRemaining(user.uid, incrementValue);
+      };
+  
+      incrementTickets();
+  
+      // Decrement the tickets_remaining
+      const decrementTickets = async () => {
+        const decrementValue = 1;
+        await firebaseService.decrementTicketsRemaining(user.uid, decrementValue);
+      };
+  
+      decrementTickets();
+  
+    }
 
     return () => unsubscribe();
-  }, []);
+  }, [user]);
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
