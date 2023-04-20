@@ -27,7 +27,7 @@ export class FirebaseService {
 
 
       const defaultUserValues = {
-        brooklyn_completed_tasks: "",
+        brooklyn_completed_tasks: {},
         email: user.email,
         manhattan_completed_tasks: {},
         name: user.displayName,
@@ -47,6 +47,12 @@ export class FirebaseService {
     try {
       const userId = user.uid
       const snapshot = await get(ref(this.db, `users/${userId}`));
+      debugger;
+      // user is not initialized yet (firebase on login default sets a UID but no other data)
+      if (snapshot.val().email === undefined) {
+        await this.registerUser(user);
+        return null;
+      } 
       console.log("my userid: ", snapshot.val(), userId)
       return snapshot;
     } catch (error) {
