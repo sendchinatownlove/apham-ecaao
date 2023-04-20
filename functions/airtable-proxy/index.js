@@ -8,7 +8,8 @@ const AIRTABLE_BASE_ID = process.env.AIRTABLE_BASE_ID;
 
 exports.airtable_proxy = functions.https.onRequest(async (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
-  const airtableURL = `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/Trivia`;
+  const { table } = req.query;
+  const airtableURL = `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${table}`;
 
   const config = {
     headers: {
