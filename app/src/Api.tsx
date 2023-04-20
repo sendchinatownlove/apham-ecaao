@@ -25,13 +25,13 @@ export class FirebaseService {
   ): Promise<void> {
     try {
 
-
+      // the defaults are set there because couldn't figure out how to set to nothing
       const defaultUserValues = {
-        brooklyn_completed_tasks: {},
+        brooklyn_completed_tasks: {"default":0},
         email: user.email,
-        manhattan_completed_tasks: {},
+        manhattan_completed_tasks: {"default":0},
         name: user.displayName,
-        queens_completed_tasks: {},
+        queens_completed_tasks: {"default":0},
         raffles_entered: {},
         tickets_remaining: 0,
       };
