@@ -1,4 +1,3 @@
-import { initializeApp } from "firebase/app";
 import {
   getDatabase,
   ref,
@@ -26,7 +25,7 @@ export class FirebaseService {
   ): Promise<void> {
     try {
 
-  
+
       const defaultUserValues = {
         brooklyn_completed_tasks: "",
         email: user.email,
@@ -36,7 +35,7 @@ export class FirebaseService {
         raffles_entered: {},
         tickets_remaining: 0,
       };
-  
+
       await set(ref(this.db, `users/${user.uid}`), defaultUserValues);
       console.log("User registered successfully and default values set.");
     } catch (error) {
@@ -44,7 +43,7 @@ export class FirebaseService {
     }
   }
 
-  async getUser(user: User ): Promise<DataSnapshot | null> {
+  async getUser(user: User): Promise<DataSnapshot | null> {
     try {
       const userId = user.uid
       const snapshot = await get(ref(this.db, `users/${userId}`));
