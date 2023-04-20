@@ -70,12 +70,13 @@ export class FirebaseService {
   }
 
   // @TODO translate to task 
-  async addUserActivity(userId: string, activityId: string, completed: boolean): Promise<void> {
+  async completeTask(userId: string, task: any, completed: boolean): Promise<void> {
     try {
       console.log("the args: ", arguments) 
-      let burough = "brooklyn"
+      let burough = task.randomBorough
+      let taskId = task.randomNumber
       // @TODO from activityID / airtable object we should know which borough to decide which one to add to.  Default set to Brooklyn for now
-      await set(ref(this.db, `users/${userId}/${burough}_completed_tasks/${activityId}`), completed);
+      await set(ref(this.db, `users/${userId}/${burough}_completed_tasks/${taskId}`), completed);
       console.log("User activity added successfully.");
     } catch (error) {
       console.error("Error adding user activity:", error);

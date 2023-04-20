@@ -147,13 +147,21 @@ function App() {
       fetchUserData();
   
       // Add an activity entry
-      const addActivityEntry = async () => {
-        const activityId = 'some_activity_id2';
-        await firebaseService.addUserActivity(user.uid, activityId, true);
+      const completeTask = async () => {
+        function generateTask() {
+          const randomNumber = Math.floor(Math.random() * 100) + 1;
+          const randomBorough = ["manhattan", "brooklyn", "queens"][Math.floor(Math.random() * 3)];
+          return {
+            randomBorough,
+            randomNumber
+          };
+        }
+        const task = generateTask();
+        console.log(task)
+        await firebaseService.completeTask(user.uid, task, true);
       };
   
-      // addActivityEntry();
-  
+      completeTask();
       // Add a raffle ticket entry
       const addRaffleTicketEntry = async () => {
         const raffleId = 'some_raffle_id';
