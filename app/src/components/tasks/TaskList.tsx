@@ -22,6 +22,8 @@ export type ActivityInfo = {
     title: string;
     description: string;
     completed: boolean;
+    index: number;
+    id: string;
 }
 
 export type TaskListData = {
