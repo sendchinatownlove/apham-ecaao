@@ -1,5 +1,6 @@
 import React from 'react';
 import {useTable} from 'react-table';
+import { ActivityInfo } from './TaskList';
 import styled from "styled-components";
 
 const TaskListTableContainer = styled.div`
@@ -46,11 +47,12 @@ const ActivityRowDescription = styled.div`
 `;
 
 type TaskListTableProps = {
-    activities: { activity: { title: string, description: string, completed: boolean } }[]
+    activities: { activity: { title: string, description: string, completed: boolean } }[],
+    onTaskClick: any,
 }
 
 function TaskListTable(props: TaskListTableProps) {
-    const {activities} = props;
+    const {activities, onTaskClick} = props;
 
     const columns = React.useMemo(
         () => [
@@ -93,7 +95,7 @@ function TaskListTable(props: TaskListTableProps) {
                                     <td
                                         {...cell.getCellProps()}
                                     >
-                                        <StyledRow style={{borderTop: borderTop}}>
+                                        <StyledRow style={{borderTop: borderTop}} onClick={() => onTaskClick(cell.value)}>
                                             <ActivityRowTitleContainer>
                                                 <span>{rowNumber}. {cell.value['title']}</span>
                                                 {cell.value['completed'] && (
