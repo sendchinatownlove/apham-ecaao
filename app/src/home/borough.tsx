@@ -1,9 +1,10 @@
 import React from 'react';
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { BodyTextMedium, THEME_COLORS } from "../components/theme";
 
 interface Props {
-  borough: String;
+  borough: string;
   completedTasks?: Number;
   totalTasks?: Number;
 }
@@ -18,9 +19,14 @@ const Button = styled.button`
 `;
 
 function BoroughButton(props: Props) {
+  const navigate = useNavigate();
+ 
+  const onClickHandler = () => {
+    navigate(`/tasks/${props.borough.toLowerCase()}`);
+  }
 
   return (
-    <Button>
+    <Button onClick={onClickHandler}>
       <BodyTextMedium bold color={THEME_COLORS.RED}>{props.borough}</BodyTextMedium>
       <BodyTextMedium color={THEME_COLORS.RED}>{`${props.completedTasks}/${props.totalTasks}`}</BodyTextMedium>
     </Button>
