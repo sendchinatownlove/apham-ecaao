@@ -19,9 +19,11 @@ export type Activities = {
 }
 
 export type ActivityInfo = {
-  title: string;
-  description: string;
-  completed: boolean;
+    title: string;
+    description: string;
+    completed: boolean;
+    index: number;
+    id: string;
 }
 
 export type TaskListData = {
@@ -40,12 +42,12 @@ export default function TaskList(props: TaskListProps) {
   return (
     <TaskListContainer>
           <TaskListBackButton onClick={() => {navigate('/', { replace: true })}}/>
-      <TaskListHeader
-        location={location}
-        activitiesCompleted={getNumberOfCompletedActivities(activities)}
-        totalActivities={activities.length}
-        availableTickets={availableTickets}
-      />
+          <TaskListHeader
+              location={location}
+              activitiesCompleted={getNumberOfCompletedActivities(activities)}
+              totalActivities={activities.length - 1}
+              availableTickets={availableTickets}
+          />
           <TaskListTable activities={activities}/>
     </TaskListContainer>
   );

@@ -1,6 +1,7 @@
 import React from 'react';
 import {useTable} from 'react-table';
 import styled from "styled-components";
+import {ActivityInfo} from "./TaskList";
 
 const TaskListTableContainer = styled.div`
   max-height: 100vh;
@@ -46,15 +47,17 @@ const ActivityRowDescription = styled.div`
 `;
 
 type TaskListTableProps = {
-    activities: { activity: { title: string, description: string, completed: boolean } }[]
+    activities: { activity: ActivityInfo }[]
 }
 
 function TaskListTable(props: TaskListTableProps) {
     const {activities} = props;
 
-  const columns = React.useMemo(
-    () => [
-      {
+    activities.sort((a,b) => a.activity.index - b.activity.index);
+
+    const columns = React.useMemo(
+        () => [
+            {
                 Header: 'Activity',
                 accessor: 'activity', // accessor is the "key" in the data
       },
@@ -68,23 +71,20 @@ function TaskListTable(props: TaskListTableProps) {
     // @ts-ignore
     } = useTable({columns, data: activities})
 
-  let rowNumber = 0;
-
-  return (
-    <TaskListTableContainer>
-      <table>
-        <tbody>
+    return (
+        <TaskListTableContainer>
+            <table>
+                <tbody>
                 {rows.map(row => {
                     prepareRow(row)
             return (
               <tr {...row.getRowProps()}>
                             {row.cells.map(cell => {
-                  rowNumber += 1;
-                  let borderTop;
+                                let borderTop;
 
-                  // gross hacky way to hide border from first row. I tried using tr first child styling
-                  // but it wasn't working
-                  if (rowNumber === 1) {
+                                // gross hacky way to hide border from first row. I tried using tr first child styling
+                                // but it wasn't working
+                                if (cell.value['index'] === 0) {
                                     borderTop = '0px'
                   } else {
                                     borderTop = '1px solid white'
@@ -94,8 +94,8 @@ function TaskListTable(props: TaskListTableProps) {
                                         {...cell.getCellProps()}
                                     >
                                         <StyledRow style={{borderTop: borderTop}}>
-                        <ActivityRowTitleContainer>
-                                                <span>{rowNumber}. {cell.value['title']}</span>
+                                            <ActivityRowTitleContainer>
+                                                <span>{cell.value['index']}. {cell.value['title']}</span>
                                                 {cell.value['completed'] && (
                                                     <CheckedCheckbox/>
                                                   )}
