@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useState } from 'react';
 import CompletionModal from "../components/tasks/CompletionModal";
+import { getUploadUrl } from '../../src/utils/api/interactionManager'
 
 import TaskChecklistItem from "../components/task-completion/TaskChecklistItem";
 import TaskUpload from "../components/task-completion/TaskUpload";
@@ -86,8 +87,48 @@ export default function TaskCompletion(props: TaskCompletionProps) {
   const { location, taskHeader, taskDescription } = props;
   let navigate = useNavigate();
   const [imageFile, setImageFile] = useState('');
+  const [image, setImage] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const [isPopupActive, setIsPopupActive] = useState(false);
   const hasImageBeenUploaded = imageFile !== '';
+
+  const alphanumericRegex = (str: string) => {
+    return str.replace(/[^a-zA-Z0-9]/g, '-');
+  };
+
+  const submitImage = async () => {
+    if (image === null) return false;
+
+    try {
+      const ext = image.type.split('/')[1];
+
+      let filename = `${id}-${alphanumericRegex(
+        participatingSeller
+      )}-${alphanumericRegex(new Date().toISOString())}.${ext}`;
+
+      // upload receipt to gc
+      const signedUrl = unescape(
+        (await getUploadUrl(filename, receipt.type)).data.url
+      );
+      await sendImage(signedUrl, filename, receipt);
+
+      // upload info + receipt to db
+      let data = await uploadCrawlReceipts(
+        participatingSellerId,
+        id,
+        Number(billTotal) * 100,
+        filename
+      );
+
+      if (data) {
+        setIsPopupActive(true);
+      }
+    } catch (err) {
+      console.log(err);
+      setImageFile('');
+      setIsLoading(false);
+    }
+  };
 
   return (
     <TaskCompletionWrapper>
@@ -107,7 +148,9 @@ export default function TaskCompletion(props: TaskCompletionProps) {
             disabled={!hasImageBeenUploaded}
             isDisabled={!hasImageBeenUploaded}
             // TODO: navigate back to task list page eventually
-            onClick={() => {setIsPopupActive(true)}}>
+            onClick={() => {
+              submitImage();
+            }}>
             upload picture
           </UploadButton>
         </UploadWrapper>

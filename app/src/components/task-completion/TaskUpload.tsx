@@ -74,8 +74,11 @@ export default function TaskUpload(props: TaskUploadProps) {
   const { imageFileSrc, setImageFile } = props;
 
 
+  const [imageFile, setImage] = useState('');
+
   const onImageChange = (event: any) => {
     if (event.target.files && event.target.files[0]) {
+      setImage(event.target.files[0]);
       setImageFile(URL.createObjectURL(event.target.files[0]));
     }
   }
