@@ -27,7 +27,7 @@ const ClosedEyeIcon = styled.img`
   margin: auto 5px;`
 
 
-const CancelButtonText = styled.text `
+const CancelButtonText = styled.span `
 text-transform: uppercase;
 font-weight: 700;`
 

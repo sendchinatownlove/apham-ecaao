@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
 import confirmationImg from '../../assets/confirmation.png'
 
 const Overlay = styled.div`
@@ -56,22 +55,20 @@ type ConfirmationModalProps = {
 
 export default function EntryConfirmationModal(props: ConfirmationModalProps) {
   const { isActive, setIsActive } = props;
-  let navigate = useNavigate();
 
   return (
     <>
-      {/* {isActive && ( */}
+      {isActive && (
         <Overlay>
           <ModalWrapper>
             <EntryConfirmationImage src={confirmationImg} />
             <ModalHeader>Submission Confirmed</ModalHeader>
             <p>Congratulations!</p>
             <p>You've successfully submitted one (1) entry to this giveaway prize.</p>
-            {/* TODO: navigate to raffle page */}
-            <CloseButton onClick={() => { setIsActive(false) }}>Close</CloseButton>
+            <CloseButton onClick={() => {setIsActive(false)}}>Close</CloseButton>
           </ModalWrapper>
         </Overlay>
-      {/* )} */}
+      )}
     </>
 
   )

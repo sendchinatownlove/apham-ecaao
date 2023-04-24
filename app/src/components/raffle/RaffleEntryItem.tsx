@@ -92,15 +92,14 @@ export default function RaffleEntryItem(props: RafflePrizeData) {
         </EntryHeaderText>
         
         <PrizeImage>
-            {/* TODO: Something is off about the image formatting */}
             <img src={image} />
         </PrizeImage>
 
         <PrizeCaption>
             <PrizeTitle>{title}</PrizeTitle>
             <PrizeDetails>Includes: <br />
-                {longDescription.map((bullet) => {
-                    return <span>{"- " + bullet} <br /></span>
+                {longDescription.map((bullet, index) => {
+                    return <span key={index}>{"- " + bullet} <br /></span>
                 })} 
             </PrizeDetails>
         </PrizeCaption>

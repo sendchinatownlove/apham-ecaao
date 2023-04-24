@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import CancelButton from "../CancelButton";
-// import CancelButton from "../../pages/TaskCompletion"
 import RaffleHeader from "./RaffleHeader";
 import { RafflePrizeData } from "./RaffleList";
 import RaffleEntryItem from "./RaffleEntryItem";
@@ -23,7 +22,7 @@ const RaffleContainer = styled.div`
   background-color: #FFF1F1;
   color: #000000;
   border-radius: 0px 0px 25px 25px;
-  padding: 2vh 3vw;
+  padding: 1.5vh 1.5vw;
 `
 
 const EntryButtonContainer = styled.div`
@@ -44,21 +43,22 @@ const NoticeText = styled.div`
     font-size: 10px;
     margin: 15px 0px
 `
-// TODO
-function EntryButtonClick(){
-    console.log("Submit Button Clicked");
+// TODO add navigation logic
+function handleEntryButtonClick(){
+    // let navigate = useNavigate();
+    console.log("Submit Button Clicked"); 
 }
 
 export default function RaffleEntry(props: RafflePrizeData) {
     const { title, description, longDescription, image, ticketsRequired, entries} = props;
     let navigate = useNavigate();
     // TODO: Add logic if available tickets - tickets required > 0
-    let hasEnoughTickets = false;
+    let hasEnoughTickets = true;
     
 
     return (
         <RaffleContainer>
-            <CancelButton onClick={() => {navigate('/', { replace: true })}}/>
+            <CancelButton onClick={() => {navigate(-1)}}/>
             <RaffleHeader availableTickets={6} />
             <RaffleEntryContainer>
                 <RaffleEntryItem 
@@ -71,8 +71,9 @@ export default function RaffleEntry(props: RafflePrizeData) {
                 <EntryButtonContainer>
                     <EntryButton 
                         isDisabled={!hasEnoughTickets}
+                        disabled={!hasEnoughTickets}
                         // TODO: navigate back to task list page and deactivate button when not enough tickets
-                        onClick={EntryButtonClick}>
+                        onClick={handleEntryButtonClick}>
                         Confirm Entry
                     </EntryButton>
                     <NoticeText> Once an entry is submitted, it cannot be changed.</NoticeText>

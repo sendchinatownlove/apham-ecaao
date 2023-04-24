@@ -161,7 +161,7 @@ function App() {
       )
     },
     {
-      path: "/raffle/raffle-entry",
+      path: "/raffle-entry",
       element: (
       <RaffleEntry 
         title = {raffleListData[0].title}
