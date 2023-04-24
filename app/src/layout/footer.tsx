@@ -12,6 +12,7 @@ const Container = styled.div`
   gap: 15px;
   margin-top: 15px;
   color: rgb(255, 255, 255);
+  padding-bottom: 20px;
 `;
 
 const LogoWrapper = styled.div`

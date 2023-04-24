@@ -8,16 +8,15 @@ import { useState } from "react";
 
 const LoginContainer = styled.div`
   width: 98vw;
-  height: auto;
+  height: 100vh;
   max-width: 1200px;
 `
 
 const LoginWrapper = styled.div`
   background: #ffffff;
   position: relative;
-  top: -41px;
+  top: -6px;
   border-radius: 26px;
-  height: 100vh;
 `;
 
 const Header = styled.div`
@@ -108,8 +107,8 @@ const ButtonWrapper = styled.button`
   border-radius: 50px;
   width: 267px;
   height: 45px;
-  margin-top: 51px;
-  margin-bottom: 106px;
+  margin-top: 30px;
+  margin-bottom: 15px;
 
   &:disabled {
     cursor: not-allowed;
@@ -161,7 +160,7 @@ export default function Login() {
           <img
             alt="arch"
             src={Arch}
-            style={{ top: "2px", position: "relative" }}
+            style={{ top: "32px", position: "relative" }}
           />
       <LoginWrapper>
         <Header>

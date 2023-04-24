@@ -8,8 +8,9 @@ const LayoutContainer = styled.div`
   text-align: center;
   background-color: rgba(255, 255, 255, 0.3);
   width: 98vw;
-  height: 100vh;
+  height: 110vh;
   max-width: 1200px;
+  margin-top: 30px;
 `;
 
 interface LayoutProps {

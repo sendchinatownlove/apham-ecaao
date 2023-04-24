@@ -11,6 +11,7 @@ const RaffleViewContainer = styled.div`
   width: 98vw;
   height: auto;
   max-width: 1200px;
+  margin-top: 30px;
 `
 
 type RaffleViewProps = {

@@ -13,6 +13,7 @@ const TaskCompletionWrapper = styled.div`
   width: 98vw;
   height: auto;
   max-width: 1200px;
+  margin-top: 30px;
 `
 
 const TaskCompletionContainer = styled.div`

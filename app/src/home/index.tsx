@@ -16,8 +16,8 @@ const Instructions = styled.div`
   flex-direction: column;
   gap: 10px;
   text-align: left;
-  width: 325px;
-  margin: 0 auto;
+  width: 90vw;
+  margin: 1rem 1.5rem 0;
 `;
 
 const Boroughs = styled.div`
