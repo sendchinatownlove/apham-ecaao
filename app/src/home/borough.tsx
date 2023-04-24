@@ -1,4 +1,3 @@
-import React from 'react';
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { BodyTextMedium, THEME_COLORS } from "../components/theme";

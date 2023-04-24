@@ -1,6 +1,5 @@
 
-import React, { useEffect, useState } from 'react';
-import BoroughButton from './borough';
+import { useNavigate } from "react-router-dom";
 import { LabelMedium, THEME_COLORS } from "../components/theme";
 import styled from "styled-components";
 
@@ -36,7 +35,7 @@ const TicketLabel = styled.span`
   letter-spacing: 0.15em;
 `;
 
-const CTA = styled.button`
+const RafflesButton = styled.button`
   background: ${THEME_COLORS.RED};
   padding: 13px 12px;
   border-radius: 40px;
@@ -52,6 +51,7 @@ interface Props {
 }
 
 function TicketsCounter(props: Props) {
+  const navigate = useNavigate();
 
   return (
     <TicketsCounterContainer>
@@ -65,9 +65,9 @@ function TicketsCounter(props: Props) {
             <NumberValue>2</NumberValue>  <TicketLabel>Entered</TicketLabel>
           </div>
         </TicketData>
-        <CTA>
+        <RafflesButton onClick={() => navigate("/raffles")}>
           Enter Raffles
-        </CTA>
+        </RafflesButton>
       </ContentContainer>
     </TicketsCounterContainer>
   );

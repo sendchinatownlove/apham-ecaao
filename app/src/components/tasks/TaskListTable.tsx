@@ -1,6 +1,5 @@
 import React from 'react';
 import {useTable} from 'react-table';
-import { ActivityInfo } from './TaskList';
 import styled from "styled-components";
 
 const TaskListTableContainer = styled.div`

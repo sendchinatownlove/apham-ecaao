@@ -1,5 +1,3 @@
-
-import React, { useEffect, useState } from 'react';
 import BoroughButton from './borough';
 import TicketsCounter from './ticketsCounter';
 import { BodyTextMedium } from "../components/theme";
