@@ -45,7 +45,7 @@ export default function TaskList(props: TaskListProps) {
           <TaskListHeader
               location={location}
               activitiesCompleted={getNumberOfCompletedActivities(activities)}
-              totalActivities={activities.length}
+              totalActivities={activities.length - 1}
               availableTickets={availableTickets}
           />
           <TaskListTable activities={activities}/>

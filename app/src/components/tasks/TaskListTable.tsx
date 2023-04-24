@@ -84,7 +84,7 @@ function TaskListTable(props: TaskListTableProps) {
 
                                 // gross hacky way to hide border from first row. I tried using tr first child styling
                                 // but it wasn't working
-                                if (cell.value['index'] === 1) { // NOTE: will need to change this to see if it's 0 once we start adding that task
+                                if (cell.value['index'] === 0) {
                                     borderTop = '0px'
                                 } else {
                                     borderTop = '1px solid white'
