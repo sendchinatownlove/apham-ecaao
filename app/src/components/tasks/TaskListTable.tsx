@@ -1,6 +1,7 @@
 import React from 'react';
 import {useTable} from 'react-table';
 import styled from "styled-components";
+import {ActivityInfo} from "./TaskList";
 
 const TaskListTableContainer = styled.div`
     max-height: 450px;
@@ -46,11 +47,13 @@ const ActivityRowDescription = styled.div`
 `;
 
 type TaskListTableProps = {
-    activities: { activity: { title: string, description: string, completed: boolean } }[]
+    activities: { activity: ActivityInfo }[]
 }
 
 function TaskListTable(props: TaskListTableProps) {
     const {activities} = props;
+
+    activities.sort((a,b) => a.activity.index - b.activity.index);
 
     const columns = React.useMemo(
         () => [
@@ -68,8 +71,6 @@ function TaskListTable(props: TaskListTableProps) {
         // @ts-ignore
     } = useTable({columns, data: activities})
 
-    let rowNumber = 0;
-
     return (
         <TaskListTableContainer>
             <table>
@@ -79,12 +80,11 @@ function TaskListTable(props: TaskListTableProps) {
                     return (
                         <tr {...row.getRowProps()}>
                             {row.cells.map(cell => {
-                                rowNumber += 1;
                                 let borderTop;
 
                                 // gross hacky way to hide border from first row. I tried using tr first child styling
                                 // but it wasn't working
-                                if (rowNumber === 1) {
+                                if (cell.value['index'] === 1) { // NOTE: will need to change this to see if it's 0 once we start adding that task
                                     borderTop = '0px'
                                 } else {
                                     borderTop = '1px solid white'
@@ -95,7 +95,7 @@ function TaskListTable(props: TaskListTableProps) {
                                     >
                                         <StyledRow style={{borderTop: borderTop}}>
                                             <ActivityRowTitleContainer>
-                                                <span>{rowNumber}. {cell.value['title']}</span>
+                                                <span>{cell.value['index']}. {cell.value['title']}</span>
                                                 {cell.value['completed'] && (
                                                     <CheckedCheckbox/>
                                                   )}
