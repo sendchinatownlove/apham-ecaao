@@ -14,9 +14,10 @@ const HomeContainer = styled.div`
 const Instructions = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 21px;
+  gap: 10px;
   text-align: left;
   width: 325px;
+  margin: 0 auto;
 `;
 
 const Boroughs = styled.div`
@@ -34,9 +35,9 @@ function Home(props: Props) {
   return (
     <HomeContainer>
       <Instructions>
-        <BodyTextMedium bold>1. START BY CHOOSING A BOROUGH AND EXPLORING THE list of activities</BodyTextMedium>
-        <BodyTextMedium bold>2. TAKE A PICTURE WHEN YOU COMPLETE EACH TASK AND UPLOAD IT</BodyTextMedium>
-        <BodyTextMedium bold>3. WITH EVERY COMPLETION, you get a raffle ticket to enter for a chance to win a giveaway prize of your choice!</BodyTextMedium>
+        <BodyTextMedium bold color="#ffff">1. START BY CHOOSING A BOROUGH AND EXPLORING THE list of activities</BodyTextMedium>
+        <BodyTextMedium bold color="#ffff">2. TAKE A PICTURE WHEN YOU COMPLETE EACH TASK AND UPLOAD IT</BodyTextMedium>
+        <BodyTextMedium bold color="#ffff">3. WITH EVERY COMPLETION, you get a raffle ticket to enter for a chance to win a giveaway prize of your choice!</BodyTextMedium>
       </Instructions>
       <Boroughs>
         <BoroughButton borough="Manhattan" totalTasks={33} completedTasks={0}/>

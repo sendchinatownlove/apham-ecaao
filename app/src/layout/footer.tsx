@@ -1,5 +1,6 @@
 import React from 'react';
 import FooterSeparator from "../assets/footerSeparator.svg";
+import Logo from "../assets/logo.svg";
 import { BodyTextMedium } from "../components/theme";
 import styled from "styled-components";
 
@@ -8,18 +9,52 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 21px;
+  gap: 15px;
+  margin-top: 15px;
+  color: rgb(255, 255, 255);
 `;
 
-function LayoutFooter() {
+const LogoWrapper = styled.div`
+  display: block;
+  position: relative;
 
+  &:before {
+    content: "";
+    width: 150px;
+    height: 0.5px;
+    background: ${(props: LayoutFooterProps) => props.background ? props.background : "#FFFFFF"};
+    left: 30px;
+    top: 42%;
+    position: absolute;
+  }
+
+  &:after {
+    content: "";
+    width: 150px;
+    height: 0.5px;
+    background: ${(props: LayoutFooterProps) => props.background ? props.background : "#FFFFFF"};
+    right: 30px;
+    top: 42%;
+    position: absolute;
+  }
+`;
+
+type LayoutFooterProps = {
+  color?: string;
+  background?: string;
+}
+
+function LayoutFooter(props: LayoutFooterProps) {
+  const { color, background } = props;
   return (
     <Container>
-      <img src={FooterSeparator} />
-      <BodyTextMedium bold>
+      <LogoWrapper background={background}>
+        <img alt="logo" src={Logo} />
+      </LogoWrapper>
+      <BodyTextMedium color={color} size={"12px"} bold>
         READ ABOUT THIS EVENT
       </BodyTextMedium>
-      <BodyTextMedium bold>
+      <BodyTextMedium color={color} size={"12px"} bold>
         @SENDCHINATOWNLOVE
       </BodyTextMedium>
     </Container>

@@ -7,10 +7,10 @@ import RaffleList, { RafflePrizeData } from "./RaffleList";
 const RaffleViewContainer = styled.div`
   background-color: rgba(255,255,255,0.3);
   border-radius: 25px;
-  min-height: 480px;
-  max-width: 350px;
   text-align: center;
-  margin-top: 20px;
+  width: 98vw;
+  height: auto;
+  max-width: 1200px;
 `
 
 type RaffleViewProps = {

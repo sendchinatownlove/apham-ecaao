@@ -6,31 +6,31 @@ import TaskListHeader from "./TaskListHeader";
 import {getNumberOfCompletedActivities} from "../../utils/activities";
 
 const TaskListContainer = styled.div`
-  background-color: rgba(255,255,255,0.3);
   border-radius: 25px;
-  min-height: 480px;
-  min-width: 300px;
   text-align: center;
-  margin-top: 20px;
-`
+  background-color: rgba(255, 255, 255, 0.3);
+  width: 98vw;
+  height: auto;
+  max-width: 1200px;
+`;
 
 export type Activities = {
     activity: ActivityInfo
 }
 
 export type ActivityInfo = {
-    title: string;
-    description: string;
-    completed: boolean;
+  title: string;
+  description: string;
+  completed: boolean;
 }
 
 export type TaskListData = {
-    location: string;
+  location: string;
     activities: Activities[]
 }
 
 interface TaskListProps extends TaskListData {
-    availableTickets: number;
+  availableTickets: number;
 }
 
 export default function TaskList(props: TaskListProps) {
@@ -38,15 +38,15 @@ export default function TaskList(props: TaskListProps) {
   let navigate = useNavigate();
 
   return (
-      <TaskListContainer>
+    <TaskListContainer>
           <TaskListBackButton onClick={() => {navigate('/', { replace: true })}}/>
-          <TaskListHeader
-              location={location}
-              activitiesCompleted={getNumberOfCompletedActivities(activities)}
-              totalActivities={activities.length}
-              availableTickets={availableTickets}
-          />
+      <TaskListHeader
+        location={location}
+        activitiesCompleted={getNumberOfCompletedActivities(activities)}
+        totalActivities={activities.length}
+        availableTickets={availableTickets}
+      />
           <TaskListTable activities={activities}/>
-      </TaskListContainer>
+    </TaskListContainer>
   );
 }
