@@ -7,9 +7,10 @@ const Container = styled.div`
 `;
 
 const Icon = styled.img`
-  content: url("/send-chinatown-love.png");
-  width: 80px;
-  height: 50px;
+  content: url("/header.png");
+  min-width: 89px;
+  min-height: 64px;
+  width: 20%;
 `;
 
 function LayoutHeader() {

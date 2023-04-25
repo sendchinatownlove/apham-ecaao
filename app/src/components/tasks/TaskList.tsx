@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import TaskListTable from "./TaskListTable";
-import BackButton from "../shared/BackButton";
+import BackButton from "../header-buttons/backButton";
 import TaskListHeader from "./TaskListHeader";
 import {getNumberOfCompletedActivities} from "../../utils/activities";
 
