@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const BackButton = styled.button`
+const StyledBackButton = styled.button`
   display: flex;
   align-items: center;
   padding-top: 9px;
@@ -33,15 +33,15 @@ type TaskListBackButtonProps = {
   onClick: any;
 }
 
-export default function TaskListBackButton(props: TaskListBackButtonProps) {
+export default function BackButton(props: TaskListBackButtonProps) {
   const { onClick } = props;
 
   return (
-    <BackButton onClick={onClick}>
+    <StyledBackButton onClick={onClick}>
               <GooglyEye/>
               <BackButtonText>
                 BACK
               </BackButtonText>
-    </BackButton>
+    </StyledBackButton>
     )
 }
