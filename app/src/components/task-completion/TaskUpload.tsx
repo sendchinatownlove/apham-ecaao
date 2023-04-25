@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useState } from 'react';
 
 const FileInputWrapper = styled.div`
   margin-top: 0;
@@ -66,22 +67,23 @@ const ReplaceFileInputLabel = styled.label`
 `
 
 type TaskUploadProps = {
-  imageFileSrc: string;
-  setImageFile: React.Dispatch<React.SetStateAction<string>>;
+  imageFileSrc: any;
+  setImage: React.Dispatch<React.SetStateAction<any>>;
+  setImageFile: React.Dispatch<React.SetStateAction<any>>;
 }
 
 export default function TaskUpload(props: TaskUploadProps) {
-  const { imageFileSrc, setImageFile } = props;
+  const { imageFileSrc, setImage, setImageFile } = props;
 
 
-  const [imageFile, setImage] = useState('');
+  // const [imageFile, setImage] = useState('');
 
   const onImageChange = (event: any) => {
     if (event.target.files && event.target.files[0]) {
       setImage(event.target.files[0]);
       setImageFile(URL.createObjectURL(event.target.files[0]));
     }
-  }
+  };
 
   return (
     <>
