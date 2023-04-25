@@ -98,6 +98,7 @@ export default function TaskCompletion(props: TaskCompletionProps) {
 
   return (
     <TaskCompletionWrapper>
+      {/* TODO: change to cancel buttom component for styling consistancy */}
       <CancelButton onClick={() => { navigate(-1) }}>
         <ClosedEyeIcon />
         Cancel

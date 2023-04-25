@@ -96,8 +96,11 @@ const PrizeDetails = styled.span`
 export type RafflePrizeData = {
     title: string;
     description: string;
+    longDescription: string[];
     image: string;
     ticketsRequired: number;
+    // TODO show entries in the Raffle List items
+    entries?: number;
 }
 
 type RaffleListProps = {
@@ -105,7 +108,7 @@ type RaffleListProps = {
 }
 
 function RafflePrize(props: RafflePrizeData) {
-    const { title, description, image, ticketsRequired } = props;
+    const { title, description, longDescription, image, ticketsRequired} = props;
 
     return(
         <RafflePrizeContainer>
@@ -138,7 +141,7 @@ export default function RaffleList(props: RaffleListProps) {
                     <span>For every completed activity, you'll earn one (1) raffle ticket. Each giveaway prize is worth a certain number of raffle tickets for one (1) raffle entry. Once you have enough tickets, enter them into the giveaway prize of your choice!</span>
                 </PageDescription>
                 {prizeData.map((prize, index) => {
-                    return <RafflePrize key={index} title={prize.title} description={prize.description} image={prize.image} ticketsRequired={prize.ticketsRequired}></RafflePrize>
+                    return <RafflePrize key={index} title={prize.title} description={prize.description} longDescription={prize.longDescription} image={prize.image} ticketsRequired={prize.ticketsRequired}></RafflePrize>
                 })}
             </RaffleListContainer>
         </>

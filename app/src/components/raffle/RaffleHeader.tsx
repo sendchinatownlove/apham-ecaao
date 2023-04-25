@@ -3,6 +3,8 @@ import styled from "styled-components";
 const RaffleHeaderContainer = styled.div`
     background-color: #F9CA4E;
     color: #A8192E;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
     font-size: 0.8em;
     padding: 10px;
 `
@@ -29,6 +31,19 @@ const AvailableTicketsText = styled.p`
     letter-spacing: 0.15em;
     margin: 0;
     height: 17px;
+`
+
+const GiveawaysText = styled.div`
+    display: flex;
+    font-weight: bold;
+    justify-content: space-between;
+    padding: 10px 10px 0;
+    text-transform: uppercase;
+    align-items: center;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    margin: 0;
+    height: 17px;
 
     span:nth-child(2) {
         font-size: 14px;
@@ -46,7 +61,7 @@ export default function RaffleHeader(props: RaffleHeaderProps) {
     if (enteredTickets) {
         topElement = <EnteredTicketsText><span>MY ENTERED RAFFLE TICKETS</span><span>{enteredTickets}</span></EnteredTicketsText>
     } else {
-        topElement = <h3>GIVEAWAYS</h3>
+        topElement = <GiveawaysText>Giveaways</GiveawaysText>
     }
 
     return(

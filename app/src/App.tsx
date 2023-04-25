@@ -15,10 +15,12 @@ import {
   signOut,
 } from 'firebase/auth';
 
-import TaskList from './components/tasks/TaskList';
-import RaffleListView from './components/raffle/RaffleListView';
-import TaskCompletion from './pages/TaskCompletion';
 import Login from './pages/Login';
+import RaffleListView from './components/raffle/RaffleListView';
+import RaffleEntry from './components/raffle/RaffleEntry';
+import TaskList from './components/tasks/TaskList';
+import TaskCompletion from './pages/TaskCompletion';
+
 
 import { initializeApp } from 'firebase/app';
 import { taskListData } from "./mock-data/task-list-data";
@@ -151,6 +153,25 @@ function App() {
       element: <Login />,
     },
     {
+      path: "/raffles",
+      element: (
+        <RaffleListView prizeData={raffleListData} />
+      )
+    },
+    {
+      path: "/raffle-entry",
+      element: (
+      <RaffleEntry 
+        title = {raffleListData[0].title}
+        description = {raffleListData[2].description}
+        longDescription={raffleListData[0].longDescription}
+        image = {raffleListData[0].image}
+        ticketsRequired = {raffleListData[0].ticketsRequired}
+        entries={raffleListData[2].entries} />
+      )
+
+    },
+    {
       path: "/tasks/manhattan",
       element: (
       <TaskList
@@ -186,12 +207,6 @@ function App() {
         <TaskCompletion location={dummyTask.location}
         taskHeader={dummyTask.header}
         taskDescription={dummyTask.description}/>
-      )
-    },
-    {
-      path: "/raffles",
-      element: (
-        <RaffleListView prizeData={raffleListData} />
       )
     }
   ]);
