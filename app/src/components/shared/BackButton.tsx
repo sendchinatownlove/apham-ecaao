@@ -1,15 +1,16 @@
 import styled from "styled-components";
 
-const BackButton = styled.button`
+const StyledBackButton = styled.button`
   display: flex;
   align-items: center;
   padding-top: 9px;
   padding-left: 10px;
   background-color: transparent;
 
-  :hover {
-    border: none;
-  }
+  &:hover {
+      background-color: transparent;
+      border-color: transparent;
+    }
 
   :focus {
     outline: none;
@@ -18,8 +19,7 @@ const BackButton = styled.button`
 
 const GooglyEye = styled.img`
   content: url('/googly-eye.png');
-  max-width: 25px;
-  margin: auto 5px;
+  max-width: 50px;
 `
 
 const BackButtonText = styled.text`
@@ -27,21 +27,22 @@ const BackButtonText = styled.text`
   font-weight: bold;
   color: rgb(255, 255, 255);
   padding-top: 5.5px;
+  padding-bottom: 10px;
 `
 
 type TaskListBackButtonProps = {
   onClick: any;
 }
 
-export default function TaskListBackButton(props: TaskListBackButtonProps) {
+export default function BackButton(props: TaskListBackButtonProps) {
   const { onClick } = props;
 
   return (
-    <BackButton onClick={onClick}>
+    <StyledBackButton onClick={onClick} >
               <GooglyEye/>
               <BackButtonText>
                 BACK
               </BackButtonText>
-    </BackButton>
+    </StyledBackButton>
     )
 }

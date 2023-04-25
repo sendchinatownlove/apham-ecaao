@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import TaskListTable from "./TaskListTable";
-import TaskListBackButton from "./TaskListBackButton";
+import BackButton from "../shared/BackButton";
 import TaskListHeader from "./TaskListHeader";
 import {getNumberOfCompletedActivities} from "../../utils/activities";
 
@@ -42,7 +42,7 @@ export default function TaskList(props: TaskListProps) {
 
   return (
     <TaskListContainer>
-          <TaskListBackButton onClick={() => {navigate('/', { replace: true })}}/>
+          <BackButton onClick={() => {navigate('/', { replace: true })}}/>
           <TaskListHeader
               location={location}
               activitiesCompleted={getNumberOfCompletedActivities(activities)}
