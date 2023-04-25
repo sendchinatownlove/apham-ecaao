@@ -1,18 +1,20 @@
 import styled from "styled-components";
 
-const BackButton = styled.button`
-  display:flex;
+const Button = styled.button`
+  display: flex;
   align-items: center;
-  padding-top: 15px;
+  min-height: 50px;
+  padding-top: 9px;
+  padding-left: 10px;
   background-color: transparent;
-  margin-top: 30px;
 
-  :hover{
-    border:none;
-  }
+  &:hover {
+      background-color: transparent;
+      border-color: transparent;
+    }
 
   :focus {
-    outline:none;
+    outline: none;
   }
 `
 
@@ -22,7 +24,7 @@ const ClosedEye = styled.img`
   margin-right: 11px;
 `
 
-const BackButtonText = styled.text`
+const ButtonText = styled.text`
   font-weight: 700;
 `
 
@@ -34,11 +36,11 @@ export default function CancelButton(props: CancelButtonProps) {
     const { onClick } = props;
 
     return (
-      <BackButton onClick={onClick}>
+      <Button onClick={onClick}>
         <ClosedEye/>
-        <BackButtonText>
+        <ButtonText>
           Cancel
-        </BackButtonText>
-      </BackButton>
+        </ButtonText>
+      </Button>
     )
 }

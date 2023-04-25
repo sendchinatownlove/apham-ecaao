@@ -1,7 +1,13 @@
+import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import TaskListTable from "./TaskListTable";
+
 import BackButton from "../header-buttons/backButton";
+import CancelButton from "../header-buttons/cancelButton";
+
+import TaskCompletionHeader from "../task-completion/TaskCompletionHeader";
+import TaskCompletionBody from "../task-completion/TaskCompletionBody";
+import TaskListTable from "./TaskListTable";
 import TaskListHeader from "./TaskListHeader";
 import {getNumberOfCompletedActivities} from "../../utils/activities";
 
@@ -29,7 +35,7 @@ export type ActivityInfo = {
 
 export type TaskListData = {
   location: string;
-    activities: Activities[]
+  activities: Activities[];
 }
 
 interface TaskListProps extends TaskListData {
@@ -38,18 +44,38 @@ interface TaskListProps extends TaskListData {
 
 export default function TaskList(props: TaskListProps) {
   const { location, availableTickets, activities } = props;
+  const [selectedTask, setSelectedTask] = React.useState<ActivityInfo | null>(null);
+
   let navigate = useNavigate();
+
+  const onTaskClick = (task: ActivityInfo) => setSelectedTask(task);
 
   return (
     <TaskListContainer>
-      <BackButton onClick={() => {navigate('/', { replace: true })}}/>
-      <TaskListHeader
-          location={location}
-          activitiesCompleted={getNumberOfCompletedActivities(activities)}
-          totalActivities={activities.length - 1}
-          availableTickets={availableTickets}
-      />
-      <TaskListTable activities={activities}/>
+      {
+        selectedTask?.title && selectedTask?.description ? (
+          <>
+            <CancelButton onClick={() => setSelectedTask(null)} />
+            <TaskCompletionHeader location={location} />
+            <TaskCompletionBody
+              location={location}
+              taskHeader={selectedTask.title}
+              taskDescription={selectedTask.description}
+            />
+          </>
+        ) : (
+          <>
+            <BackButton onClick={() => {navigate('/', { replace: true })}}/>
+            <TaskListHeader
+                location={location}
+                activitiesCompleted={getNumberOfCompletedActivities(activities)}
+                totalActivities={activities.length - 1}
+                availableTickets={availableTickets}
+            />
+            <TaskListTable activities={activities} onTaskClick={onTaskClick}/>
+          </>
+        )
+      }
     </TaskListContainer>
   );
 }
