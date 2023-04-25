@@ -6,6 +6,15 @@ export const taskListData: TaskListData[] = [
         activities: [
             {
                 activity: {
+                    title: 'Donate to Send Chinatown Love!',
+                    description: 'Each donation greater than $5 will count toward a raffle ticket. Upload a screenshot of your donation receipt!',
+                    completed: false,
+                    index: 0,
+                    id: '00001'
+                }
+            },
+            {
+                activity: {
                     title: 'Visit 47 Division St Trading Inc., Chinatown’s oldest meat shop, to buy some produce!',
                     description: 'They sell dried goods, eggs, and various cuts of meat. A true community staple, they try to keep their prices low (at wholesale prices) to serve their customer base, many of whom are aunties and grandmas who are on food assistance and have limited income.',
                     completed: true,
@@ -308,6 +317,15 @@ export const taskListData: TaskListData[] = [
         activities: [
             {
                 activity: {
+                    title: 'Donate to Send Chinatown Love!',
+                    description: 'Each donation greater than $5 will count toward a raffle ticket. Upload a screenshot of your donation receipt!',
+                    completed: false,
+                    index: 0,
+                    id: '00002'
+                }
+            },
+            {
+                activity: {
                     title: 'Visit the Sunset Park Chinatown Arch',
                     description: 'The arch was completed in 2012, and is the largest of its kind in the United States, standing at over 40 feet tall. It features intricate, hand-carved details and vibrant colors, with red and gold dominating the design, which are traditional colors in Chinese culture symbolizing prosperity and good fortune.',
                     completed: false,
@@ -608,6 +626,15 @@ export const taskListData: TaskListData[] = [
     {
         location: 'queens',
         activities: [
+            {
+                activity: {
+                    title: 'Donate to Send Chinatown Love!',
+                    description: 'Each donation greater than $5 will count toward a raffle ticket. Upload a screenshot of your donation receipt!',
+                    completed: false,
+                    index: 0,
+                    id: '00003'
+                }
+            },
             {
                 activity: {
                     title: 'Visit the Flushing Mall, which features an extensive food court and shops',

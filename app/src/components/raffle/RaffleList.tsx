@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const RaffleListContainer = styled.div`
-    max-height: 450px;
+    max-height: 100vh;
     overflow: scroll;
     background-color: rgba(255, 255, 255);
     color: #000000;
@@ -19,26 +19,30 @@ const GiveawaysText = styled.span`
     color: #A8192E;
     font-weight: 700;
     padding-top: 3px;
+    font-size: 13px;
 `
 
 const EntriesText = styled.span`
     color: #DD678A;
-    font-weight: 700;
-    font-size: 0.8em;
+    font-weight: 800;
+    font-size: 0.5em;
     border: 1px solid #DD678A;
     border-radius: 8px;
     padding: 3px 16px;
+    letter-spacing: 0.055em;
 `
 
 const PageDescription = styled.div`
     color: #000000;
     text-align: left;
     padding: 8px 14px 23px;
-    font-size: 0.9em;
+    font-size: 0.75rem;
+    font-weight: 400;
+    line-height: 1rem;
 `
 
 const RafflePrizeContainer = styled.div`
-    max-width: 332px;
+    max-width: 99vw;
     margin: 0 auto 16px;
     padding-bottom: 14px;
     border: 1px solid #E5E5E5;
@@ -77,10 +81,16 @@ const PrizeCaption = styled.div`
 const PrizeTitle = styled.span`
     display: inline-block;
     font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.15em;
 `
 
 const PrizeDetails = styled.span`
-    display: inline-block;
+    display: block;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    position: relative;
+    bottom: 0.4em;
 `
 
 export type RafflePrizeData = {

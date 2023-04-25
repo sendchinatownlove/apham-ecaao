@@ -5,16 +5,26 @@ const RaffleHeaderContainer = styled.div`
     color: #A8192E;
     letter-spacing: 0.15em;
     text-transform: uppercase;
+    font-size: 0.8em;
+    padding: 10px;
 `
 
-const EnteredTicketsText = styled.div`
+const EnteredTicketsText = styled.p`
     display: flex;
     justify-content: space-between;
     padding: 10px 10px 0;
-    font-size: 0.7em;
+    align-items: center;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    margin: 9.38px 0;
+    height: 15px;
+
+    span:nth-child(2) {
+        font-size: 14px;
+    }
 `
 
-const AvailableTicketsText = styled.div`
+const AvailableTicketsText = styled.p`
     display: flex;
     justify-content: space-between;
     padding: 10px 10px;
@@ -27,7 +37,15 @@ const GiveawaysText = styled.div`
     justify-content: space-between;
     padding: 10px 10px 0;
     text-transform: uppercase;
-    font-size: 0.9em;
+    align-items: center;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    margin: 0;
+    height: 17px;
+
+    span:nth-child(2) {
+        font-size: 14px;
+    }
 `
 
 type RaffleHeaderProps = {

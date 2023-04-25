@@ -96,8 +96,6 @@ function App() {
   function HomePage(props: UserProps) {
     const { user } = props
   return <div>
-    <h1>Send Chinatown Love</h1>
-    <h1>APHAM Scavenger Hunt!</h1>
     {user ? (
         <Home user={user}/>
       ) : (
