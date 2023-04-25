@@ -4,20 +4,21 @@ import { RafflePrizeData } from "./RaffleList";
 const TicketReqText = styled.span`
     color: white;
     background-color: #DD678A;
-    font-weight: 600;
-    font-size: 0.6em;
+    font-weight: 700;
+    font-size: 10px;
     letter-spacing 0.15em;
     border: 1px solid #DD678A;
     border-radius: 8px;
-    padding: 2px 16px;
+    padding: 2px 10px;
     text-transform: uppercase;
+    line-height: 13.62px;
 `
 
 const EntriesText = styled.span`
     color: #DD678A;
     background-color: white;
-    font-weight: 600;
-    font-size: 0.6em;
+    font-weight: 700;
+    font-size: 10px;
     letter-spacing 0.15em;
     border: 1px solid #DD678A;
     border-radius: 8px;
@@ -31,22 +32,29 @@ const EntryHeaderText = styled.div`
 `
 const PrizeImage = styled.div`
     margin-top: 20px;
-
+    position: relative;
 `
 const PrizeCaption = styled.div`
     text-align: left;
+    padding-top: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
 `
 
 const PrizeTitle = styled.div`
     margin: 30px 0px
     display: inline-block;
     font-weight: 700;
-    text-transform: uppercase;
+    font-size: 14px;
+    line-height: 20.47px
 `
 
 const PrizeDetails = styled.div`
     display: inline-block;
     font-size: 0.8em;
+    padding-top: 15px;
+    font-size: 11px;
+    line-height: 16.08px;
 `
 
 function TicketReq(props: {ticketsRequired: number}) {
@@ -92,14 +100,14 @@ export default function RaffleEntryItem(props: RafflePrizeData) {
         </EntryHeaderText>
         
         <PrizeImage>
-            <img src={image} />
+            <img src={image} style={{ width: "100%" }} />
         </PrizeImage>
 
         <PrizeCaption>
             <PrizeTitle>{title}</PrizeTitle>
             <PrizeDetails>Includes: <br />
                 {longDescription.map((bullet, index) => {
-                    return <span key={index}>{"- " + bullet} <br /></span>
+                    return <span key={index}>{"• " + bullet} <br /></span>
                 })} 
             </PrizeDetails>
         </PrizeCaption>

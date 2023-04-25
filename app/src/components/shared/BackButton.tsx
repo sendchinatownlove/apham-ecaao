@@ -15,12 +15,22 @@ const StyledBackButton = styled.button`
   :focus {
     outline: none;
   }
+
+  height: ${(props: TaskListBackButtonProps) => props.text === "CANCEL" && "64px" }
+
 `
 
 const GooglyEye = styled.img`
   content: url('/googly-eye.png');
   max-width: 50px;
 `
+
+const ClosedEye = styled.img`
+  content: url("/closed-eye.png");
+  max-width: 30px;
+  margin: auto 10px auto 5px;
+`
+
 
 const BackButtonText = styled.text`
   letter-spacing: 0.15em;
@@ -32,16 +42,17 @@ const BackButtonText = styled.text`
 
 type TaskListBackButtonProps = {
   onClick: any;
+  text: string;
 }
 
 export default function BackButton(props: TaskListBackButtonProps) {
-  const { onClick } = props;
+  const { onClick, text } = props;
 
   return (
-    <StyledBackButton onClick={onClick} >
-              <GooglyEye/>
+    <StyledBackButton text={text} onClick={onClick} >
+              {text === "BACK" ? <GooglyEye/> : <ClosedEye/> }
               <BackButtonText>
-                BACK
+                {text}
               </BackButtonText>
     </StyledBackButton>
     )

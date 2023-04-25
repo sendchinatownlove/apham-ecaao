@@ -31,23 +31,21 @@ const AvailableTicketsText = styled.p`
     letter-spacing: 0.15em;
     margin: 0;
     height: 17px;
-`
-
-const GiveawaysText = styled.div`
-    display: flex;
-    font-weight: bold;
-    justify-content: space-between;
-    padding: 10px 10px 0;
-    text-transform: uppercase;
-    align-items: center;
-    font-size: 11px;
-    letter-spacing: 0.15em;
-    margin: 0;
-    height: 17px;
 
     span:nth-child(2) {
         font-size: 14px;
     }
+`
+
+const GiveawaysText = styled.div`
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    font-size: 14px;
+    letter-spacing: 0.15em;
+    margin: 9.38px 0;
+    height: 15px;
+    font-weight: 700;
 `
 
 type RaffleHeaderProps = {

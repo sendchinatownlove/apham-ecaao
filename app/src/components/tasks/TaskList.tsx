@@ -42,7 +42,7 @@ export default function TaskList(props: TaskListProps) {
 
   return (
     <TaskListContainer>
-          <BackButton onClick={() => {navigate('/', { replace: true })}}/>
+          <BackButton text="BACK" onClick={() => {navigate('/', { replace: true })}}/>
           <TaskListHeader
               location={location}
               activitiesCompleted={getNumberOfCompletedActivities(activities)}

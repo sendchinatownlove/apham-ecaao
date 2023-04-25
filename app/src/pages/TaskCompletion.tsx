@@ -5,6 +5,7 @@ import CompletionModal from "../components/tasks/CompletionModal";
 
 import TaskChecklistItem from "../components/task-completion/TaskChecklistItem";
 import TaskUpload from "../components/task-completion/TaskUpload";
+import BackButton from "../components/shared/BackButton";
 
 const TaskCompletionWrapper = styled.div`
   border-radius: 25px;
@@ -80,7 +81,9 @@ const UploadButton = styled.button<{ isDisabled: boolean }>`
   letter-spacing: 0.15em;
   color: white;
   font-weight: 700;
-  font-size: 0.9em;
+  font-size: 14px;
+  line-height: 19.07px;
+  padding: 0.6em 1.2em;
 `
 
 type TaskCompletionProps = {
@@ -99,10 +102,11 @@ export default function TaskCompletion(props: TaskCompletionProps) {
   return (
     <TaskCompletionWrapper>
       {/* TODO: change to cancel buttom component for styling consistancy */}
-      <CancelButton onClick={() => { navigate(-1) }}>
+      {/* <CancelButton onClick={() => { navigate(-1) }}>
         <ClosedEyeIcon />
         Cancel
-      </CancelButton>
+      </CancelButton> */}
+      <BackButton text="CANCEL" onClick={() => {navigate(-1)}}/>
       <TaskCompletionContainer>
         <HeaderWrapper>
           <HeaderText>{location}</HeaderText>

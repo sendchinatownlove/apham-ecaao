@@ -29,7 +29,7 @@ export default function RaffleListView(props: RaffleViewProps) {
     return (
         <>
         <RaffleViewContainer>
-            <BackButton onClick={() => {navigate('/', { replace: true })}}/>
+            <BackButton text="BACK" onClick={() => {navigate('/', { replace: true })}}/>
             <RaffleHeader enteredTickets={11} availableTickets={6}></RaffleHeader>
             <RaffleList prizeData={prizeData}></RaffleList>
         </RaffleViewContainer>
