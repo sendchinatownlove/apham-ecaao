@@ -70,19 +70,22 @@ export class FirebaseService {
   }
 
   // @TODO translate to task 
-  async completeTask(userId: string, task: any, completed: boolean): Promise<void> {
+  async completeTask(userId: string, taskId: string, borough:string): Promise<void> {
     try {
       console.log("the args: ", arguments) 
-      let burough = task.randomBorough
-      let taskId = task.randomNumber
-      // @TODO from activityID / airtable object we should know which borough to decide which one to add to.  Default set to Brooklyn for now
-      await set(ref(this.db, `users/${userId}/${burough}_completed_tasks/${taskId}`), completed);
+      await set(ref(this.db, `users/${userId}/${borough}_completed_tasks/${taskId}`), true);
       console.log("User activity added successfully.");
     } catch (error) {
       console.error("Error adding user activity:", error);
     }
   }
 
+  /**
+   * Can be used when completing a task
+   * 
+   * @param userId 
+   * @param increment 
+   */
   async incrementTicketsRemaining(userId: string, increment: number): Promise<void> {
     try {
       const userRef = ref(this.db, `users/${userId}/tickets_remaining`);
@@ -95,6 +98,12 @@ export class FirebaseService {
     }
   }
 
+  /**
+   * Can be used when redeeming a raffle entry
+   * 
+   * @param userId 
+   * @param decrement 
+   */
   async decrementTicketsRemaining(userId: string, decrement: number): Promise<void> {
     try {
       const userRef = ref(this.db, `users/${userId}/tickets_remaining`);
@@ -106,4 +115,33 @@ export class FirebaseService {
       console.error("Error decrementing tickets_remaining:", error);
     }
   }
+
+
+  /**
+   * Functions we need to write:
+   * 
+   * 
+   * 1. Get the exact object of user info for the homepage: - Sandy
+   *  - number of tasks completed by borough
+   *  - number of available tickets (not calculated)
+   *  - number of entered tickets
+   * 
+   * 2. Write the exact function called when completing a task - Jess
+   *  - increment tickets remaining
+   *  - "complete task" - creating the task ID entry
+   * 
+   * 3. Get the info needed for a task page - Chianna
+   *  - For a user, the list of ID's of completed tasks
+   *    - Something like an Object.Keys() on the borough array?
+   *  - Think about how to merge this with the AirTable info JSON
+   * 
+   * 4. Get the exact object of user info for the raffle list: - Sandy
+   *  - Can reuse the homepage info?
+   * 
+   * 5. When entering a raffle - Chianna
+   *  - reduce the number of tickets remaining by the # specified
+   *  - CreateOrUpdate that raffle entry
+   *    - start with entries: 1, or increment the number of entries
+   * 
+   */
 }

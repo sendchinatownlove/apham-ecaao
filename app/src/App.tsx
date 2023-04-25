@@ -146,6 +146,10 @@ function App() {
       };
   
       fetchUserData();
+
+
+      /*
+      This is just test code, and should not really be executed here
   
       // Add an activity entry
       const completeTask = async () => {
@@ -188,6 +192,8 @@ function App() {
       };
   
       decrementTickets();
+
+      */
   
     }
 

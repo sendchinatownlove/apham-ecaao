@@ -4,6 +4,7 @@ import BoroughButton from './borough';
 import TicketsCounter from './ticketsCounter';
 import { BodyTextMedium } from "../components/theme";
 import styled from "styled-components";
+import {FirebaseService} from '../Api';
 
 const HomeContainer = styled.div`
   display: flex;
@@ -30,6 +31,10 @@ interface Props {
 }
 
 function Home(props: Props) {
+
+  const firebaseService = new FirebaseService();
+  console.log(firebaseService);
+  firebaseService.decrementTicketsRemaining("7H5eCtIlp7MvA2yqOzqQR945qi63", 1);
 
   return (
     <HomeContainer>
