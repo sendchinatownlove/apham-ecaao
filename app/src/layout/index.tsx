@@ -4,12 +4,13 @@ import Header from './header';
 import styled from "styled-components";
 
 const LayoutContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding: 17px 19px;
-  background: rgba(255, 255, 255, 0.3);
-  border-radius: 36px;
-  gap: 21px;
+  border-radius: 25px;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.3);
+  width: 98vw;
+  height: 110vh;
+  max-width: 1200px;
+  margin-top: 30px;
 `;
 
 interface LayoutProps {
@@ -17,7 +18,6 @@ interface LayoutProps {
 }
 
 function Layout(props: PropsWithChildren<LayoutProps>) {
-
   return (
     <LayoutContainer>
       <Header />

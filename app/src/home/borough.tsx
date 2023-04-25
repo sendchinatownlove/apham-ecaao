@@ -13,16 +13,17 @@ const Button = styled.button`
   justify-content: space-between;
   align-items: center;
   border-radius: 39px;
-  padding: 14.5px 19px;
+  padding: 20px 19px;
   background-color: white;
+  margin: 0 1rem;
 `;
 
 function BoroughButton(props: Props) {
 
   return (
     <Button>
-      <BodyTextMedium bold color={THEME_COLORS.RED}>{props.borough}</BodyTextMedium>
-      <BodyTextMedium color={THEME_COLORS.RED}>{`${props.completedTasks}/${props.totalTasks}`}</BodyTextMedium>
+      <BodyTextMedium bold color={THEME_COLORS.RED} size="14px">{props.borough}</BodyTextMedium>
+      <BodyTextMedium color={THEME_COLORS.RED} size="14px">{`${props.completedTasks}/${props.totalTasks}`}</BodyTextMedium>
     </Button>
   );
 }

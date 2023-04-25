@@ -67,3 +67,6 @@ node_modules/
 
 # Jetbrains
 *.idea/
+
+# google cloud credentials files
+credentials.json

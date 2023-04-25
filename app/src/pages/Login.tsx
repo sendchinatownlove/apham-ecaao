@@ -1,36 +1,49 @@
 import styled from "styled-components";
 
 import Arch from "../assets/arch.svg";
-import Logo from "../assets/logo.svg";
 import { BrandText } from "../styled-components";
+import Footer from '../layout/footer';
 
 import { useState } from "react";
 
+const LoginContainer = styled.div`
+  width: 98vw;
+  height: 100vh;
+  max-width: 1200px;
+`
+
 const LoginWrapper = styled.div`
   background: #ffffff;
-  width: 367px;
-  max-height: 656px;
-  min-height: 656px;
+  position: relative;
+  top: -6px;
   border-radius: 26px;
 `;
 
-const HeaderText = styled(BrandText)`
-  letter-spacing: 0.15em;
-  font-weight: 700;
-`;
+const Header = styled.div`
+  padding-top: 30px;
+`
 
-const SubheaderText = styled(BrandText)`
-  font-style: italic;
+const HeaderText = styled.h1`
+  font-size: 14px;
   letter-spacing: 0.15em;
+  color: #A8192E;
+  font-weight: 700;
+  padding-bottom: 4px;
+`
+
+const SubheaderText = styled.p`
+  font-style: italic;
+  letter-spacing: 0.1em;
   font-size: 10px;
   position: relative;
-  max-width: 600px;
   text-align: center;
   margin: auto;
+  color: #a8192e;
+  font-weight: 300;
 
   &:before {
     content: "";
-    width: 54px;
+    width: 50px;
     height: 0.5px;
     background: #a8192e;
     left: 16px;
@@ -40,7 +53,7 @@ const SubheaderText = styled(BrandText)`
 
   &:after {
     content: "";
-    width: 54px;
+    width: 50px;
     height: 0.5px;
     background: #a8192e;
     right: 16px;
@@ -49,9 +62,17 @@ const SubheaderText = styled(BrandText)`
   }
 `;
 
-const CtaText = styled(BrandText)`
+const CTAHeader = styled.div`
   color: #000000;
   padding-top: 24px;
+  font-size: 0.9rem;
+`
+
+const CtaText = styled.div`
+  color: #000000;
+  font-size: 0.9rem;
+  line-height: 19px;
+  padding: 0 15px;
 `;
 
 const InputWrapper = styled.div`
@@ -86,8 +107,8 @@ const ButtonWrapper = styled.button`
   border-radius: 50px;
   width: 267px;
   height: 45px;
-  margin-top: 51px;
-  margin-bottom: 94px;
+  margin-top: 30px;
+  margin-bottom: 15px;
 
   &:disabled {
     cursor: not-allowed;
@@ -99,37 +120,11 @@ const ButtonWrapper = styled.button`
   }
 `;
 
-const ButtonText = styled(BrandText)`
+const ButtonText = styled.div`
   letter-spacing: 0.15em;
   color: #ffffff;
   font-weight: 700;
-`;
-
-const LogoWrapper = styled.div`
-  display: block;
-  position: relative;
-  margin: auto;
-  margin-bottom: 20px;
-
-  &:before {
-    content: "";
-    width: 164px;
-    height: 0.5px;
-    background: #a8192e;
-    left: 14px;
-    top: 42%;
-    position: absolute;
-  }
-
-  &:after {
-    content: "";
-    width: 164px;
-    height: 0.5px;
-    background: #a8192e;
-    right: 14px;
-    top: 42%;
-    position: absolute;
-  }
+  font-size: 0.9em;
 `;
 
 const ErrorWrapper = styled.div`
@@ -157,30 +152,27 @@ export default function Login() {
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    console.log("hi");
   };
 
   return (
     <>
-      <img
-        alt="arch"
-        src={Arch}
-        style={{ top: "55px", position: "relative" }}
-      />
+    <LoginContainer>
+          <img
+            alt="arch"
+            src={Arch}
+            style={{ top: "32px", position: "relative" }}
+          />
       <LoginWrapper>
-        <HeaderText
-          style={{
-            paddingTop: "40px",
-            paddingBottom: "4px",
-            position: "relative",
-          }}
-        >
+        <Header>
+        <HeaderText>
           100* WAYS TO SEND CHINATOWN LOVE
         </HeaderText>
         <SubheaderText>EVERYTHING CHINATOWN ALL AT ONCE</SubheaderText>
-        <CtaText>
+        </Header>
+        <CTAHeader>
           <b>Hey explorer!</b>
-          <br />
+        </CTAHeader>
+        <CtaText>
           Enter your email below to start exploring the Chinatowns across the
           boroughs and log your completed activities for chances to win prizes.
         </CtaText>
@@ -209,16 +201,9 @@ export default function Login() {
             <ButtonText>ENTER</ButtonText>
           </ButtonWrapper>
         </form>
-        <LogoWrapper>
-          <img alt="logo" src={Logo} />
-        </LogoWrapper>
-        <HeaderText style={{ paddingBottom: "21px", fontSize: "12px" }}>
-          READ ABOUT THIS EVENT
-        </HeaderText>
-        <HeaderText style={{ fontSize: "12px", paddingBottom: "42px" }}>
-          @SENDCHINATOWNLOVE
-        </HeaderText>
+        <Footer background="#A8192E" color="#A8192E" />
       </LoginWrapper>
+      </LoginContainer>
     </>
   );
 }
