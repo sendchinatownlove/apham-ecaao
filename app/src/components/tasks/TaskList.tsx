@@ -42,14 +42,14 @@ export default function TaskList(props: TaskListProps) {
 
   return (
     <TaskListContainer>
-          <BackButton onClick={() => {navigate('/', { replace: true })}}/>
-          <TaskListHeader
-              location={location}
-              activitiesCompleted={getNumberOfCompletedActivities(activities)}
-              totalActivities={activities.length - 1}
-              availableTickets={availableTickets}
-          />
-          <TaskListTable activities={activities}/>
+      <BackButton onClick={() => {navigate('/', { replace: true })}}/>
+      <TaskListHeader
+          location={location}
+          activitiesCompleted={getNumberOfCompletedActivities(activities)}
+          totalActivities={activities.length - 1}
+          availableTickets={availableTickets}
+      />
+      <TaskListTable activities={activities}/>
     </TaskListContainer>
   );
 }
