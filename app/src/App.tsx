@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './App.css';
 import Home from "./home";
-import Layout from "./layout";
 
 import {
   getAuth,
@@ -144,7 +143,7 @@ function App() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <Layout><HomePage user={user}/></Layout>,
+      element: <HomePage user={user}/>,
     },
     {
       path: "/login",
