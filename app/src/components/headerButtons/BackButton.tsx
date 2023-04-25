@@ -1,8 +1,9 @@
 import styled from "styled-components";
 
-const BackButton = styled.button`
+const Button = styled.button`
   display:flex;
   align-items:center;
+  margin-top: 30px;
   max-width: 110px;
   padding-top: 15px;
   padding-left: 10px;
@@ -18,7 +19,7 @@ const BackButton = styled.button`
 `
 
 const GooglyEye = styled.img`
-  content: url("/closed-eye.png");
+  content: url("/googly-eye.png");
   max-width: 30%;
   margin: 1px auto;
 `
@@ -27,19 +28,19 @@ const BackButtonText = styled.text`
   font-weight: 700;
 `
 
-type TaskCompletionBackButtonProps = {
+type TaskListBackButtonProps = {
     onClick: any;
 }
 
-export default function TaskCompletionBackButton(props: TaskCompletionBackButtonProps) {
+export default function BackButton(props: TaskListBackButtonProps) {
     const { onClick } = props;
 
     return (
-        <BackButton onClick={onClick}>
+        <Button onClick={onClick}>
             <GooglyEye/>
             <BackButtonText>
-              Cancel
+              BACK
             </BackButtonText>
-        </BackButton>
+        </Button>
     )
 }

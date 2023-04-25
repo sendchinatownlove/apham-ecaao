@@ -14,6 +14,7 @@ const Button = styled.button`
   align-items: center;
   border-radius: 39px;
   padding: 14.5px 19px;
+  height: 70px;
   background-color: white;
 `;
 

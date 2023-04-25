@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './App.css';
 import Home from "./home";
-import Layout from "./layout";
+import styled from "styled-components";
 
 import {
   getAuth,
@@ -45,6 +45,16 @@ const firebaseConfig = {
   messagingSenderId: "955910274384",
   appId: "1:955910274384:web:a9de7ecfaa88aa3b940055"
 };
+
+const Container = styled.div`
+  position: absolute;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  right: 0;
+  overflow: auto;
+`;
 
 
 const firebaseApp = initializeApp(firebaseConfig);
@@ -94,8 +104,6 @@ function App() {
   function HomePage(props: UserProps) {
     const { user } = props
   return <div>
-    <h1>Send Chinatown Love</h1>
-    <h1>APHAM Scavenger Hunt!</h1>
     {user ? (
         <Home user={user}/>
       ) : (
@@ -146,7 +154,7 @@ function App() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <Layout><HomePage user={user}/></Layout>,
+      element: <HomePage user={user}/>,
     },
     {
       path: "/login",
@@ -199,9 +207,9 @@ function App() {
   ]);
 
   return (
-    <div className="App">
+    <Container>
       <RouterProvider router={router} />
-    </div>
+    </Container>
 );
 }
 

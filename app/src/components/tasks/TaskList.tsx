@@ -5,8 +5,8 @@ import { useNavigate } from "react-router-dom";
 import TaskCompletion from '../../pages/TaskCompletion';
 
 import TaskListTable from "./TaskListTable";
-import TaskListBackButton from "./TaskListBackButton";
-import TaskCompletionBackButton from "../task-completion/TaskCompletionBackButton";
+import BackButton from "../headerButtons/BackButton";
+import CancelButton from "../headerButtons/CancelButton";
 import TaskCompletionHeader from "../task-completion/TaskCompletionHeader";
 import TaskListHeader from "./TaskListHeader";
 import {getNumberOfCompletedActivities} from "../../utils/activities";
@@ -51,7 +51,7 @@ export default function TaskList(props: TaskListProps) {
     <TaskListContainer>
         {selectedTask?.title && selectedTask?.description ? (
             <>
-                <TaskCompletionBackButton onClick={() => setSelectedTask(null)} />
+                <CancelButton onClick={() => setSelectedTask(null)} />
                 <TaskCompletionHeader location={location} />
                 <TaskCompletion
                     location={location}
@@ -61,7 +61,7 @@ export default function TaskList(props: TaskListProps) {
             </>
         ) : (
             <>
-                <TaskListBackButton onClick={() => {navigate('/', { replace: true })}}/>
+                <BackButton onClick={() => {navigate('/', { replace: true })}}/>
                 <TaskListHeader
                     location={location}
                     activitiesCompleted={getNumberOfCompletedActivities(activities)}

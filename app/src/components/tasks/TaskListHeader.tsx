@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import {Activities} from "./TaskList";
 
 const StyledTaskListHeader = styled.div`
   background-image: url("/task-list-header.png");

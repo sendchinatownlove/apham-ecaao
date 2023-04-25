@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import TaskListBackButton from "../tasks/TaskListBackButton";
+import BackButton from "../headerButtons/BackButton";
 import RaffleHeader from "./RaffleHeader";
 import RaffleList, { RafflePrizeData } from "./RaffleList";
 
@@ -24,7 +24,7 @@ export default function RaffleListView(props: RaffleViewProps) {
 
     return (
         <RaffleViewContainer>
-            <TaskListBackButton onClick={() => {navigate('/', { replace: true })}}/>
+            <BackButton onClick={() => {navigate('/', { replace: true })}}/>
             <RaffleHeader enteredTickets={11} availableTickets={6}></RaffleHeader>
             <RaffleList prizeData={prizeData}></RaffleList>
         </RaffleViewContainer>
