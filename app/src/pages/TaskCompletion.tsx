@@ -8,14 +8,18 @@ import TaskUpload from "../components/task-completion/TaskUpload";
 
 const TaskCompletionWrapper = styled.div`
   border-radius: 25px;
-  max-width: 350px;
   text-align: left;
   background: rgba(255, 255, 255, 0.3);
+  width: 98vw;
+  height: auto;
+  max-width: 1200px;
+  margin-top: 30px;
 `
 
 const TaskCompletionContainer = styled.div`
-  background-color: #FFF1F1;
+  background-color: #fff1f1;
   border-radius: 0 0 25px 25px;
+  height: 100vh;
 `
 
 const CancelButton = styled.button`
@@ -26,6 +30,8 @@ const CancelButton = styled.button`
   background: transparent;
   letter-spacing: 0.15em;
   text-transform: uppercase;
+  font-weight: bold;
+  color: rgb(255, 255, 255);
 
   :hover{
     border:none;
@@ -37,8 +43,8 @@ const CancelButton = styled.button`
 `
 
 const ClosedEyeIcon = styled.img`
-  content: url("/closed-eye.png");
-  max-width: 20px;
+  content: url('/closed-eye.png');
+  max-width: 25px;
   margin: auto 5px;
 `
 
@@ -74,6 +80,7 @@ const UploadButton = styled.button<{ isDisabled: boolean }>`
   letter-spacing: 0.15em;
   color: white;
   font-weight: 700;
+  font-size: 0.9em;
 `
 
 type TaskCompletionProps = {
