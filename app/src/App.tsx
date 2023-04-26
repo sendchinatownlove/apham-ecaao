@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+
+import {FirebaseService} from './Api';
 import './App.css';
 import Home from "./home";
 
@@ -50,6 +52,7 @@ const firebaseConfig = {
 
 const firebaseApp = initializeApp(firebaseConfig);
 const auth = getAuth(firebaseApp);
+const firebaseService = new FirebaseService();
 
 function App() {
   const [user, setUser] = useState<User | null>(null);
@@ -133,9 +136,68 @@ function App() {
         window.localStorage.removeItem('emailForSignIn');
       }
     }
+    if (user) {
+      console.log("Entered here")
+      // Fetch user data
+      const fetchUserData = async () => {
+        const userData = await firebaseService.getUser(user);
+        console.log("users data: ", userData?.val());
+      };
+  
+      fetchUserData();
+
+
+      /*
+      This is just test code, and should not really be executed here
+  
+      // Add an activity entry
+      const completeTask = async () => {
+        function generateTask() {
+          const randomNumber = Math.floor(Math.random() * 100) + 1;
+          const randomBorough = ["manhattan", "brooklyn", "queens"][Math.floor(Math.random() * 3)];
+          return {
+            randomBorough,
+            randomNumber
+          };
+        }
+        const task = generateTask();
+        console.log(task)
+        await firebaseService.completeTask(user.uid, task, true);
+      };
+  
+      completeTask();
+      // Add a raffle ticket entry
+      const addRaffleTicketEntry = async () => {
+        const raffleId = 'some_raffle_id';
+        const numberOfEntries = 1;
+        await firebaseService.addRaffleEntry(user.uid, raffleId, numberOfEntries);
+      };
+  
+      addRaffleTicketEntry();
+  
+      // Increment the tickets_remaining
+      const incrementTickets = async () => {
+        const incrementValue = 5;
+        await firebaseService.incrementTicketsRemaining(user.uid, incrementValue);
+      };
+  
+      incrementTickets();
+  
+      // Decrement the tickets_remaining
+      const decrementTickets = async () => {
+        // spending
+        const decrementValue = 2;
+        await firebaseService.decrementTicketsRemaining(user.uid, decrementValue);
+      };
+  
+      decrementTickets();
+
+      */
+  
+    }
 
     return () => unsubscribe();
-  }, []);
+  }, [user]);
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
