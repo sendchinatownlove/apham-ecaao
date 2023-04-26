@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import RaffleHeader from "./RaffleHeader";
 import { RafflePrizeData } from "./RaffleList";
 import RaffleEntryItem from "./RaffleEntryItem";
-import BackButton from "../shared/BackButton";
+import CancelButton from "../../components/header-buttons/cancelButton";
 
 
 const RaffleContainer = styled.div`
@@ -63,7 +63,7 @@ export default function RaffleEntry(props: RafflePrizeData) {
 
     return (
         <RaffleContainer>
-            <BackButton text="CANCEL" onClick={() => {navigate(-1)}}/>
+            <CancelButton onClick={() => {navigate(-1)}}/>
             <RaffleHeader availableTickets={6} />
             <RaffleEntryContainer>
                 <RaffleEntryItem 

@@ -1,0 +1,67 @@
+{
+  "users": {
+    "user_id_1": {
+      "brooklyn_completed_tasks": "",
+      "email": "taylor.swift@scl.com",
+      "manhattan_completed_tasks": {
+        "id_13": true
+      },
+      "name": "Bob",
+      "queens_completed_tasks": {
+        "id_100": "",
+        "id_88": ""
+      },
+      "raffles_entered": {
+        "id_2": {
+          "entries": 2
+        },
+        "id_5": {
+          "entries": 1
+        }
+      },
+      "tickets_remaining": 0
+    },
+    "user_id_2": {
+      "email": "alice@scl.com",
+      "manhattan_completed_tasks": {
+        "id_1": true,
+        "id_2": true,
+        "id_3": true,
+        "id_4": true,
+        "id_5": true,
+        "id_6": true,
+        "id_7": true,
+        "id_8": true,
+        "id_9": true
+      },
+      "name": "Alice",
+      "queens_completed_tasks": {
+        "id_91": true,
+        "id_92": true,
+        "id_93": true,
+        "id_94": true,
+        "id_95": true,
+        "id_96": true,
+        "id_97": true,
+        "id_98": true,
+        "id_99": true
+      },
+      "raffles_entered": {
+        "id_1": {
+          "entries": 6
+        }
+      },
+      "tickets_remaining": 12
+    },
+    "user_id_3": {
+      "brooklyn_completed_tasks": {
+        "id_50": true,
+        "id_51": true,
+        "id_52": true
+      },
+      "email": "ariana@scl.com",
+      "name": "Ariana Grande",
+      "tickets_remaining": 3
+    }
+  }
+}

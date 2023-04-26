@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 import Arch from "../assets/arch.svg";
 import { BrandText } from "../styled-components";
-import Footer from '../layout/footer';
+import Footer from '../components/shared/footer';
 
 import { useState } from "react";
 
