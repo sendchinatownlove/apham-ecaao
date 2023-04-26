@@ -27,6 +27,7 @@ const ModalWrapper = styled.div`
   font-size: 14px;
   padding: 20px;
   max-width: 300px;
+  color: rgb(52, 52, 52);
 `
 
 const RaffleImage = styled.img`
@@ -40,6 +41,7 @@ const ModalHeader = styled.p`
 
 const BaseButton = styled.button`
   width: 100%;
+  height: 36px;
   text-transform: uppercase;
   letter-spacing: 0.15em;
   font-weight: 700;
@@ -76,7 +78,7 @@ export default function CompletionModal(props: CompletionModalProps) {
             <p>Nice work! Way to show up for the Chinatown communities.</p>
             <p>You can use this ticket towards a chosen giveaway prize of your choice.</p>
             {/* TODO: navigate to raffle page */}
-            <PrimaryButton>Enter my raffle ticket</PrimaryButton>
+            <PrimaryButton onClick={() => {navigate('/raffles')}}>Enter my raffle ticket</PrimaryButton>
             <SecondaryButton onClick={() => { setIsActive(false) }}>Enter Later</SecondaryButton>
           </ModalWrapper>
         </Overlay>

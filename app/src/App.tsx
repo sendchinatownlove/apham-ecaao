@@ -20,8 +20,6 @@ import Login from './pages/Login';
 import RaffleListView from './components/raffle/RaffleListView';
 import RaffleEntry from './components/raffle/RaffleEntry';
 import TaskList from './components/tasks/TaskList';
-import TaskCompletion from './pages/TaskCompletion';
-
 
 import { initializeApp } from 'firebase/app';
 import { taskListData } from "./mock-data/task-list-data";

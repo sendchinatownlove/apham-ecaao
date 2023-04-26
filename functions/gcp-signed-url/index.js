@@ -7,14 +7,8 @@ const cors = require("cors")({
     origin: true,
 });
 
-/**
- * TODO(developer): Uncomment the following lines before running the sample.
- */
 // The ID of your GCS bucket
 const bucketName = "scl-ecaao-tasks";
-
-// The full path of your file inside the GCS bucket, e.g. 'yourFile.jpg' or 'folder1/folder2/yourFile.jpg'
-const fileName = "test-file-name3";
 
 // Imports the Google Cloud client library
 const { Storage } = require("@google-cloud/storage");
@@ -31,6 +25,11 @@ exports.generateV4UploadSignedUrl = functions.https.onRequest(async (req, res) =
 });
 
 async function generateV4UploadSignedUrl() {
+    const fileName = "test-file-name.png";
+
+    // Will give us if it's png or jpeg
+    contentType = fileName.split('.').pop();
+
     // These options will allow temporary uploading of the file with outgoing
     // Content-Type: application/octet-stream header.
     const options = {
