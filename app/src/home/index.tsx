@@ -47,10 +47,6 @@ interface Props {
 
 function Home(props: Props) {
 
-  const firebaseService = new FirebaseService();
-  console.log(firebaseService);
-  firebaseService.decrementTicketsRemaining("7H5eCtIlp7MvA2yqOzqQR945qi63", 1);
-
   return (
     <HomeContainer>
       <HomeButton/>
