@@ -4,7 +4,6 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import {FirebaseService} from './Api';
 import './App.css';
 import Home from "./home";
-import Layout from "./layout";
 
 import {
   getAuth,
@@ -208,7 +207,7 @@ function App() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <Layout><HomePage user={user}/></Layout>,
+      element: <HomePage user={user}/>,
     },
     {
       path: "/login",

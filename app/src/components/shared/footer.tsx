@@ -1,7 +1,5 @@
-import React from 'react';
-import FooterSeparator from "../assets/footerSeparator.svg";
-import Logo from "../assets/logo.svg";
-import { BodyTextMedium } from "../components/theme";
+import Logo from "../../assets/logo.svg";
+import { BodyTextMedium } from "../theme";
 import styled from "styled-components";
 
 const Container = styled.div`

@@ -1,6 +1,5 @@
 
-import React, { useEffect, useState } from 'react';
-import BoroughButton from './borough';
+import { useNavigate } from "react-router-dom";
 import { LabelMedium, THEME_COLORS } from "../components/theme";
 import styled from "styled-components";
 
@@ -9,8 +8,7 @@ const TicketsCounterContainer = styled.div`
   flex-direction: column;
   background: ${THEME_COLORS.GOLD};
   border-radius: 16px;
-  padding: 15px 12px;
-  margin: 0 1rem;
+  padding: 14.5px 19px;
 `
 
 const ContentContainer = styled.div`
@@ -19,10 +17,8 @@ const ContentContainer = styled.div`
 
 const TicketData = styled.div`
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
   width: 50%;
-  color: ${THEME_COLORS.RED};
-  line-height: 1rem;
 `;
 
 const NumberValue = styled.span`
@@ -37,27 +33,17 @@ const TicketLabel = styled.span`
   font-size: 14px;
   line-height: 19px;
   letter-spacing: 0.15em;
-  text-transform: uppercase;
 `;
 
-const CTA = styled.button`
+const RafflesButton = styled.button`
   background: ${THEME_COLORS.RED};
-  padding: 0 7px;
+  padding: 13px 12px;
   border-radius: 40px;
-  width: 55%;
-  font-size: 11px;
-  letter-spacing: 0.15em;
-  justify-content: space-between;
-  text-transform: uppercase;
-  color: rgb(255, 255, 255);
-  font-weight: bold;
+  width: 50%;
 `;
 
 const Header = styled(LabelMedium)`
-  letter-spacing: 0.055em;
   text-align: start;
-  margin-bottom: 10px;
-  padding-left: 16px;
 `;
 
 interface Props {
@@ -65,6 +51,7 @@ interface Props {
 }
 
 function TicketsCounter(props: Props) {
+  const navigate = useNavigate();
 
   return (
     <TicketsCounterContainer>
@@ -78,9 +65,9 @@ function TicketsCounter(props: Props) {
             <NumberValue>2</NumberValue>  <TicketLabel>Entered</TicketLabel>
           </div>
         </TicketData>
-        <CTA>
+        <RafflesButton onClick={() => navigate("/raffles")}>
           Enter Raffles
-        </CTA>
+        </RafflesButton>
       </ContentContainer>
     </TicketsCounterContainer>
   );

@@ -1,24 +1,38 @@
 
-import React, { useEffect, useState } from 'react';
 import BoroughButton from './borough';
 import TicketsCounter from './ticketsCounter';
 import { BodyTextMedium } from "../components/theme";
 import styled from "styled-components";
-import {FirebaseService} from '../Api';
+import HomeButton from "../components/header-buttons/homeButton";
+import Footer from "../components/shared/footer";
 
 const HomeContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 21px;
-`
+  background-color: rgba(255, 255, 255, 0.3);
+  width: 98vw;
+  text-align: center;
+  height: 110vh;
+  margin-top: 30px;
+  max-width: 1200px;
+  gap: 20px;
+  border-top-left-radius: 36px;
+  border-top-right-radius: 36px;
+
+`;
 
 const Instructions = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
   text-align: left;
-  width: 90vw;
-  margin: 1rem 1.5rem 0;
+  width: 88vw;
+  margin: 0 auto;
+`;
+
+const NumberLine = styled(BodyTextMedium)`
+  display: flex;
+  gap: 5px;
 `;
 
 const Boroughs = styled.div`
@@ -39,10 +53,20 @@ function Home(props: Props) {
 
   return (
     <HomeContainer>
+      <HomeButton/>
       <Instructions>
-        <BodyTextMedium bold color="#ffff">1. START BY CHOOSING A BOROUGH AND EXPLORING THE list of activities</BodyTextMedium>
-        <BodyTextMedium bold color="#ffff">2. TAKE A PICTURE WHEN YOU COMPLETE EACH TASK AND UPLOAD IT</BodyTextMedium>
-        <BodyTextMedium bold color="#ffff">3. WITH EVERY COMPLETION, you get a raffle ticket to enter for a chance to win a giveaway prize of your choice!</BodyTextMedium>
+        <NumberLine bold color="#ffff">
+          <span>1.</span>
+          <span>START BY CHOOSING A BOROUGH AND EXPLORING THE list of activities</span>
+        </NumberLine>
+        <NumberLine bold color="#ffff">
+          <span>2.</span>
+          <span>TAKE A PICTURE WHEN YOU COMPLETE EACH TASK AND UPLOAD IT</span>
+        </NumberLine>
+        <NumberLine bold color="#ffff">
+          <span>3.</span>
+          <span>WITH EVERY COMPLETION, you get a raffle ticket to enter for a chance to win a giveaway prize of your choice!</span>
+        </NumberLine>
       </Instructions>
       <Boroughs>
         <BoroughButton borough="Manhattan" totalTasks={33} completedTasks={0}/>
@@ -50,6 +74,7 @@ function Home(props: Props) {
         <BoroughButton borough="Brooklyn" totalTasks={33} completedTasks={0}/>
       </Boroughs>
       <TicketsCounter/>
+      <Footer/>
     </HomeContainer>
   );
 }
