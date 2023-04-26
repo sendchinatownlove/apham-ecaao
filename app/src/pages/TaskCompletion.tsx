@@ -5,7 +5,6 @@ import CompletionModal from "../components/tasks/CompletionModal";
 
 import TaskChecklistItem from "../components/task-completion/TaskChecklistItem";
 import TaskUpload from "../components/task-completion/TaskUpload";
-import BackButton from "../components/header-buttons/cancelButton";
 import CancelButton from "../components/header-buttons/cancelButton";
 
 const TaskCompletionWrapper = styled.div`
