@@ -6,7 +6,7 @@ const RaffleHeaderContainer = styled.div`
     letter-spacing: 0.15em;
     text-transform: uppercase;
     font-size: 0.8em;
-    padding: 10px 14px;
+    padding: 10px 17px;
 `
 
 const EnteredTicketsText = styled.p`

@@ -10,7 +10,7 @@ const RaffleListContainer = styled.div`
 
 const PageTitleText = styled.div`
     border-top: 1px solid #A8192E;
-    padding: 16px 14px 8px;
+    padding: 16px 17px 8px;
     display: flex;
     justify-content: space-between;
 `
@@ -35,7 +35,7 @@ const EntriesText = styled.span`
 const PageDescription = styled.div`
     color: #000000;
     text-align: left;
-    padding: 8px 14px 23px;
+    padding: 8px 17px 23px;
     font-size: 0.75rem;
     font-weight: 400;
     line-height: 1rem;
