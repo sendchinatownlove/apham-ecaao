@@ -1,6 +1,6 @@
 import axios from 'axios';
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useState } from 'react';
 import CompletionModal from "../components/tasks/CompletionModal";
 import TaskChecklistItem from "../components/task-completion/TaskChecklistItem";
@@ -92,56 +92,18 @@ type TaskCompletionProps = {
 export default function TaskCompletion(props: TaskCompletionProps) {
   const { location, taskHeader, taskDescription } = props;
   let navigate = useNavigate();
-  const [imageFile, setImageFile] = useState('');
-  const [image, setImage] = useState(null);
+  const [imageFileSrc, setImageFileSrc] = useState('');
+  const [image, setImage] = useState<File | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isPopupActive, setIsPopupActive] = useState(false);
-  const hasImageBeenUploaded = imageFile !== '';
+  const hasImageBeenUploaded = imageFileSrc !== '';
+  const { id } = useParams<any>();
 
   const alphanumericRegex = (str: string) => {
     return str.replace(/[^a-zA-Z0-9]/g, '-');
   };
 
-  // const submitImage = async () => {
-  //   if (image === null) return false;
-
-  //   try {
-  //     const ext = image.type.split('/')[1];
-
-  //     let filename = `${id}-${alphanumericRegex(
-  //       participatingSeller
-  //     )}-${alphanumericRegex(new Date().toISOString())}.${ext}`;
-
-  //     // upload receipt to gc
-  //     const signedUrl = unescape(
-  //       (await getUploadUrl(filename, receipt.type)).data.url
-  //     );
-  //     await sendImage(signedUrl, filename, receipt);
-
-  //     // upload info + receipt to db
-  //     let data = await uploadCrawlReceipts(
-  //       participatingSellerId,
-  //       id,
-  //       Number(billTotal) * 100,
-  //       filename
-  //     );
-
-  //     if (data) {
-  //       setIsPopupActive(true);
-  //     }
-  //   } catch (err) {
-  //     console.log(err);
-  //     setImageFile('');
-  //     setIsLoading(false);
-  //   }
-  // };
-
-  const onImageChange = (event: any) => {
-    if (event.target.files && event.target.files[0]) {
-      setImage(event.target.files[0]);
-      setImageFile(URL.createObjectURL(event.target.files[0]));
-    }
-  }
+  const API_ROUTE = 'https://us-central1-scl-scavengerhunt.cloudfunctions.net/generateV4UploadSignedUrl';
 
   const submitImage = async () => {
     /**
@@ -157,11 +119,14 @@ export default function TaskCompletion(props: TaskCompletionProps) {
      * 
      */ 
 
-    const signedUrl = await (await axios.get('https://us-central1-scl-scavengerhunt.cloudfunctions.net/generateV4UploadSignedUrl')).data.url;
+    const ext = image?.type.split('/')[1];
+    let filename = `${id}-${alphanumericRegex(new Date().toISOString())}.${ext}`;
+
+    const signedUrl = await (await axios.get(API_ROUTE)).data.url;
 
     console.log(signedUrl);
     console.log(image);
-    console.log(imageFile);
+    console.log(imageFileSrc);
     let result = await axios.put(signedUrl, image, {
       headers: {
         'Content-Type': 'application/octet-stream',
@@ -184,9 +149,9 @@ export default function TaskCompletion(props: TaskCompletionProps) {
           <HeaderText>{location}</HeaderText>
           <HeaderDescription>Upload a photo of the completed activity</HeaderDescription>
         </HeaderWrapper>
-        <TaskChecklistItem taskHeader={taskHeader} taskDescription={taskDescription} isChecked={imageFile !== ''} />
+        <TaskChecklistItem taskHeader={taskHeader} taskDescription={taskDescription} isChecked={imageFileSrc !== ''} />
         <UploadWrapper>
-          <TaskUpload imageFileSrc={image} setImage={setImage} setImageFile={setImageFile} />
+          <TaskUpload imageFileSrc={imageFileSrc} setImage={setImage} setImageFileSrc={setImageFileSrc} />
           <UploadButton
             disabled={!hasImageBeenUploaded}
             isDisabled={!hasImageBeenUploaded}
