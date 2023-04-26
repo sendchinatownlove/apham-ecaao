@@ -1,17 +1,39 @@
 {
-    "rules": {
-      "items": {
-        ".read": "true",
-        
-        ".write": "!data.exists()",
-        
-        "$itemId": {
-          ".read": "true",
-          
-          ".write": "data.exists() && newData.exists()",
-          
-          ".validate": "newData.exists() || !data.exists()"
+  "rules": {
+    "users": {
+      "$user_id": {
+        ".read": "auth != null && auth.uid == $user_id",
+        ".write": "auth != null && auth.uid == $user_id",
+        "name": {
+          ".validate": "newData.isString()"
+        },
+        "email": {
+          ".validate": "newData.isString()"
+        },
+        "brooklyn_completed_tasks": {
+        },
+        "manhattan_completed_tasks": {
+        },
+        "queens_completed_tasks": {
+        },
+        "raffles_entered": {
+          "$raffle_id": {
+            ".validate": "newData.hasChildren(['entries'])",
+            "entries": {
+              ".validate": "newData.isNumber() && newData.val() >= 0"
+            },
+            "$other": {
+              ".validate": false
+            }
+          }
+        },
+        "tickets_remaining": {
+          ".validate": "newData.isNumber() && newData.val() >= 0"
+        },
+        "$other": {
+          ".validate": false
         }
       }
     }
   }
+}

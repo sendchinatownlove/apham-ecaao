@@ -15,3 +15,28 @@ export const BrandText = styled.div`
   line-height: 19px;
   color: #a8192e;
 `;
+
+export const LogoWrapper = styled.div`
+display: block;
+position: relative;
+
+&:before {
+  content: "";
+  width: 164px;
+  height: 0.5px;
+  background: #a8192e;
+  left: 14px;
+  top: 42%;
+  position: absolute;
+}
+
+&:after {
+  content: "";
+  width: 164px;
+  height: 0.5px;
+  background: #a8192e;
+  right: 14px;
+  top: 42%;
+  position: absolute;
+}
+`;
