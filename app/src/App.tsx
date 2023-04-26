@@ -260,14 +260,6 @@ function App() {
       />
       )
     },
-    {
-      path: "/task-completion",
-      element: (
-        <TaskCompletion location={dummyTask.location}
-        taskHeader={dummyTask.header}
-        taskDescription={dummyTask.description}/>
-      )
-    }
   ]);
 
   return (
