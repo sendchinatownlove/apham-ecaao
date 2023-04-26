@@ -50,7 +50,7 @@ const ClosedEyeIcon = styled.img`
 `
 
 const HeaderWrapper = styled.div`
-  padding: 10px;
+  padding: 10px 17px;
   border-bottom: 1px solid #A8192E;
 `
 

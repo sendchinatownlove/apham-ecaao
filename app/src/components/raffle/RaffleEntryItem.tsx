@@ -22,7 +22,7 @@ const EntriesText = styled.span`
     letter-spacing 0.15em;
     border: 1px solid #DD678A;
     border-radius: 8px;
-    padding: 2px 16px;
+    padding: 2px 10px;
     text-transform: uppercase;
 `   
 const EntryHeaderText = styled.div`

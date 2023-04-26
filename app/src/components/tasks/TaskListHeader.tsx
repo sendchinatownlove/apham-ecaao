@@ -5,7 +5,7 @@ const StyledTaskListHeader = styled.div`
   background-image: url("/task-list-header.png");
   background-size: 100% 70px;
   color: #A8192E;
-  padding: 10px 10px 11px 10px;
+  padding: 10px 17px;
 `;
 
 const LocationText = styled.h1`
