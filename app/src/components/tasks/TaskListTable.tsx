@@ -47,11 +47,12 @@ const ActivityRowDescription = styled.div`
 `;
 
 type TaskListTableProps = {
-    activities: { activity: ActivityInfo }[]
+    activities: { activity: ActivityInfo }[],
+    onTaskClick: any,
 }
 
 function TaskListTable(props: TaskListTableProps) {
-    const {activities} = props;
+    const {activities, onTaskClick} = props;
 
     activities.sort((a,b) => a.activity.index - b.activity.index);
 
@@ -93,7 +94,7 @@ function TaskListTable(props: TaskListTableProps) {
                                     <td
                                         {...cell.getCellProps()}
                                     >
-                                        <StyledRow style={{borderTop: borderTop}}>
+                                        <StyledRow style={{borderTop: borderTop}} onClick={() => onTaskClick(cell.value)}>
                                             <ActivityRowTitleContainer>
                                                 <span>{cell.value['index']}. {cell.value['title']}</span>
                                                 {cell.value['completed'] && (

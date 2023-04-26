@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from 'react';
 import styled from "styled-components";
-import BackButton from "../shared/BackButton";
+import BackButton from "../header-buttons/backButton";
 import RaffleHeader from "./RaffleHeader";
 import RaffleList, { RafflePrizeData } from "./RaffleList";
 import EntryConfirmationModal from "./EntryConfirmationModal";

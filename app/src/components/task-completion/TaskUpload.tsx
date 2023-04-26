@@ -10,7 +10,7 @@ const FileInputLabel = styled.label`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 20px 0;
+  padding: 20px 40px;
   margin: 20px 0;
   cursor: pointer;
   color: #DD678A;
