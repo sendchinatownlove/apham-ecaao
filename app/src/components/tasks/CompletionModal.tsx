@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+
 import raffleImg from '../../assets/raffle.png'
+import { ActivityInfo } from "./TaskList";
 
 const Overlay = styled.div`
   display: block;
@@ -62,10 +64,11 @@ const SecondaryButton = styled(BaseButton)`
 type CompletionModalProps = {
   isActive: boolean;
   setIsActive: React.Dispatch<React.SetStateAction<boolean>>;
+  setSelectedTask: React.Dispatch<React.SetStateAction<ActivityInfo | null>>;
 }
 
 export default function CompletionModal(props: CompletionModalProps) {
-  const { isActive, setIsActive } = props;
+  const { isActive, setIsActive, setSelectedTask } = props;
   let navigate = useNavigate();
 
   return (
@@ -77,9 +80,11 @@ export default function CompletionModal(props: CompletionModalProps) {
             <ModalHeader>You’ve earned a raffle ticket</ModalHeader>
             <p>Nice work! Way to show up for the Chinatown communities.</p>
             <p>You can use this ticket towards a chosen giveaway prize of your choice.</p>
-            {/* TODO: navigate to raffle page */}
-            <PrimaryButton onClick={() => {navigate('/raffles')}}>Enter my raffle ticket</PrimaryButton>
-            <SecondaryButton onClick={() => { setIsActive(false); navigate(-1) }}>Enter Later</SecondaryButton>
+            <PrimaryButton onClick={() => { navigate('/raffles') }}>Enter my raffle ticket</PrimaryButton>
+            <SecondaryButton onClick={() => {
+              setIsActive(false);
+              setSelectedTask(null);
+            }}>Enter Later</SecondaryButton>
           </ModalWrapper>
         </Overlay>
       )}

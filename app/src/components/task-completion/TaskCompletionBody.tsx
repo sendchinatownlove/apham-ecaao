@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import CompletionModal from "../tasks/CompletionModal";
+import { ActivityInfo } from "../tasks/TaskList";
 
 import TaskChecklistItem from "./TaskChecklistItem";
 import TaskUpload from "./TaskUpload";
@@ -42,10 +43,11 @@ type TaskCompletionProps = {
     location: string;
     taskHeader: string;
     taskDescription: string;
+    setSelectedTask: React.Dispatch<React.SetStateAction<ActivityInfo | null>>;
 };
 
 export default function TaskCompletion(props: TaskCompletionProps) {
-    const { taskHeader, taskDescription } = props;
+    const { taskHeader, taskDescription, setSelectedTask } = props;
     const [imageFileSrc, setImageFileSrc] = useState("");
     const [image, setImage] = useState<File | null>(null);
     const [isLoading, setIsLoading] = useState(false);
@@ -86,27 +88,21 @@ export default function TaskCompletion(props: TaskCompletionProps) {
             ).data.url;
 
             if (!signedUrl) {
+                setErrorHasOccurred(true);
                 throw new Error("Empty signed URL");
             }
 
-            console.log(signedUrl);
-            console.log(image);
-            console.log(imageFileSrc);
             let result = await axios.put(signedUrl, image, {
                 headers: {
                     "Content-Type": contentType,
                 },
             });
-            console.log("success?");
-            console.log(result);
-            {
-                setErrorHasOccurred(false);
-                setIsPopupActive(true);
-                setIsLoading(false);
-            }
+            setErrorHasOccurred(false);
+            setIsPopupActive(true);
+            setIsLoading(false);
+
         } catch (error) {
             console.error(error);
-            // TODO What do we do if we find an error?
             setErrorHasOccurred(true);
         }
     };
@@ -134,7 +130,7 @@ export default function TaskCompletion(props: TaskCompletionProps) {
                         {isLoading ? 'Loading...' : 'Upload Picture'}
                     </UploadButton>
                 </UploadWrapper>
-                <CompletionModal isActive={isPopupActive} setIsActive={setIsPopupActive} />
+                <CompletionModal isActive={isPopupActive} setIsActive={setIsPopupActive} setSelectedTask={setSelectedTask} />
             </TaskCompletionContainer>
         </TaskCompletionWrapper>
     );
