@@ -147,52 +147,54 @@ function App() {
       fetchUserData();
 
 
-      /*
-      This is just test code, and should not really be executed here
+      // This is just test code, and should not really be executed here
   
-      // Add an activity entry
-      const completeTask = async () => {
-        function generateTask() {
-          const randomNumber = Math.floor(Math.random() * 100) + 1;
-          const randomBorough = ["manhattan", "brooklyn", "queens"][Math.floor(Math.random() * 3)];
-          return {
-            randomBorough,
-            randomNumber
-          };
-        }
-        const task = generateTask();
-        console.log(task)
-        await firebaseService.completeTask(user.uid, task, true);
-      };
-  
-      completeTask();
-      // Add a raffle ticket entry
-      const addRaffleTicketEntry = async () => {
-        const raffleId = 'some_raffle_id';
-        const numberOfEntries = 1;
-        await firebaseService.addRaffleEntry(user.uid, raffleId, numberOfEntries);
-      };
-  
-      addRaffleTicketEntry();
-  
-      // Increment the tickets_remaining
-      const incrementTickets = async () => {
-        const incrementValue = 5;
-        await firebaseService.incrementTicketsRemaining(user.uid, incrementValue);
-      };
-  
-      incrementTickets();
-  
-      // Decrement the tickets_remaining
-      const decrementTickets = async () => {
-        // spending
-        const decrementValue = 2;
-        await firebaseService.decrementTicketsRemaining(user.uid, decrementValue);
-      };
-  
-      decrementTickets();
+      // Jess - CompleteTask testing
+      /**
+       * generate a task
+       * run the firebaseService class function (completeTask) from Apt.tsx
+       */
+      // const completeTask = async () => {
+      //   function generateTask() {
+      //     const randomNumber = Math.floor(Math.random() * 100) + 1;
+      //     const randomBorough = ["manhattan", "brooklyn", "queens"][Math.floor(Math.random() * 3)];
+      //     return {
+      //       randomBorough,
+      //       randomNumber
+      //     };
+      //   }
+      //   const task = generateTask();
+      //   console.log(task);
+      //   await firebaseService.completeTask(user.uid, String(task.randomNumber), task.randomBorough);
+      // };
+      // completeTask();
 
-      */
+      // // Add a raffle ticket entry
+      // const addRaffleTicketEntry = async () => {
+      //   const raffleId = 'some_raffle_id';
+      //   const numberOfEntries = 1;
+      //   await firebaseService.addRaffleEntry(user.uid, raffleId, numberOfEntries);
+      // };
+  
+      // addRaffleTicketEntry();
+  
+      // // Increment the tickets_remaining
+      // const incrementTickets = async () => {
+      //   const incrementValue = 5;
+      //   await firebaseService.incrementTicketsRemaining(user.uid, incrementValue);
+      // };
+  
+      // incrementTickets();
+  
+      // // Decrement the tickets_remaining
+      // const decrementTickets = async () => {
+      //   // spending
+      //   const decrementValue = 2;
+      //   await firebaseService.decrementTicketsRemaining(user.uid, decrementValue);
+      // };
+  
+      // decrementTickets();
+
   
     }
 
