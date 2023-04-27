@@ -27,11 +27,11 @@ export class FirebaseService {
 
       // the defaults are set there because couldn't figure out how to set to nothing
       const defaultUserValues = {
-        brooklyn_completed_tasks: {"default":0},
+        brooklyn_completed_tasks: {},
         email: user.email,
-        manhattan_completed_tasks: {"default":0},
+        manhattan_completed_tasks: {},
         name: user.displayName,
-        queens_completed_tasks: {"default":0},
+        queens_completed_tasks: {},
         raffles_entered: {},
         tickets_remaining: 0,
       };
@@ -115,6 +115,60 @@ export class FirebaseService {
       console.error("Error decrementing tickets_remaining:", error);
     }
   }
+
+  /**
+   * Get user's number of completed tasks by borough
+   * 
+   * @param userId 
+   * @param borough 
+   */
+  async getCompletedTasksByBorough(userId: string, borough: string): Promise<number | null> {
+    try {
+      borough = borough.toLowerCase();
+      const completedTasks = (await get(ref(this.db, `users/${userId}/${borough}_completed_tasks`))).val();
+      return !completedTasks ? 0 : Object.keys(completedTasks).length;
+    } catch (error) {
+      console.error(`Error getting ${borough} tasks for user`, error);
+      return null;
+    }
+  }
+
+  
+  /**
+   * Get user's available raffle tickets
+   * 
+   * @param userId 
+   */
+    async getAvailableRaffleTickets(userId: string): Promise<number | null> {
+      try {
+        const ticketsRemaining = (await get(ref(this.db, `users/${userId}/tickets_remaining`))).val();
+        return ticketsRemaining;
+      } catch (error) {
+        console.error(`Error getting available raffle tickets for user`, error);
+        return null;
+      }
+    }
+
+  /**
+   * Get user's entered tickets
+   * 
+   * @param userId 
+   */
+    async getEnteredRaffleTickets(userId: string): Promise<number | null> {
+      type Raffle = {
+        entries: number;
+      }
+
+      try {
+        const rafflesEntered = (await get(ref(this.db, `users/${userId}/raffles_entered`))).val();
+        const totalTicketsEntered = Object.values<Raffle>(rafflesEntered).reduce((total, raffle) => total + raffle.entries, 0)
+        return totalTicketsEntered;
+      } catch (error) {
+        console.error(`Error getting entered raffle tickets for user`, error);
+        return null;
+      }
+    }
+
 
 
   /**
