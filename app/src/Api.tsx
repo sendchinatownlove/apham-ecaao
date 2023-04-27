@@ -98,20 +98,19 @@ export class FirebaseService {
    * @param borough 
    * @param increment 
    */
-  async completeTask(userId: string, taskId: string, borough:string, increment: number): Promise<void> {
+  async completeTask(userId: string, taskId: string, borough:string): Promise<void> {
     try {
-      // console.log("the args: ", arguments) 
       await set(ref(this.db, `users/${userId}/${borough}_completed_tasks/${taskId}`), true);
       console.log("User activity added successfully.");
       
       const userRef = ref(this.db, `users/${userId}/tickets_remaining`);
       console.log(userRef);
       await runTransaction(userRef, (currentTickets) => {
-        return (currentTickets || 0) + increment;
+        return (currentTickets || 0) + 1;
       });
       console.log("tickets_remaining incremented successfully.");
     } catch (error) {
-      console.error("Error completing task:", error);
+      console.error(`Error completing task ${taskId}:`, error);
     }
   }
   /**

@@ -153,7 +153,6 @@ function App() {
       /**
        * generate a task
        * run the firebaseService class function (completeTask) from Apt.tsx
-       * (Please check to make sure it is adding 1 entry and 5 tickets_remaining)
        */
       // const completeTask = async () => {
       //   function generateTask() {
@@ -166,7 +165,7 @@ function App() {
       //   }
       //   const task = generateTask();
       //   console.log(task);
-      //   await firebaseService.completeTask(user.uid, String(task.randomNumber), task.randomBorough, 5);
+      //   await firebaseService.completeTask(user.uid, String(task.randomNumber), task.randomBorough);
       // };
       // completeTask();
 
