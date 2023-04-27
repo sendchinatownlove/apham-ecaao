@@ -128,7 +128,7 @@ export class FirebaseService {
       const completedTasks = (await get(ref(this.db, `users/${userId}/${borough}_completed_tasks`))).val();
       return !completedTasks ? 0 : Object.keys(completedTasks).length;
     } catch (error) {
-      console.error(`Error getting ${borough} tasks for user`, error);
+      console.error(`Error getting ${borough} tasks for user ${userId}`, error);
       return null;
     }
   }
@@ -144,7 +144,7 @@ export class FirebaseService {
         const ticketsRemaining = (await get(ref(this.db, `users/${userId}/tickets_remaining`))).val();
         return ticketsRemaining;
       } catch (error) {
-        console.error(`Error getting available raffle tickets for user`, error);
+        console.error(`Error getting available raffle tickets for user ${userId}`, error);
         return null;
       }
     }
@@ -164,7 +164,7 @@ export class FirebaseService {
         const totalTicketsEntered = Object.values<Raffle>(rafflesEntered).reduce((total, raffle) => total + raffle.entries, 0)
         return totalTicketsEntered;
       } catch (error) {
-        console.error(`Error getting entered raffle tickets for user`, error);
+        console.error(`Error getting entered raffle tickets for user ${userId}`, error);
         return null;
       }
     }
