@@ -1,18 +1,23 @@
 {
-  "name": "gcp-signed-url",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "@google-cloud/storage": "^6.9.5",
-    "cors": "^2.8.5",
-    "dotenv": "^16.0.3",
-    "firebase-admin": "^11.7.0",
-    "firebase-functions": "^4.3.1"
-  }
+    "name": "gcp-signed-url",
+    "version": "1.0.0",
+    "description": "",
+    "main": "dist/index.js",
+    "scripts": {
+        "build": "tsc",
+        "build:watch": "tsc --watch",
+        "start": "npm run build && node dist/index.js"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "@google-cloud/storage": "^6.9.5",
+        "cors": "^2.8.5",
+        "dotenv": "^16.0.3",
+        "firebase-admin": "^11.7.0",
+        "firebase-functions": "^4.3.1"
+    },
+    "devDependencies": {
+        "typescript": "^5.0.4"
+    }
 }

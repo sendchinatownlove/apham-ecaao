@@ -79,7 +79,7 @@ export default function CompletionModal(props: CompletionModalProps) {
             <p>You can use this ticket towards a chosen giveaway prize of your choice.</p>
             {/* TODO: navigate to raffle page */}
             <PrimaryButton onClick={() => {navigate('/raffles')}}>Enter my raffle ticket</PrimaryButton>
-            <SecondaryButton onClick={() => { setIsActive(false) }}>Enter Later</SecondaryButton>
+            <SecondaryButton onClick={() => { setIsActive(false); navigate(-1) }}>Enter Later</SecondaryButton>
           </ModalWrapper>
         </Overlay>
       )}

@@ -1,83 +1,68 @@
 {
-  "hosting": {
-    "public": "app/dist",
-    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
-    "rewrites": [
-      {
-        "source": "**",
-        "destination": "/index.html"
-      }
-    ]
-  },
-  "emulators": {
-    "functions": {
-      "name": "functions",
-      "host": "localhost",
-      "port": 5001
-    },
     "hosting": {
-      "port": 8080
+        "public": "app/dist",
+        "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+        "rewrites": [
+            {
+                "source": "**",
+                "destination": "/index.html"
+            }
+        ]
     },
-    "ui": {
-      "enabled": true
+    "emulators": {
+        "functions": {
+            "name": "functions",
+            "host": "localhost",
+            "port": 5001
+        },
+        "hosting": {
+            "port": 8080
+        },
+        "ui": {
+            "enabled": true
+        },
+        "singleProjectMode": true
     },
-    "singleProjectMode": true
-  },
-  "functions": [
-    {
-      "predeploy": ["npm --prefix \"$RESOURCE_DIR\" install"],
-      "source": "functions/api-router",
-      "codebase": "api-router",
-      "runtime": "nodejs18"
-    },
-    {
-      "predeploy": ["npm --prefix \"$RESOURCE_DIR\" install"],
-      "source": "functions/generate-thumbnail",
-      "codebase": "generate-thumbnail",
-      "runtime": "nodejs18"
-    },
-    {
-      "predeploy": ["npm --prefix \"$RESOURCE_DIR\" install"],
-      "source": "functions/airtable-proxy",
-      "codebase": "airtable-proxy",
-      "runtime": "nodejs18",
-      "ignore": [
-        "node_modules",
-        ".git",
-        ".env",
-        "firebase-debug.log",
-        "firebase-debug.*.log"
-      ]
-    },
-    {
-      "source": "functions/analytics",
-      "codebase": "analytics",
-      "runtime": "nodejs18",
-      "ignore": [
-        "node_modules",
-        ".git",
-        "firebase-debug.log",
-        "firebase-debug.*.log"
-      ],
-      "predeploy": [
-        "npm --prefix \"$RESOURCE_DIR\" run lint",
-        "npm --prefix \"$RESOURCE_DIR\" run build"
-      ]
-    },
-    {
-      "predeploy": ["npm --prefix \"$RESOURCE_DIR\" install"],
-      "source": "functions/gcp-signed-url",
-      "codebase": "gcp-signed-url",
-      "runtime": "nodejs18",
-      "ignore": [
-        "node_modules",
-        ".git",
-        "firebase-debug.log",
-        "firebase-debug.*.log"
-      ]
+    "functions": [
+        {
+            "predeploy": ["npm --prefix \"$RESOURCE_DIR\" install"],
+            "source": "functions/api-router",
+            "codebase": "api-router",
+            "runtime": "nodejs18"
+        },
+        {
+            "predeploy": ["npm --prefix \"$RESOURCE_DIR\" install"],
+            "source": "functions/generate-thumbnail",
+            "codebase": "generate-thumbnail",
+            "runtime": "nodejs18"
+        },
+        {
+            "predeploy": ["npm --prefix \"$RESOURCE_DIR\" install"],
+            "source": "functions/airtable-proxy",
+            "codebase": "airtable-proxy",
+            "runtime": "nodejs18",
+            "ignore": ["node_modules", ".git", ".env", "firebase-debug.log", "firebase-debug.*.log"]
+        },
+        {
+            "source": "functions/analytics",
+            "codebase": "analytics",
+            "runtime": "nodejs18",
+            "ignore": ["node_modules", ".git", "firebase-debug.log", "firebase-debug.*.log"],
+            "predeploy": [
+                "npm --prefix \"$RESOURCE_DIR\" install",
+                "npm --prefix \"$RESOURCE_DIR\" run lint",
+                "npm --prefix \"$RESOURCE_DIR\" run build"
+            ]
+        },
+        {
+            "predeploy": ["npm --prefix \"$RESOURCE_DIR\" install", "npm --prefix \"$RESOURCE_DIR\" run build"],
+            "source": "functions/gcp-signed-url",
+            "codebase": "gcp-signed-url",
+            "runtime": "nodejs18",
+            "ignore": ["node_modules", ".git", "firebase-debug.log", "firebase-debug.*.log"]
+        }
+    ],
+    "database": {
+        "rules": "database/database.rules.json"
     }
-  ],
-  "database": {
-    "rules": "database/database.rules.json"
-  }
 }
