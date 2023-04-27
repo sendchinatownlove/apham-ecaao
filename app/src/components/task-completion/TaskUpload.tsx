@@ -66,19 +66,20 @@ const ReplaceFileInputLabel = styled.label`
 `
 
 type TaskUploadProps = {
-  imageFileSrc: string;
-  setImageFile: React.Dispatch<React.SetStateAction<string>>;
+  imageFileSrc: any;
+  setImage: React.Dispatch<React.SetStateAction<any>>;
+  setImageFileSrc: React.Dispatch<React.SetStateAction<any>>;
 }
 
 export default function TaskUpload(props: TaskUploadProps) {
-  const { imageFileSrc, setImageFile } = props;
-
+  const { imageFileSrc, setImage, setImageFileSrc } = props;
 
   const onImageChange = (event: any) => {
     if (event.target.files && event.target.files[0]) {
-      setImageFile(URL.createObjectURL(event.target.files[0]));
+      setImage(event.target.files[0]);
+      setImageFileSrc(URL.createObjectURL(event.target.files[0]));
     }
-  }
+  };
 
   return (
     <>

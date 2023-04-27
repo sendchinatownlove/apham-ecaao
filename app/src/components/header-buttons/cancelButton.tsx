@@ -7,6 +7,7 @@ padding-top: 9px;
 padding-left: 10px;
 background-color: transparent;
 height: 64px;
+letter-spacing: 0.15em;
 
 &:hover {
     background-color: transparent;

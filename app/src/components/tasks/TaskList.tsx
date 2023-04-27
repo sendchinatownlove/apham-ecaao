@@ -61,6 +61,7 @@ export default function TaskList(props: TaskListProps) {
               location={location}
               taskHeader={selectedTask.title}
               taskDescription={selectedTask.description}
+              setSelectedTask={setSelectedTask}
             />
           </>
         ) : (
