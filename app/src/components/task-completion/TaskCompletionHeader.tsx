@@ -1,10 +1,9 @@
 import styled from "styled-components";
 const HeaderWrapper = styled.div`
-  padding: 10px 20px ;
+  padding: 10px 17px ;
   border-bottom: 1px solid #A8192E;
   background: #FFF1F1;
   text-align: left;
-  gap: 5px;
   display: flex;
   flex-direction: column;
 `
