@@ -70,33 +70,6 @@ export class FirebaseService {
   }
 
   // @TODO translate to task 
-  async completeTask(userId: string, taskId: string, borough:string): Promise<void> {
-    try {
-      console.log("the args: ", arguments) 
-      await set(ref(this.db, `users/${userId}/${borough}_completed_tasks/${taskId}`), true);
-      console.log("User activity added successfully.");
-    } catch (error) {
-      console.error("Error adding user activity:", error);
-    }
-  }
-
-  /**
-   * Can be used when completing a task
-   * 
-   * @param userId 
-   * @param increment 
-   */
-  async incrementTicketsRemaining(userId: string, increment: number): Promise<void> {
-    try {
-      const userRef = ref(this.db, `users/${userId}/tickets_remaining`);
-      await runTransaction(userRef, (currentTickets) => {
-        return (currentTickets || 0) + increment;
-      });
-      console.log("tickets_remaining incremented successfully.");
-    } catch (error) {
-      console.error("Error incrementing tickets_remaining:", error);
-    }
-  }
 
   /**
    * Can be used when redeeming a raffle entry
@@ -117,6 +90,31 @@ export class FirebaseService {
   }
 
   /**
+   * Mark task as complete (set json key to true)
+   * increment user's tickets 
+   * 
+   * @param userId 
+   * @param taskId 
+   * @param borough 
+   * @param increment 
+   */
+  async completeTask(userId: string, taskId: string, borough:string): Promise<void> {
+    try {
+      await set(ref(this.db, `users/${userId}/${borough}_completed_tasks/${taskId}`), true);
+      console.log("User activity added successfully.");
+      
+      const userRef = ref(this.db, `users/${userId}/tickets_remaining`);
+      console.log(userRef);
+      await runTransaction(userRef, (currentTickets) => {
+        return (currentTickets || 0) + 1;
+      });
+      console.log("tickets_remaining incremented successfully.");
+    } catch (error) {
+      console.error(`Error completing task ${taskId}:`, error);
+    }
+  }
+
+  /**
    * Get user's number of completed tasks by borough
    * 
    * @param userId 
@@ -133,7 +131,6 @@ export class FirebaseService {
     }
   }
 
-  
   /**
    * Get user's available raffle tickets
    * 
