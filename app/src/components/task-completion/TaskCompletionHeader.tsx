@@ -19,7 +19,6 @@ const HeaderDescription = styled.p`
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: #A8192E;
-  line-height: 15px;
 `
 type TaskCompletionHeaderProps = {
   location: string;
