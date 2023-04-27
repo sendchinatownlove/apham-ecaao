@@ -34,6 +34,10 @@ const UploadButton = styled.button<{ isDisabled: boolean }>`
     font-weight: 700;
 `;
 
+const ErrorMessage = styled.p`
+    color: #DD678A;
+`
+
 type TaskCompletionProps = {
     location: string;
     taskHeader: string;
@@ -44,6 +48,8 @@ export default function TaskCompletion(props: TaskCompletionProps) {
     const { taskHeader, taskDescription } = props;
     const [imageFileSrc, setImageFileSrc] = useState("");
     const [image, setImage] = useState<File | null>(null);
+    const [isLoading, setIsLoading] = useState(false);
+    const [errorHasOccurred, setErrorHasOccurred] = useState(false);
     const [isPopupActive, setIsPopupActive] = useState(false);
     const hasImageBeenUploaded = imageFileSrc !== "";
     const { id } = useParams<any>();
@@ -68,6 +74,7 @@ export default function TaskCompletion(props: TaskCompletionProps) {
          */
 
         try {
+            setIsLoading(true);
             const ext = image?.type.split("/")[1];
             const contentType = image?.type;
             //TODO add actual user ID and Task ID
@@ -79,7 +86,7 @@ export default function TaskCompletion(props: TaskCompletionProps) {
             ).data.url;
 
             if (!signedUrl) {
-              throw new Error("Empty signed URL");
+                throw new Error("Empty signed URL");
             }
 
             console.log(signedUrl);
@@ -93,11 +100,14 @@ export default function TaskCompletion(props: TaskCompletionProps) {
             console.log("success?");
             console.log(result);
             {
+                setErrorHasOccurred(false);
                 setIsPopupActive(true);
+                setIsLoading(false);
             }
         } catch (error) {
-          console.error(error);
-          // TODO What do we do if we find an error?
+            console.error(error);
+            // TODO What do we do if we find an error?
+            setErrorHasOccurred(true);
         }
     };
 
@@ -111,6 +121,8 @@ export default function TaskCompletion(props: TaskCompletionProps) {
                 />
                 <UploadWrapper>
                     <TaskUpload imageFileSrc={imageFileSrc} setImageFileSrc={setImageFileSrc} setImage={setImage} />
+                    {errorHasOccurred &&
+                        <ErrorMessage>{' Sorry! We had trouble uploading that image. Try again?'}</ErrorMessage>}
                     <UploadButton
                         disabled={!hasImageBeenUploaded}
                         isDisabled={!hasImageBeenUploaded}
@@ -119,7 +131,7 @@ export default function TaskCompletion(props: TaskCompletionProps) {
                             submitImage();
                         }}
                     >
-                        upload picture
+                        {isLoading ? 'Loading...' : 'Upload Picture'}
                     </UploadButton>
                 </UploadWrapper>
                 <CompletionModal isActive={isPopupActive} setIsActive={setIsPopupActive} />
