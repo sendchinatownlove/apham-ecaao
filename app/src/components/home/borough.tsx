@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { BodyTextMedium, THEME_COLORS } from "../components/theme";
+import { BodyTextMedium, THEME_COLORS } from "../theme";
 
 interface Props {
   borough: String;

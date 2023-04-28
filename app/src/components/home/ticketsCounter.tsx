@@ -1,6 +1,6 @@
 
 import { useNavigate } from "react-router-dom";
-import { LabelMedium, THEME_COLORS } from "../components/theme";
+import { LabelMedium, THEME_COLORS } from "../theme";
 import styled from "styled-components";
 
 const TicketsCounterContainer = styled.div`

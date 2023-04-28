@@ -1,6 +1,6 @@
 
-import BoroughButton from '../home/borough';
-import TicketsCounter from '../home/ticketsCounter';
+import BoroughButton from '../components/home/borough';
+import TicketsCounter from '../components/home/ticketsCounter';
 import { BodyTextMedium, PageContainer } from "../components/theme";
 import styled from "styled-components";
 import HomeButton from "../components/header-buttons/homeButton";
