@@ -1,28 +1,20 @@
 
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { User } from 'firebase/auth';
 
 import { FirebaseService } from '../Api';
-import BoroughButton from './borough';
-import TicketsCounter from './ticketsCounter';
-import { BodyTextMedium } from "../components/theme";
+import BoroughButton from '../components/home/borough';
+import TicketsCounter from '../components/home/ticketsCounter';
+import { BodyTextMedium, PageContainer } from "../components/theme";
 import styled from "styled-components";
 import HomeButton from "../components/header-buttons/homeButton";
 import Footer from "../components/shared/footer";
 
-const HomeContainer = styled.div`
+const HomeContainer = styled(PageContainer)`
   display: flex;
   flex-direction: column;
-  background-color: rgba(255, 255, 255, 0.3);
-  width: 98vw;
-  text-align: center;
-  height: 110vh;
-  margin-top: 30px;
-  max-width: 1200px;
   gap: 20px;
-  border-top-left-radius: 36px;
-  border-top-right-radius: 36px;
-
+  padding: 0 20px;
 `;
 
 const Instructions = styled.div`
@@ -30,7 +22,6 @@ const Instructions = styled.div`
   flex-direction: column;
   gap: 10px;
   text-align: left;
-  width: 88vw;
   margin: 0 auto;
 `;
 
@@ -49,11 +40,16 @@ interface Props {
   user: User,
 }
 
+const ticketsData = {
+  ticketsEntered: 12,
+  ticketsAvailable: 2,
+}
+
 function Home(props: Props) {
   const { user } = props;
   const firebaseService = new FirebaseService();
-  const [availableTix, setAvailableTix] = useState<number>(0);
-  const [enteredRaffleTix, setEnteredRaffleTix] = useState<number>(0);
+  const [ticketsAvailable, setTTcketsAvailable] = useState<number>(0);
+  const [ticketsEntered, setTicketsEntered] = useState<number>(0);
   const [numCompletedMHTNTasks, setNumCompletedMHTNTasks] = useState<number>(0);
   const [numCompletedBKLYNTasks, setNumCompletedBKLYNTasks] = useState<number>(0);
   const [numCompletedQNSTasks, setNumCompletedQNSTasks] = useState<number>(0);
@@ -77,14 +73,14 @@ function Home(props: Props) {
   const fetchAvailableRaffleTickets = async () => {
     const fetchedAvailRaffleTix = await firebaseService.getAvailableRaffleTickets(user.uid);
     if (fetchedAvailRaffleTix !== null) {
-      setAvailableTix(fetchedAvailRaffleTix);
+      setTTcketsAvailable(fetchedAvailRaffleTix);
     }
   };
 
   const fetchEnteredRaffleTickets = async () => {
     const fetchedEnteredRaffleTix = await firebaseService.getEnteredRaffleTickets(user.uid);
     if (fetchedEnteredRaffleTix !== null) {
-      setEnteredRaffleTix(fetchedEnteredRaffleTix);
+      setTicketsEntered(fetchedEnteredRaffleTix);
     }
   };
 
@@ -98,6 +94,11 @@ function Home(props: Props) {
       fetchEnteredRaffleTickets();
     }
   })
+
+  const ticketsData = {
+    ticketsAvailable,
+    ticketsEntered,
+  }
 
   return (
     <HomeContainer>
@@ -121,7 +122,7 @@ function Home(props: Props) {
         <BoroughButton borough="Queens" totalTasks={33} completedTasks={numCompletedQNSTasks}/>
         <BoroughButton borough="Brooklyn" totalTasks={33} completedTasks={numCompletedBKLYNTasks}/>
       </Boroughs>
-      <TicketsCounter availTix={availableTix} enteredTix={enteredRaffleTix}/>
+      <TicketsCounter ticketsData={ticketsData}/>
       <Footer/>
     </HomeContainer>
   );

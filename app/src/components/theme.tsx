@@ -3,6 +3,9 @@ import styled from "styled-components";
 export const THEME_COLORS = {
   "RED": "#A8192E",
   "GOLD": "#F8BA17",
+  "WHITE": "#FFFFFF",
+  "BLACK": "#0000000",
+  "PINK": "#FFEBEB",
 };
 
 interface BodyTextProps {
@@ -25,7 +28,41 @@ export const LabelMedium = styled.label`
   font-weight: 700;
   font-size: 14px;
   line-height: 19px;
-  letter: 15%;
+  letter-spacing: 0.15em;
   color: ${(props: BodyTextProps) => props.color ? props.color : "#FFFFF"};
   ${(props: BodyTextProps) => props.upperCase && "text-transform: uppercase"}; 
 `;
+
+export const PageContainer = styled.div`
+  position: relative;
+  background-color: rgba(255, 255, 255, 0.3);
+  width: 98vw;
+  text-align: center;
+  height: calc(100vh - 30px);
+  margin: 0 auto;
+  margin-top: 30px;
+  max-width: 1200px;
+  border-top-left-radius: 36px;
+  border-top-right-radius: 36px;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  overflow-y: hidden;
+`;
+
+export const PrimaryButton = styled.button`
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: bold;
+  background: ${THEME_COLORS.RED};
+  border-radius: 40px;
+  width: 100%;
+  height: 40px;
+`
+export const SecondaryButton = styled(PrimaryButton)`
+  font-size: 14px;
+  background: ${THEME_COLORS.BLACK};
+  border-radius: 40px;
+  width: 50%;
+  height: 45px;
+`

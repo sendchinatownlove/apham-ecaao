@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { BodyTextMedium, THEME_COLORS } from "../components/theme";
+import { BodyTextMedium, THEME_COLORS } from "../theme";
 
 interface Props {
   borough: String;
@@ -15,7 +15,6 @@ const Button = styled.button`
   border-radius: 39px;
   padding: 20px 19px;
   background-color: white;
-  margin: 0 1rem;
 `;
 
 function BoroughButton(props: Props) {
