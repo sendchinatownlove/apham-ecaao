@@ -5,7 +5,7 @@ import { User } from 'firebase/auth';
 import { FirebaseService } from '../Api';
 import BoroughButton from './borough';
 import TicketsCounter from './ticketsCounter';
-import { BodyTextMedium } from "../components/theme";
+import { BodyTextMedium, PageContainer } from "../components/theme";
 import styled from "styled-components";
 import HomeButton from "../components/header-buttons/homeButton";
 import Footer from "../components/shared/footer";
