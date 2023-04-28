@@ -217,29 +217,34 @@ export type Prize = {
 
 export class AirTableService {
   async getTasks(borough?: string): Promise<Task[]> {
-    const rawData = await getAirTableData(TASK_TABLE_NAME);
     const processedData: Task[] = []
+    try {
+      const rawData = await getAirTableData(TASK_TABLE_NAME);
 
-    rawData.forEach((row: any) => {
-      const rowFields = row.fields;
-      const task: Task = {
-        id: row['id'],
-        title: rowFields['Task Title'],
-        description: rowFields['Task Description'],
-        borough: rowFields['Borough'],
-        index: rowFields['Index']
-      }
-      if ((borough != undefined && borough === rowFields['Borough']) || borough === undefined) {
-        processedData.push(task);
-      }
-    });
+      rawData.forEach((row: any) => {
+        const rowFields = row.fields;
+        const task: Task = {
+          id: row['id'],
+          title: rowFields['Task Title'],
+          description: rowFields['Task Description'],
+          borough: rowFields['Borough'],
+          index: rowFields['Index']
+        }
+        if ((borough != undefined && borough === rowFields['Borough']) || borough === undefined) {
+          processedData.push(task);
+        }
+      });
+    } catch (error) {
+      console.log(`Error getting Tasks from Airtable: ${error}`);
+    }
 
     return processedData;
   };
 
   async getPrizes(): Promise<Prize[]> {
+    const processedData: Prize[] = []
+    try {
       const rawData = await getAirTableData(PRIZE_TABLE_NAME);
-      const processedData: Prize[] = []
 
     rawData.forEach((row: any) => {
       const rowFields = row.fields;
@@ -256,6 +261,10 @@ export class AirTableService {
         processedData.push(prize);
       }
     );
+    } catch (error) {
+      console.log(`Error getting Prizes from Airtable: ${error}`);
+    }
+
 
     return processedData;
   }
