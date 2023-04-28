@@ -48,8 +48,8 @@ const ticketsData = {
 function Home(props: Props) {
   const { user } = props;
   const firebaseService = new FirebaseService();
-  const [availableTix, setAvailableTix] = useState<number>(0);
-  const [enteredRaffleTix, setEnteredRaffleTix] = useState<number>(0);
+  const [ticketsAvailable, setTTcketsAvailable] = useState<number>(0);
+  const [ticketsEntered, setTicketsEntered] = useState<number>(0);
   const [numCompletedMHTNTasks, setNumCompletedMHTNTasks] = useState<number>(0);
   const [numCompletedBKLYNTasks, setNumCompletedBKLYNTasks] = useState<number>(0);
   const [numCompletedQNSTasks, setNumCompletedQNSTasks] = useState<number>(0);
@@ -73,14 +73,14 @@ function Home(props: Props) {
   const fetchAvailableRaffleTickets = async () => {
     const fetchedAvailRaffleTix = await firebaseService.getAvailableRaffleTickets(user.uid);
     if (fetchedAvailRaffleTix !== null) {
-      setAvailableTix(fetchedAvailRaffleTix);
+      setTTcketsAvailable(fetchedAvailRaffleTix);
     }
   };
 
   const fetchEnteredRaffleTickets = async () => {
     const fetchedEnteredRaffleTix = await firebaseService.getEnteredRaffleTickets(user.uid);
     if (fetchedEnteredRaffleTix !== null) {
-      setEnteredRaffleTix(fetchedEnteredRaffleTix);
+      setTicketsEntered(fetchedEnteredRaffleTix);
     }
   };
 
@@ -94,6 +94,11 @@ function Home(props: Props) {
       fetchEnteredRaffleTickets();
     }
   })
+
+  const ticketsData = {
+    ticketsAvailable,
+    ticketsEntered,
+  }
 
   return (
     <HomeContainer>
