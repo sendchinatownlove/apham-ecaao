@@ -39,10 +39,10 @@ export default function BackButton(props: TaskListBackButtonProps) {
 
   return (
     <StyledBackButton onClick={onClick} >
-      <GooglyEye/>
-      <BackButtonText>
-        BACK
-      </BackButtonText>
+              <GooglyEye/>
+              <BackButtonText>
+                BACK
+              </BackButtonText>
     </StyledBackButton>
     )
 }
