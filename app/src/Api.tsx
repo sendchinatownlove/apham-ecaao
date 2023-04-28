@@ -49,7 +49,7 @@ export class FirebaseService {
       const userId = user.uid
       const snapshot = await get(ref(this.db, `users/${userId}`));
       // user is not initialized yet (firebase on login default sets a UID but no other data)
-      if (snapshot === null || snapshot.val().email === undefined) {
+      if (snapshot.val()?.email === undefined) {
         await this.registerUser(user);
         return null;
       } 
@@ -168,7 +168,7 @@ export class FirebaseService {
       }
 
       try {
-        const rafflesEntered = (await get(ref(this.db, `users/${userId}/raffles_entered`))).val();
+        const rafflesEntered = (await get(ref(this.db, `users/${userId}/raffles_entered`))).val() ?? {};
         const totalTicketsEntered = Object.values<Raffle>(rafflesEntered).reduce((total, raffle) => total + raffle.entries, 0)
         return totalTicketsEntered;
       } catch (error) {
