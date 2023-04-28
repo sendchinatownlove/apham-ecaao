@@ -3,7 +3,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import {AirTableService, FirebaseService, Prize, Task} from './Api';
 import './App.css';
-import Home from "./pages/Home";
+import Home from "./pages";
 
 import {
   getAuth,
