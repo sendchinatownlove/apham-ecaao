@@ -13,14 +13,15 @@ interface BodyTextProps {
   color?: string,
   upperCase?: boolean,
   size?: string,
+  letterSpacing?: string,
 }
 
 export const BodyTextMedium = styled.span`
   font-weight: ${(props: BodyTextProps) => props.bold ? "700" : "400"};
   color: ${(props: BodyTextProps) => props.color ? props.color : "#FFFFF"};
   font-size: ${(props: BodyTextProps) => props.size ? props.size : "13px"};
+  letter-spacing: ${(props: BodyTextProps) => props.letterSpacing ? props.letterSpacing : "0.055em"};
   line-height: 18px;
-  letter-spacing: 0.055em;
   text-transform: uppercase;
 `;
 
