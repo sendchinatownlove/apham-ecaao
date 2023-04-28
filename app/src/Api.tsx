@@ -13,6 +13,7 @@ import {
 import {
   User,
 } from 'firebase/auth';
+import {getAirTableData, PRIZE_TABLE_NAME, TASK_TABLE_NAME} from "./utils/airtable";
 
 export class FirebaseService {
   private db: Database;
@@ -232,4 +233,80 @@ export class FirebaseService {
    *    - start with entries: 1, or increment the number of entries
    * 
    */
+}
+
+export type Task = {
+  id: string;
+  title: string;
+  description: string;
+  borough: string;
+  index: number;
+}
+
+export type Prize = {
+  id: string;
+  prizeTitle: string;
+  prizeSubtitle: string;
+  description: string;
+  dollarValue: string;
+  ticketValue: number;
+  productLink: string;
+  imageUrl: string;
+}
+
+export class AirTableService {
+  async getTasks(borough?: string): Promise<Task[]> {
+    const processedData: Task[] = []
+    try {
+      const rawData = await getAirTableData(TASK_TABLE_NAME);
+
+      rawData.forEach((row: any) => {
+        const rowFields = row.fields;
+
+        // allows user to filter data by borough if provided to method
+        if ((borough != undefined && borough.toLowerCase() === rowFields['Borough'].toLowerCase()) || borough === undefined) {
+          const task: Task = {
+            id: row['id'],
+            title: rowFields['Task Title'],
+            description: rowFields['Task Description'],
+            borough: rowFields['Borough'],
+            index: rowFields['Index']
+          }
+            processedData.push(task);
+          }
+      });
+    } catch (error) {
+      console.log(`Error getting Tasks from Airtable: ${error}`);
+    }
+
+    return processedData;
+  };
+
+  async getPrizes(): Promise<Prize[]> {
+    const processedData: Prize[] = []
+    try {
+      const rawData = await getAirTableData(PRIZE_TABLE_NAME);
+
+    rawData.forEach((row: any) => {
+      const rowFields = row.fields;
+      const prize: Prize = {
+        id: row['id'],
+        prizeTitle: rowFields['Prize Title (Brand)'],
+        prizeSubtitle: rowFields['Prize Subtitle (Item)'],
+        description: rowFields['Item Description'],
+        dollarValue: rowFields['Item Dollar Value'],
+        ticketValue: rowFields['Item Ticket Value'],
+        productLink: rowFields['Product Link'],
+        imageUrl: rowFields['Image URL']
+      }
+        processedData.push(prize);
+      }
+    );
+    } catch (error) {
+      console.log(`Error getting Prizes from Airtable: ${error}`);
+    }
+
+
+    return processedData;
+  }
 }
