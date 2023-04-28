@@ -197,6 +197,7 @@ export class FirebaseService {
 }
 
 export type Task = {
+  id: string;
   title: string;
   description: string;
   borough: string;
@@ -204,6 +205,7 @@ export type Task = {
 }
 
 export type Prize = {
+  id: string;
   prizeTitle: string;
   prizeSubtitle: string;
   description: string;
@@ -221,6 +223,7 @@ export class AirTableService {
     rawData.forEach((row: any) => {
       const rowFields = row.fields;
       const task: Task = {
+        id: row['id'],
         title: rowFields['Task Title'],
         description: rowFields['Task Description'],
         borough: rowFields['Borough'],
@@ -241,6 +244,7 @@ export class AirTableService {
     rawData.forEach((row: any) => {
       const rowFields = row.fields;
       const prize: Prize = {
+        id: row['id'],
         prizeTitle: rowFields['Prize Title (Brand)'],
         prizeSubtitle: rowFields['Prize Subtitle (Item)'],
         description: rowFields['Item Description'],
