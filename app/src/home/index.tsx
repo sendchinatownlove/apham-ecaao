@@ -81,13 +81,10 @@ function Home(props: Props) {
     }
   };
 
-  // TODO: current returns error
   const fetchEnteredRaffleTickets = async () => {
     const fetchedEnteredRaffleTix = await firebaseService.getEnteredRaffleTickets(user.uid);
-    console.log("entered raffle tickets ", enteredRaffleTix);
-
     if (fetchedEnteredRaffleTix !== null) {
-      setAvailableTix(fetchedEnteredRaffleTix);
+      setEnteredRaffleTix(fetchedEnteredRaffleTix);
     }
   };
 

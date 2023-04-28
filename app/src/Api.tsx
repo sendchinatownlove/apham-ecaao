@@ -139,8 +139,6 @@ export class FirebaseService {
     async getAvailableRaffleTickets(userId: string): Promise<number | null> {
       try {
         const ticketsRemaining = (await get(ref(this.db, `users/${userId}/tickets_remaining`))).val();
-
-        console.log('from db tix remain', ticketsRemaining)
         return ticketsRemaining;
       } catch (error) {
         console.error(`Error getting available raffle tickets for user ${userId}`, error);
@@ -159,8 +157,7 @@ export class FirebaseService {
       }
 
       try {
-        const rafflesEntered = (await get(ref(this.db, `users/${userId}/raffles_entered`))).val();
-        console.log('from db rafflesEntered', rafflesEntered)
+        const rafflesEntered = (await get(ref(this.db, `users/${userId}/raffles_entered`))).val() ?? {};
         const totalTicketsEntered = Object.values<Raffle>(rafflesEntered).reduce((total, raffle) => total + raffle.entries, 0)
         return totalTicketsEntered;
       } catch (error) {
