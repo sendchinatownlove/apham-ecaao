@@ -37,7 +37,7 @@ const TicketLabel = styled.span`
 
 const RafflesButton = styled.button`
   background: ${THEME_COLORS.RED};
-  padding: 13px 12px;
+  padding: 0 7px;
   border-radius: 40px;
   width: 50%;
 `;
