@@ -36,6 +36,11 @@ interface Props {
   user: Object,
 }
 
+const ticketsData = {
+  ticketsEntered: 12,
+  ticketsAvailable: 2,
+}
+
 function Home(props: Props) {
 
   return (
@@ -60,7 +65,7 @@ function Home(props: Props) {
         <BoroughButton borough="Queens" totalTasks={33} completedTasks={0}/>
         <BoroughButton borough="Brooklyn" totalTasks={33} completedTasks={0}/>
       </Boroughs>
-      <TicketsCounter/>
+      <TicketsCounter ticketsData={ticketsData}/>
       <Footer/>
     </HomeContainer>
   );

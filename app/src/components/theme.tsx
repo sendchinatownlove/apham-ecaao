@@ -4,7 +4,8 @@ export const THEME_COLORS = {
   "RED": "#A8192E",
   "GOLD": "#F8BA17",
   "WHITE": "#FFFFFF",
-  "BLACK": "#0000000"
+  "BLACK": "#0000000",
+  "PINK": "#FFEBEB",
 };
 
 interface BodyTextProps {

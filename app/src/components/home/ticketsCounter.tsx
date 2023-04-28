@@ -1,12 +1,13 @@
 
 import { useNavigate } from "react-router-dom";
 import { LabelMedium, THEME_COLORS, PrimaryButton } from "../theme";
+import TicketsDataProptype from "../../propTypes/ticketsData";
 import styled from "styled-components";
 
 const TicketsCounterContainer = styled.div`
   display: flex;
   flex-direction: column;
-  background: #FEC050;
+  background: ${(props: TicketsDataProptype) => !props.ticketsAvailable ? THEME_COLORS.PINK : "#FEC050"};
   border-radius: 16px;
   padding: 14.5px 19px;
 `
@@ -14,7 +15,6 @@ const TicketsCounterContainer = styled.div`
 const ContentContainer = styled.div`
   display: flex;
   text-transform: uppercase;
-  margin-top: 9px;
   align-items: center;
   justify-content: space-between;
 `
@@ -36,6 +36,12 @@ const TicketLabel = styled.span`
   font-size: 14px;
   line-height: 19px;
   letter-spacing: 0.15em;
+  text-align: left;
+`;
+
+const TicketSubHeader = styled(TicketLabel)`
+  font-size: 11px;
+  color: ${THEME_COLORS.RED};
 `;
 
 const ButtonContainer = styled.div`
@@ -44,33 +50,43 @@ const ButtonContainer = styled.div`
 
 const Header = styled(LabelMedium)`
   text-align: start;
+  margin-bottom: 9px;
 `;
 
 interface Props {
-  ticketsData?: Object,
+  ticketsData: TicketsDataProptype,
 }
 
 function TicketsCounter(props: Props) {
+  const { ticketsAvailable, ticketsEntered } = props.ticketsData;
   const navigate = useNavigate();
 
   return (
-    <TicketsCounterContainer>
+    <TicketsCounterContainer ticketsAvailable={ticketsAvailable} ticketsEntered={ticketsEntered}>
       <Header upperCase color={THEME_COLORS.RED}>My raffle tickets</Header>
-      <ContentContainer>
-        <TicketData>
-          <div>
-            <NumberValue>10</NumberValue>  <TicketLabel>Available</TicketLabel>
-          </div>
-          <div>
-            <NumberValue>2</NumberValue>  <TicketLabel>Entered</TicketLabel>
-          </div>
-        </TicketData>
-        <ButtonContainer>
-          <PrimaryButton onClick={() => navigate("/raffles")}>
-            Enter Raffles
-          </PrimaryButton>
-        </ButtonContainer>
-      </ContentContainer>
+      {
+        !ticketsAvailable && !ticketsEntered ? (
+          <TicketSubHeader >
+            YOU HAVE NO TICKETS AVAILABLE YET! COMPLETE SOME TASKS TO GET STARTED
+          </TicketSubHeader>
+        ) : (
+          <ContentContainer>
+          <TicketData>
+            <div>
+              <NumberValue>{ticketsAvailable}</NumberValue>  <TicketLabel>Available</TicketLabel>
+            </div>
+            <div>
+              <NumberValue>{ticketsEntered}</NumberValue>  <TicketLabel>Entered</TicketLabel>
+            </div>
+          </TicketData>
+          <ButtonContainer>
+            <PrimaryButton onClick={() => navigate("/raffles")}>
+              { !ticketsAvailable ? "View" : "Enter"} Raffles
+            </PrimaryButton>
+          </ButtonContainer>
+        </ContentContainer>
+        )
+      }
     </TicketsCounterContainer>
   );
 }
