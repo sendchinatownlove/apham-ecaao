@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-import {FirebaseService} from './Api';
+import {AirTableService, FirebaseService, Prize, Task} from './Api';
 import './App.css';
 import Home from "./home";
 
@@ -51,6 +51,9 @@ const firebaseConfig = {
 const firebaseApp = initializeApp(firebaseConfig);
 const auth = getAuth(firebaseApp);
 const firebaseService = new FirebaseService();
+const airtableService = new AirTableService();
+let tasks: Task[];
+let prizes: Prize[];
 
 function App() {
   const [user, setUser] = useState<User | null>(null);
@@ -135,11 +138,12 @@ function App() {
       }
     }
     if (user) {
-      console.log("Entered here")
       // Fetch user data
       const fetchUserData = async () => {
         const userData = await firebaseService.getUser(user);
         console.log("users data: ", userData?.val());
+        tasks = await airtableService.getTasks();
+        prizes = await airtableService.getPrizes();
       };
   
       fetchUserData();
