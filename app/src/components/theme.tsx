@@ -29,3 +29,19 @@ export const LabelMedium = styled.label`
   color: ${(props: BodyTextProps) => props.color ? props.color : "#FFFFF"};
   ${(props: BodyTextProps) => props.upperCase && "text-transform: uppercase"}; 
 `;
+
+export const PageContainer = styled.div`
+  position: relative;
+  background-color: rgba(255, 255, 255, 0.3);
+  width: 98vw;
+  text-align: center;
+  height: calc(100vh - 30px);
+  margin: 0 auto;
+  margin-top: 30px;
+  max-width: 1200px;
+  border-top-left-radius: 36px;
+  border-top-right-radius: 36px;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  overflow-y: hidden;
+`;

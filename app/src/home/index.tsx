@@ -1,24 +1,16 @@
 
 import BoroughButton from './borough';
 import TicketsCounter from './ticketsCounter';
-import { BodyTextMedium } from "../components/theme";
+import { BodyTextMedium, PageContainer } from "../components/theme";
 import styled from "styled-components";
 import HomeButton from "../components/header-buttons/homeButton";
 import Footer from "../components/shared/footer";
 
-const HomeContainer = styled.div`
+const HomeContainer = styled(PageContainer)`
   display: flex;
   flex-direction: column;
-  background-color: rgba(255, 255, 255, 0.3);
-  width: 98vw;
-  text-align: center;
-  height: 110vh;
-  margin-top: 30px;
-  max-width: 1200px;
   gap: 20px;
-  border-top-left-radius: 36px;
-  border-top-right-radius: 36px;
-
+  padding: 0 20px;
 `;
 
 const Instructions = styled.div`
@@ -26,7 +18,6 @@ const Instructions = styled.div`
   flex-direction: column;
   gap: 10px;
   text-align: left;
-  width: 88vw;
   margin: 0 auto;
 `;
 

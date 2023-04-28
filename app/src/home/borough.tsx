@@ -15,7 +15,6 @@ const Button = styled.button`
   border-radius: 39px;
   padding: 20px 19px;
   background-color: white;
-  margin: 0 1rem;
 `;
 
 function BoroughButton(props: Props) {
