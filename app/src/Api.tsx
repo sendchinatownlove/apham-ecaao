@@ -13,6 +13,7 @@ import {
 import {
   User,
 } from 'firebase/auth';
+import {getAirTableData, PRIZE_TABLE_NAME, TASK_TABLE_NAME} from "./utils/airtable";
 
 export class FirebaseService {
   private db: Database;
@@ -166,8 +167,6 @@ export class FirebaseService {
       }
     }
 
-
-
   /**
    * Functions we need to write:
    * 
@@ -195,4 +194,65 @@ export class FirebaseService {
    *    - start with entries: 1, or increment the number of entries
    * 
    */
+}
+
+export type Task = {
+  title: string;
+  description: string;
+  borough: string;
+  index: number;
+}
+
+export type Prize = {
+  prizeTitle: string;
+  prizeSubtitle: string;
+  description: string;
+  dollarValue: string;
+  ticketValue: number;
+  productLink: string;
+  imageUrl: string;
+}
+
+export class AirTableService {
+  async getTasks(borough?: string): Promise<Task[]> {
+    const rawData = await getAirTableData(TASK_TABLE_NAME);
+    const processedData: Task[] = []
+
+    rawData.forEach((row: any) => {
+      const rowFields = row.fields;
+      const task: Task = {
+        title: rowFields['Task Title'],
+        description: rowFields['Task Description'],
+        borough: rowFields['Borough'],
+        index: rowFields['Index']
+      }
+      if ((borough != undefined && borough === rowFields['Borough']) || borough === undefined) {
+        processedData.push(task);
+      }
+    });
+
+    return processedData;
+  };
+
+  async getPrizes(): Promise<Prize[]> {
+      const rawData = await getAirTableData(PRIZE_TABLE_NAME);
+      const processedData: Prize[] = []
+
+    rawData.forEach((row: any) => {
+      const rowFields = row.fields;
+      const prize: Prize = {
+        prizeTitle: rowFields['Prize Title (Brand)'],
+        prizeSubtitle: rowFields['Prize Subtitle (Item)'],
+        description: rowFields['Item Description'],
+        dollarValue: rowFields['Item Dollar Value'],
+        ticketValue: rowFields['Item Ticket Value'],
+        productLink: rowFields['Product Link'],
+        imageUrl: rowFields['Image URL']
+      }
+        processedData.push(prize);
+      }
+    );
+
+    return processedData;
+  }
 }
