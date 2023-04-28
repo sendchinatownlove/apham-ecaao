@@ -223,16 +223,18 @@ export class AirTableService {
 
       rawData.forEach((row: any) => {
         const rowFields = row.fields;
-        const task: Task = {
-          id: row['id'],
-          title: rowFields['Task Title'],
-          description: rowFields['Task Description'],
-          borough: rowFields['Borough'],
-          index: rowFields['Index']
-        }
-        if ((borough != undefined && borough === rowFields['Borough']) || borough === undefined) {
-          processedData.push(task);
-        }
+
+        // allows user to filter data by borough if provided to method
+        if ((borough != undefined && borough.toLowerCase() === rowFields['Borough'].toLowerCase()) || borough === undefined) {
+          const task: Task = {
+            id: row['id'],
+            title: rowFields['Task Title'],
+            description: rowFields['Task Description'],
+            borough: rowFields['Borough'],
+            index: rowFields['Index']
+          }
+            processedData.push(task);
+          }
       });
     } catch (error) {
       console.log(`Error getting Tasks from Airtable: ${error}`);
