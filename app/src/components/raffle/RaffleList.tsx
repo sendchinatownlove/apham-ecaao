@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 const RaffleListContainer = styled.div`
     max-height: 100vh;
@@ -127,8 +129,28 @@ function RafflePrize(props: RafflePrizeData) {
     )
 }
 
-export default function RaffleList(props: RaffleListProps) {
-    const { prizeData } = props;
+export default function RaffleList() {
+    const [prizeData, setPrizeData] = useState<any[]>([]);
+
+    useEffect(() => {
+        const fetchPrizeData = async() => {
+            try {
+                const data = await axios.get('https://us-central1-scl-scavengerhunt.cloudfunctions.net/airtable_proxy?table=apahm23_prizes');
+                const formattedPrizeData = data.data.map((prize: any) => {
+                    return {
+                        id: prize.id,
+                        ...prize.fields
+                    }
+                });
+                setPrizeData(formattedPrizeData);
+                console.log(formattedPrizeData);
+            } catch (error) {
+                console.log(`There was a problem with retrieving prize data: ${error}`);
+            }
+        }
+
+        fetchPrizeData();
+    }, []);
 
     return (
         <>
@@ -140,8 +162,8 @@ export default function RaffleList(props: RaffleListProps) {
                 <PageDescription>
                     <span>For every completed activity, you'll earn one (1) raffle ticket. Each giveaway prize is worth a certain number of raffle tickets for one (1) raffle entry. Once you have enough tickets, enter them into the giveaway prize of your choice!</span>
                 </PageDescription>
-                {prizeData.map((prize, index) => {
-                    return <RafflePrize key={index} title={prize.title} description={prize.description} longDescription={prize.longDescription} image={prize.image} ticketsRequired={prize.ticketsRequired}></RafflePrize>
+                {prizeData.map((prize) => {
+                    return <RafflePrize key={prize.id} title={prize["Prize Title (Brand)"]} description={prize["Prize Subtitle (Item)"]} longDescription={prize["Item Description"]} image={prize["Image URL"]} ticketsRequired={prize["Item Ticket Value"]}></RafflePrize>
                 })}
             </RaffleListContainer>
         </>
