@@ -160,7 +160,6 @@ function App() {
                 const userData = await firebaseService.getUser(user);
                 console.log("users data: ", userData?.val());
                 setAllTasks(await getAllTasks());
-                console.log(allTasks);
                 setPrizes(await airtableService.getPrizes());
             };
 

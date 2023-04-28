@@ -261,7 +261,6 @@ export class AirTableService {
     const processedData: Task[] = []
     try {
       const rawData = await getAirTableData(TASK_TABLE_NAME);
-      console.log(rawData);
 
       rawData.forEach((row: any) => {
         const rowFields = row.fields;
@@ -279,15 +278,13 @@ export class AirTableService {
           }
       });
     } catch (error) {
-      console.log(`Error getting Tasks from Airtable: ${error}`);
+      console.error(`Error getting Tasks from Airtable: ${error}`);
     }
 
-    console.log(processedData);
     return processedData;
   };
 
   convertTaskListToTaskListData(tasks: Task[], location: string): TaskListData {
-    console.log("here", tasks);
     let result: TaskListData = {
       location: location,
       activities: []
@@ -305,7 +302,6 @@ export class AirTableService {
         })
       });
     }
-    console.log(result);
     return result;
   }
 
@@ -330,7 +326,7 @@ export class AirTableService {
       }
     );
     } catch (error) {
-      console.log(`Error getting Prizes from Airtable: ${error}`);
+      console.error(`Error getting Prizes from Airtable: ${error}`);
     }
 
 
