@@ -3,8 +3,8 @@ import { useEffect, useState } from 'react';
 import { User } from 'firebase/auth';
 
 import { FirebaseService } from '../Api';
-import BoroughButton from '../home/borough';
-import TicketsCounter from '../home/ticketsCounter';
+import BoroughButton from '../components/home/borough';
+import TicketsCounter from '../components/home/ticketsCounter';
 import { BodyTextMedium, PageContainer } from "../components/theme";
 import styled from "styled-components";
 import HomeButton from "../components/header-buttons/homeButton";
@@ -117,11 +117,7 @@ function Home(props: Props) {
         <BoroughButton borough="Queens" totalTasks={33} completedTasks={numCompletedQNSTasks}/>
         <BoroughButton borough="Brooklyn" totalTasks={33} completedTasks={numCompletedBKLYNTasks}/>
       </Boroughs>
-<<<<<<< HEAD:app/src/pages/Home.tsx
       <TicketsCounter ticketsData={ticketsData}/>
-=======
-      <TicketsCounter availTix={availableTix} enteredTix={enteredRaffleTix}/>
->>>>>>> 55f7b63 (SCL-25: Homepage - Link user data for tasks and raffle tickets (#30)):app/src/home/index.tsx
       <Footer/>
     </HomeContainer>
   );
