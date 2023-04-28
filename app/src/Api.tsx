@@ -56,7 +56,7 @@ export class FirebaseService {
       return snapshot;
     } catch (error) {
       console.error("Error getting user data:", error);
-        return null;
+      return null;
     }
   }
 
