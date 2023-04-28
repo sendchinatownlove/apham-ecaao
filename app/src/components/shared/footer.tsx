@@ -50,10 +50,10 @@ function LayoutFooter(props: LayoutFooterProps) {
       <LogoWrapper background={background}>
         <img alt="logo" src={Logo} />
       </LogoWrapper>
-      <BodyTextMedium color={color} size="12px" letterSpacing="0.15em" bold>
+      <BodyTextMedium color={color} size={"12px"} bold>
         READ ABOUT THIS EVENT
       </BodyTextMedium>
-      <BodyTextMedium color={color} size="12px" letterSpacing="0.15em" bold>
+      <BodyTextMedium color={color} size={"12px"} bold>
         @SENDCHINATOWNLOVE
       </BodyTextMedium>
     </Container>
