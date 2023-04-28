@@ -3,15 +3,17 @@ import styled from "styled-components";
 const Button = styled.button`
   display: flex;
   align-items: center;
-  min-height: 50px;
+  min-height: 65px;
   padding-top: 9px;
   padding-left: 10px;
   background-color: transparent;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
 
   &:hover {
-      background-color: transparent;
-      border-color: transparent;
-    }
+    background-color: transparent;
+    border-color: transparent;
+  }
 
   :focus {
     outline: none;
