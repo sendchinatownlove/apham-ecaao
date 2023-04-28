@@ -1,4 +1,8 @@
 
+import React, { useEffect, useState } from 'react';
+import { User } from 'firebase/auth';
+
+import { FirebaseService } from '../Api';
 import BoroughButton from './borough';
 import TicketsCounter from './ticketsCounter';
 import { BodyTextMedium } from "../components/theme";
@@ -42,10 +46,58 @@ const Boroughs = styled.div`
 `;
 
 interface Props {
-  user: Object,
+  user: User,
 }
 
 function Home(props: Props) {
+  const { user } = props;
+  const firebaseService = new FirebaseService();
+  const [availableTix, setAvailableTix] = useState<number>(0);
+  const [enteredRaffleTix, setEnteredRaffleTix] = useState<number>(0);
+  const [numCompletedMHTNTasks, setNumCompletedMHTNTasks] = useState<number>(0);
+  const [numCompletedBKLYNTasks, setNumCompletedBKLYNTasks] = useState<number>(0);
+  const [numCompletedQNSTasks, setNumCompletedQNSTasks] = useState<number>(0);
+
+  const fetchCompletedTasksByBorough = async (borough: string) => {
+    const numCompletedTasks = await firebaseService.getCompletedTasksByBorough(user.uid, borough);
+    if (numCompletedTasks !== null) {
+      switch (borough) {
+        case 'Manhattan':
+          setNumCompletedMHTNTasks(numCompletedTasks);
+          break;
+        case 'Brooklyn':
+          setNumCompletedBKLYNTasks(numCompletedTasks);
+          break;
+        case 'Queens':
+          setNumCompletedQNSTasks(numCompletedTasks);
+      }
+    }
+  };
+
+  const fetchAvailableRaffleTickets = async () => {
+    const fetchedAvailRaffleTix = await firebaseService.getAvailableRaffleTickets(user.uid);
+    if (fetchedAvailRaffleTix !== null) {
+      setAvailableTix(fetchedAvailRaffleTix);
+    }
+  };
+
+  const fetchEnteredRaffleTickets = async () => {
+    const fetchedEnteredRaffleTix = await firebaseService.getEnteredRaffleTickets(user.uid);
+    if (fetchedEnteredRaffleTix !== null) {
+      setEnteredRaffleTix(fetchedEnteredRaffleTix);
+    }
+  };
+
+
+  useEffect(() => {
+    if (user) {
+      fetchCompletedTasksByBorough('Manhattan');
+      fetchCompletedTasksByBorough('Brooklyn');
+      fetchCompletedTasksByBorough('Queens');
+      fetchAvailableRaffleTickets();
+      fetchEnteredRaffleTickets();
+    }
+  })
 
   return (
     <HomeContainer>
@@ -65,11 +117,11 @@ function Home(props: Props) {
         </NumberLine>
       </Instructions>
       <Boroughs>
-        <BoroughButton borough="Manhattan" totalTasks={33} completedTasks={0}/>
-        <BoroughButton borough="Queens" totalTasks={33} completedTasks={0}/>
-        <BoroughButton borough="Brooklyn" totalTasks={33} completedTasks={0}/>
+        <BoroughButton borough="Manhattan" totalTasks={33} completedTasks={numCompletedMHTNTasks}/>
+        <BoroughButton borough="Queens" totalTasks={33} completedTasks={numCompletedQNSTasks}/>
+        <BoroughButton borough="Brooklyn" totalTasks={33} completedTasks={numCompletedBKLYNTasks}/>
       </Boroughs>
-      <TicketsCounter/>
+      <TicketsCounter availTix={availableTix} enteredTix={enteredRaffleTix}/>
       <Footer/>
     </HomeContainer>
   );
