@@ -1,33 +1,36 @@
 import styled from "styled-components";
 
 const Button = styled.button`
-  display: flex;
-  align-items: center;
-  min-height: 65px;
-  padding-top: 9px;
-  padding-left: 10px;
-  background-color: transparent;
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
+display: flex;
+align-items: center;
+padding-top: 9px;
+padding-left: 10px;
+background-color: transparent;
+height: 64px;
+letter-spacing: 0.15em;
 
-  &:hover {
+&:hover {
     background-color: transparent;
     border-color: transparent;
   }
 
-  :focus {
-    outline: none;
-  }
+:focus {
+  outline: none;
+}
 `
 
 const ClosedEye = styled.img`
   content: url("/closed-eye.png");
-  width: 23px;
-  margin-right: 11px;
+  max-width: 25px;
+  margin: auto 10px auto 5px;
 `
 
 const ButtonText = styled.text`
-  font-weight: 700;
+  letter-spacing: 0.15em;
+  font-weight: bold;
+  color: rgb(255, 255, 255);
+  padding-top: 5.5px;
+  padding-bottom: 10px;
 `
 
 type CancelButtonProps = {
@@ -41,7 +44,7 @@ export default function CancelButton(props: CancelButtonProps) {
       <Button onClick={onClick}>
         <ClosedEye/>
         <ButtonText>
-          Cancel
+          CANCEL
         </ButtonText>
       </Button>
     )

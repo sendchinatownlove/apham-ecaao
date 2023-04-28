@@ -1,28 +1,30 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import CancelButton from "../CancelButton";
 import RaffleHeader from "./RaffleHeader";
 import { RafflePrizeData } from "./RaffleList";
 import RaffleEntryItem from "./RaffleEntryItem";
+import CancelButton from "../../components/header-buttons/cancelButton";
 
 
 const RaffleContainer = styled.div`
   background-color: rgba(255,255,255,0.3);
   border-radius: 25px;
-  min-height: 480px;
-  max-width: 350px;
   text-align: center;
-  margin-top: 20px;
+  width: 98vw;
+  height: auto;
+  max-width: 1200px;
+  margin-top: 30px;
   `
 
   const RaffleEntryContainer = styled.div`
-  max-height: 450px;
+  height: 98vh;
   max-width: 300px
   overflow: scroll;
   background-color: #FFF1F1;
   color: #000000;
   border-radius: 0px 0px 25px 25px;
-  padding: 1.5vh 1.5vw;
+  padding: 2.5vh 1.5rem;
+  border-top: 1px solid #A8192E;
 `
 
 const EntryButtonContainer = styled.div`
@@ -37,10 +39,13 @@ const EntryButton = styled.button<{ isDisabled: boolean }>`
     color: white;
     font-weight: 700;
     margin-top: 30px;
+    font-size: 14px;
+    line-height: 19.07px;
+    padding: 0.6em 1.2em;
 `
 
 const NoticeText = styled.div`
-    font-size: 10px;
+    font-size: 11px;
     margin: 15px 0px
 `
 // TODO add navigation logic
