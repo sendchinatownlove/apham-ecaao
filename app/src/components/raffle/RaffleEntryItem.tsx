@@ -100,7 +100,7 @@ export default function RaffleEntryItem(props: RafflePrizeData) {
         </EntryHeaderText>
         
         <PrizeImage>
-            <img src={image} style={{ width: "100%" }} />
+            <img src={image} style={{ maxWidth: "200px", maxHeight: "300px" }} />
         </PrizeImage>
 
         <PrizeCaption>

@@ -101,6 +101,7 @@ export type RafflePrizeData = {
     ticketsRequired: number;
     // TODO show entries in the Raffle List items
     entries?: number;
+    id?: string;
 }
 
 type RaffleListProps = {
@@ -122,7 +123,7 @@ function RafflePrize(props: RafflePrizeData) {
                     <PrizeDetails>{description.toUpperCase()}</PrizeDetails>
                 </PrizeCaption>
             </PrizeDescriptionContainer>
-            <img src={image} />
+            <img src={image} style={{ maxWidth: "85%", maxHeight: "300px" }}/>
         </RafflePrizeContainer>
     )
 }

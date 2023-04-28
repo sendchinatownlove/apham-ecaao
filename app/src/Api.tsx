@@ -14,6 +14,8 @@ import {
   User,
 } from 'firebase/auth';
 import {getAirTableData, PRIZE_TABLE_NAME, TASK_TABLE_NAME} from "./utils/airtable";
+import { TaskListData } from "./components/tasks/TaskList";
+import { RafflePrizeData } from "./components/raffle/RaffleList";
 
 export class FirebaseService {
   private db: Database;
@@ -276,11 +278,32 @@ export class AirTableService {
           }
       });
     } catch (error) {
-      console.log(`Error getting Tasks from Airtable: ${error}`);
+      console.error(`Error getting Tasks from Airtable: ${error}`);
     }
 
     return processedData;
   };
+
+  convertTaskListToTaskListData(tasks: Task[], location: string): TaskListData {
+    let result: TaskListData = {
+      location: location,
+      activities: []
+    }
+    if (tasks) {
+      tasks.forEach(t => {
+        result.activities.push({
+          activity: {
+            title: t.title,
+            description: t.description,
+            index: t.index,
+            id: t.id,
+            completed: false,
+          }
+        })
+      });
+    }
+    return result;
+  }
 
   async getPrizes(): Promise<Prize[]> {
     const processedData: Prize[] = []
@@ -303,10 +326,29 @@ export class AirTableService {
       }
     );
     } catch (error) {
-      console.log(`Error getting Prizes from Airtable: ${error}`);
+      console.error(`Error getting Prizes from Airtable: ${error}`);
     }
 
 
     return processedData;
+  }
+
+  convertPrizeListToRafflePrizeData(prizes: Prize[]): RafflePrizeData[] {
+    const result: RafflePrizeData[] = [];
+
+    if (prizes) {
+      prizes.forEach(p => {
+        result.push({
+          title: p.prizeTitle,
+          description: p.description,
+          longDescription: [p.description],
+          ticketsRequired: p.ticketValue,
+          image: p.imageUrl,
+          entries: 0,
+          id: p.id
+        })
+      })
+    }
+    return result;
   }
 }
