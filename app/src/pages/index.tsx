@@ -3,8 +3,8 @@ import { useEffect, useState } from 'react';
 import { User } from 'firebase/auth';
 
 import { FirebaseService } from '../Api';
-import BoroughButton from '../home/borough';
-import TicketsCounter from '../home/ticketsCounter';
+import BoroughButton from '../components/home/borough';
+import TicketsCounter from '../components/home/ticketsCounter';
 import { BodyTextMedium, PageContainer } from "../components/theme";
 import styled from "styled-components";
 import HomeButton from "../components/header-buttons/homeButton";
