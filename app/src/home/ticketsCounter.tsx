@@ -47,10 +47,12 @@ const Header = styled(LabelMedium)`
 `;
 
 interface Props {
-  ticketsData?: Object,
+  availTix: number,
+  enteredTix: number
 }
 
 function TicketsCounter(props: Props) {
+  const { availTix, enteredTix } = props;
   const navigate = useNavigate();
 
   return (
@@ -59,10 +61,10 @@ function TicketsCounter(props: Props) {
       <ContentContainer>
         <TicketData>
           <div>
-            <NumberValue>10</NumberValue>  <TicketLabel>Available</TicketLabel>
+            <NumberValue>{availTix}</NumberValue>  <TicketLabel>Available</TicketLabel>
           </div>
           <div>
-            <NumberValue>2</NumberValue>  <TicketLabel>Entered</TicketLabel>
+            <NumberValue>{enteredTix}</NumberValue>  <TicketLabel>Entered</TicketLabel>
           </div>
         </TicketData>
         <RafflesButton onClick={() => navigate("/raffles")}>

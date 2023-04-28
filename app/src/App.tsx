@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-import {FirebaseService} from './Api';
+import { FirebaseService } from './Api';
 import './App.css';
 import Home from "./home";
 
@@ -24,7 +24,6 @@ import TaskList from './components/tasks/TaskList';
 import { initializeApp } from 'firebase/app';
 import { taskListData } from "./mock-data/task-list-data";
 import { raffleListData } from './mock-data/raffle-list-data';
-import dummyTask from './mock-data/dummyTask.json';
 
 // const FIREBASE_CONFIG = {
 //   apiKey: import.meta.env.VITE_REACT_APP_FIREBASE_API_KEY,
@@ -56,7 +55,7 @@ function App() {
   const [user, setUser] = useState<User | null>(null);
   const [email, setEmail] = useState('');
   const [error, setError] = useState('');
-
+  
   const signInWithGoogle = async () => {
     const provider = new GoogleAuthProvider();
     try {
@@ -95,8 +94,8 @@ function App() {
 
   function HomePage(props: UserProps) {
     const { user } = props
-  return <div>
-    {user ? (
+    return <div>
+      {user ? (
         <Home user={user}/>
       ) : (
         <>
@@ -141,12 +140,12 @@ function App() {
         const userData = await firebaseService.getUser(user);
         console.log("users data: ", userData?.val());
       };
-  
+
       fetchUserData();
 
 
       // This is just test code, and should not really be executed here
-  
+
       // Jess - CompleteTask testing
       /**
        * generate a task
@@ -173,27 +172,27 @@ function App() {
       //   const numberOfEntries = 1;
       //   await firebaseService.addRaffleEntry(user.uid, raffleId, numberOfEntries);
       // };
-  
+
       // addRaffleTicketEntry();
-  
+
       // // Increment the tickets_remaining
       // const incrementTickets = async () => {
       //   const incrementValue = 5;
       //   await firebaseService.incrementTicketsRemaining(user.uid, incrementValue);
       // };
-  
+
       // incrementTickets();
-  
+
       // // Decrement the tickets_remaining
       // const decrementTickets = async () => {
       //   // spending
       //   const decrementValue = 2;
       //   await firebaseService.decrementTicketsRemaining(user.uid, decrementValue);
       // };
-  
+
       // decrementTickets();
 
-  
+
     }
 
     return () => unsubscribe();
@@ -207,7 +206,7 @@ function App() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <HomePage user={user}/>,
+      element: <HomePage user={user} />,
     },
     {
       path: "/login",
@@ -222,44 +221,44 @@ function App() {
     {
       path: "/raffle-entry",
       element: (
-      <RaffleEntry 
-        title = {raffleListData[0].title}
-        description = {raffleListData[2].description}
-        longDescription={raffleListData[0].longDescription}
-        image = {raffleListData[0].image}
-        ticketsRequired = {raffleListData[0].ticketsRequired}
-        entries={raffleListData[2].entries} />
+        <RaffleEntry
+          title={raffleListData[0].title}
+          description={raffleListData[2].description}
+          longDescription={raffleListData[0].longDescription}
+          image={raffleListData[0].image}
+          ticketsRequired={raffleListData[0].ticketsRequired}
+          entries={raffleListData[2].entries} />
       )
 
     },
     {
       path: "/tasks/manhattan",
       element: (
-      <TaskList
-        location={taskListData[0].location}
-        availableTickets={22}
-        activities={taskListData[0].activities}
-      />
+        <TaskList
+          location={taskListData[0].location}
+          availableTickets={22}
+          activities={taskListData[0].activities}
+        />
       )
     },
     {
       path: "/tasks/brooklyn",
       element: (
-      <TaskList
-        location={taskListData[1].location}
-        availableTickets={22}
-        activities={taskListData[1].activities}
-      />
+        <TaskList
+          location={taskListData[1].location}
+          availableTickets={22}
+          activities={taskListData[1].activities}
+        />
       )
     },
     {
       path: "/tasks/queens",
       element: (
-      <TaskList
-        location={taskListData[2].location}
-        availableTickets={22}
-        activities={taskListData[2].activities}
-      />
+        <TaskList
+          location={taskListData[2].location}
+          availableTickets={22}
+          activities={taskListData[2].activities}
+        />
       )
     },
   ]);
@@ -268,7 +267,7 @@ function App() {
     <div className="App">
       <RouterProvider router={router} />
     </div>
-);
+  );
 }
 
 export default App;

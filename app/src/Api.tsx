@@ -48,7 +48,7 @@ export class FirebaseService {
       const userId = user.uid
       const snapshot = await get(ref(this.db, `users/${userId}`));
       // user is not initialized yet (firebase on login default sets a UID but no other data)
-      if (snapshot.val().email === undefined) {
+      if (snapshot.val()?.email === undefined) {
         await this.registerUser(user);
         return null;
       } 
@@ -139,6 +139,8 @@ export class FirebaseService {
     async getAvailableRaffleTickets(userId: string): Promise<number | null> {
       try {
         const ticketsRemaining = (await get(ref(this.db, `users/${userId}/tickets_remaining`))).val();
+
+        console.log('from db tix remain', ticketsRemaining)
         return ticketsRemaining;
       } catch (error) {
         console.error(`Error getting available raffle tickets for user ${userId}`, error);
@@ -158,6 +160,7 @@ export class FirebaseService {
 
       try {
         const rafflesEntered = (await get(ref(this.db, `users/${userId}/raffles_entered`))).val();
+        console.log('from db rafflesEntered', rafflesEntered)
         const totalTicketsEntered = Object.values<Raffle>(rafflesEntered).reduce((total, raffle) => total + raffle.entries, 0)
         return totalTicketsEntered;
       } catch (error) {
