@@ -3,7 +3,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import {FirebaseService} from './Api';
 import './App.css';
-import Home from "./home";
+import Home from "./pages";
 
 import {
   getAuth,
