@@ -14,6 +14,8 @@ import {
   User,
 } from 'firebase/auth';
 import {getAirTableData, PRIZE_TABLE_NAME, TASK_TABLE_NAME} from "./utils/airtable";
+import { TaskListData } from "./components/tasks/TaskList";
+import { RafflePrizeData } from "./components/raffle/RaffleList";
 
 export class FirebaseService {
   private db: Database;
@@ -259,6 +261,7 @@ export class AirTableService {
     const processedData: Task[] = []
     try {
       const rawData = await getAirTableData(TASK_TABLE_NAME);
+      console.log(rawData);
 
       rawData.forEach((row: any) => {
         const rowFields = row.fields;
@@ -279,8 +282,32 @@ export class AirTableService {
       console.log(`Error getting Tasks from Airtable: ${error}`);
     }
 
+    console.log(processedData);
     return processedData;
   };
+
+  convertTaskListToTaskListData(tasks: Task[], location: string): TaskListData {
+    console.log("here", tasks);
+    let result: TaskListData = {
+      location: location,
+      activities: []
+    }
+    if (tasks) {
+      tasks.forEach(t => {
+        result.activities.push({
+          activity: {
+            title: t.title,
+            description: t.description,
+            index: t.index,
+            id: t.id,
+            completed: false,
+          }
+        })
+      });
+    }
+    console.log(result);
+    return result;
+  }
 
   async getPrizes(): Promise<Prize[]> {
     const processedData: Prize[] = []
@@ -308,5 +335,24 @@ export class AirTableService {
 
 
     return processedData;
+  }
+
+  convertPrizeListToRafflePrizeData(prizes: Prize[]): RafflePrizeData[] {
+    const result: RafflePrizeData[] = [];
+
+    if (prizes) {
+      prizes.forEach(p => {
+        result.push({
+          title: p.prizeTitle,
+          description: p.description,
+          longDescription: [p.description],
+          ticketsRequired: p.ticketValue,
+          image: p.imageUrl,
+          entries: 0,
+          id: p.id
+        })
+      })
+    }
+    return result;
   }
 }
