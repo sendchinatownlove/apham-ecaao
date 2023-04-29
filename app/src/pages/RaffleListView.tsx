@@ -1,20 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from 'react';
-import styled from "styled-components";
-import BackButton from "../header-buttons/backButton";
-import RaffleHeader from "./RaffleHeader";
-import RaffleList, { RafflePrizeData } from "./RaffleList";
-import EntryConfirmationModal from "./EntryConfirmationModal";
-
-const RaffleViewContainer = styled.div`
-  background-color: rgba(255,255,255,0.3);
-  border-radius: 25px;
-  text-align: center;
-  width: 98vw;
-  height: auto;
-  max-width: 1200px;
-  margin-top: 30px;
-`
+import BackButton from "../components/header-buttons/backButton";
+import RaffleHeader from "../components/raffle/RaffleHeader";
+import { PageContainer } from "../components/theme";
+import RaffleList, { RafflePrizeData } from "../components/raffle/RaffleList";
+import EntryConfirmationModal from "../components/raffle/EntryConfirmationModal";
 
 type RaffleViewProps = {
     prizeData: RafflePrizeData[];
@@ -28,11 +18,11 @@ export default function RaffleListView(props: RaffleViewProps) {
 
     return (
         <>
-        <RaffleViewContainer>
+        <PageContainer>
             <BackButton onClick={() => {navigate('/', { replace: true })}}/>
             <RaffleHeader enteredTickets={11} availableTickets={6}></RaffleHeader>
             <RaffleList prizeData={prizeData}></RaffleList>
-        </RaffleViewContainer>
+        </PageContainer>
         <EntryConfirmationModal isActive={isPopupActive} setIsActive={setIsPopupActive}/>
         </>
     );
