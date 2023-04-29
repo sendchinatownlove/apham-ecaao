@@ -55,17 +55,17 @@ function Home(props: Props) {
   const [numCompletedQNSTasks, setNumCompletedQNSTasks] = useState<number>(0);
 
   const fetchCompletedTasksByBorough = async (borough: string) => {
-    const numCompletedTasks = await firebaseService.getCompletedTasksByBorough(user.uid, borough);
-    if (numCompletedTasks !== null) {
+    const completedTasks = await firebaseService.getTasksByBorough(user.uid, borough);
+    if (completedTasks.length > 0) {
       switch (borough) {
         case 'Manhattan':
-          setNumCompletedMHTNTasks(numCompletedTasks);
+          setNumCompletedMHTNTasks(completedTasks.length);
           break;
         case 'Brooklyn':
-          setNumCompletedBKLYNTasks(numCompletedTasks);
+          setNumCompletedBKLYNTasks(completedTasks.length);
           break;
         case 'Queens':
-          setNumCompletedQNSTasks(numCompletedTasks);
+          setNumCompletedQNSTasks(completedTasks.length);
       }
     }
   };

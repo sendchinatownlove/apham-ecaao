@@ -1,7 +1,7 @@
 import React from 'react';
 import {useTable} from 'react-table';
 import styled from "styled-components";
-import {ActivityInfo} from "./TaskList";
+import {Task} from "../../Api";
 
 const TaskListTableContainer = styled.div`
   max-height: 100vh;
@@ -18,7 +18,7 @@ const StyledRow = styled.div`
   text-align: left;
 `;
 
-const ActivityRowTitleContainer = styled.div`
+const TaskRowTitleContainer = styled.div`
   font-weight: 700;
   padding-top: 5px;
   padding-bottom: 3px;
@@ -42,25 +42,39 @@ const CheckedCheckbox = styled.div`
   padding-left: 4px;
 `;
 
-const ActivityRowDescription = styled.div`
+const TaskRowDescription = styled.div`
   font-weight: 400;
 `;
 
 type TaskListTableProps = {
-    activities: { activity: ActivityInfo }[],
     onTaskClick: any,
+    tasks: Task[],
+    completedTasks: string[],
 }
 
-function TaskListTable(props: TaskListTableProps) {
-    const {activities, onTaskClick} = props;
+function parseTasks(tasks: Task[]) {
+    if (tasks === undefined) return [];
+    const parsedTasks: { task: Task }[] = [];
 
-    activities.sort((a,b) => a.activity.index - b.activity.index);
+    tasks.forEach((task) => {
+        parsedTasks.push({ task: task})
+    })
+
+    return parsedTasks;
+}
+
+function TaskListTable(props: TaskListTableProps, ) {
+    const {onTaskClick, tasks, completedTasks} = props;
+
+    const parsedTasks = parseTasks(tasks);
+
+    parsedTasks.sort((a,b) => a.task.index - b.task.index);
 
     const columns = React.useMemo(
         () => [
             {
-                Header: 'Activity',
-                accessor: 'activity', // accessor is the "key" in the data
+                Header: 'Task',
+                accessor: 'task', // accessor is the "key" in the data
       },
     ],
     []
@@ -70,7 +84,7 @@ function TaskListTable(props: TaskListTableProps) {
     rows,
     prepareRow,
     // @ts-ignore
-    } = useTable({columns, data: activities})
+    } = useTable({columns, data: parsedTasks})
 
     return (
         <TaskListTableContainer>
@@ -95,18 +109,18 @@ function TaskListTable(props: TaskListTableProps) {
                                         {...cell.getCellProps()}
                                     >
                                         <StyledRow style={{borderTop: borderTop}} onClick={() => onTaskClick(cell.value)}>
-                                            <ActivityRowTitleContainer>
+                                            <TaskRowTitleContainer>
                                                 <span>{cell.value['index']}. {cell.value['title']}</span>
-                                                {cell.value['completed'] && (
+                                                {completedTasks.includes(cell.value['id']) && (
                                                     <CheckedCheckbox/>
                                                   )}
-                                                {!cell.value['completed'] && (
+                                                {!completedTasks.includes(cell.value['id']) && (
                                                     <UncheckedCheckbox/>
                                                 )}
-                        </ActivityRowTitleContainer>
-                        <ActivityRowDescription>
+                        </TaskRowTitleContainer>
+                        <TaskRowDescription>
                                                 {cell.value['description']}
-                        </ActivityRowDescription>
+                        </TaskRowDescription>
                       </StyledRow>
                     </td>
                                 )

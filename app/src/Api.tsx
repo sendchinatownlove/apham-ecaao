@@ -127,20 +127,14 @@ export class FirebaseService {
     }
   }
 
-  /**
-   * Get user's number of completed tasks by borough
-   * 
-   * @param userId 
-   * @param borough 
-   */
-  async getCompletedTasksByBorough(userId: string, borough: string): Promise<number | null> {
+  async getTasksByBorough(userId: string, borough: string): Promise<any[]> {
     try {
-      borough = borough.toLowerCase();
-      const completedTasks = (await get(ref(this.db, `users/${userId}/${borough}_completed_tasks`))).val();
-      return !completedTasks ? 0 : Object.keys(completedTasks).length;
+      const tasks = (await get(ref(this.db, `users/${userId}/${borough.toLowerCase()}_completed_tasks`))).val();
+      if (tasks === null) return [];
+      return tasks;
     } catch (error) {
       console.error(`Error getting ${borough} tasks for user ${userId}`, error);
-      return null;
+      return [];
     }
   }
 

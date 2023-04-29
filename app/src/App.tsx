@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import {AirTableService, FirebaseService, Prize, Task} from './Api';
+import {AirTableService, FirebaseService, Prize} from './Api';
 import './App.css';
 import Home from "./pages/Home";
 
@@ -22,7 +22,6 @@ import RaffleEntry from "./components/raffle/RaffleEntry";
 import TaskList from "./components/tasks/TaskList";
 
 import { initializeApp } from "firebase/app";
-import { taskListData } from "./mock-data/task-list-data";
 import { raffleListData } from "./mock-data/raffle-list-data";
 import { Borough } from "./utils/borough";
 import { all } from "axios";
@@ -253,8 +252,8 @@ function App() {
             element: (
                 <TaskList
                     location={Borough.Manhattan}
+                    userId={user?.uid}
                     availableTickets={22}
-                    activities={airtableService.convertTaskListToTaskListData(allTasks[Borough.Manhattan]!, Borough.Manhattan).activities}
                 />
             ),
         },
@@ -263,8 +262,8 @@ function App() {
             element: (
                 <TaskList
                     location={Borough.Brooklyn}
+                    userId={user?.uid}
                     availableTickets={22}
-                    activities={airtableService.convertTaskListToTaskListData(allTasks[Borough.Brooklyn]!, Borough.Brooklyn).activities}
                 />
             ),
         },
@@ -273,8 +272,8 @@ function App() {
             element: (
                 <TaskList
                     location={Borough.Queens}
+                    userId={user?.uid}
                     availableTickets={22}
-                    activities={airtableService.convertTaskListToTaskListData(allTasks[Borough.Queens]!, Borough.Queens).activities}
                 />
             ),
         },
