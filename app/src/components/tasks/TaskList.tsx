@@ -12,16 +12,6 @@ import TaskListHeader from "./TaskListHeader";
 import {AirTableService, FirebaseService, Task} from "../../Api";
 import { PageContainer } from "../theme";
 
-const TaskListContainer = styled.div`
-  border-radius: 25px;
-  text-align: center;
-  background-color: rgba(255, 255, 255, 0.3);
-  width: 98vw;
-  height: auto;
-  max-width: 1200px;
-  margin-top: 30px;
-`;
-
 export type TaskInfo = {
     title: string;
     description: string;
