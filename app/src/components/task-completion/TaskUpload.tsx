@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const FileInputWrapper = styled.div`
-  margin-top: 0;
+  margin-top: 30px;
   min-height: 280px;
 `
 
@@ -10,8 +10,7 @@ const FileInputLabel = styled.label`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 20px 40px;
-  margin: 20px 0;
+  padding: 40px;
   cursor: pointer;
   color: #DD678A;
   background: rgba(221, 103, 138, 0.2);
@@ -32,7 +31,7 @@ const FileInput = styled.input`
 const UploadIcon = styled.img`
   content: url("/upload.png");
   max-width: 40px;
-  margin: 5px auto;
+  margin: 10px auto;
 `
 
 const UserUploadedImg = styled.img`
@@ -43,10 +42,6 @@ const UserUploadedImg = styled.img`
   object-fit: cover;
 `
 
-const UploadedImgWrapper = styled.div`
-  position: relative;
-`
-
 const ReplaceFileInput = styled.input`
   opacity: 0;
   width: 0.1px;
@@ -54,15 +49,18 @@ const ReplaceFileInput = styled.input`
   position: absolute;
 `
 
-const ReplaceFileInputLabel = styled.label`
+const ReplaceFileInputLabel = styled.label``
+
+const ReplaceTag = styled.div`
   position: absolute;
-  bottom: 10px;
-  right: 2px;
-  padding: 0 10px;
+  bottom: 14px;
+  right: 10px;
+  padding: 4px 12px;
   background: #DD678A;
   border-radius: 25px;
   color: white;
   font-weight: 700;
+  font-size: 14px;
 `
 
 type TaskUploadProps = {
@@ -89,19 +87,19 @@ export default function TaskUpload(props: TaskUploadProps) {
             <FileInput type="file" id="file" onChange={onImageChange} accept="image/*" />
             <FileInputLabel htmlFor="file">
               <UploadIcon />
-              Tap to upload a picture of your completed task
+              Tap to upload a picture of your completed activity
             </FileInputLabel>
+
           </>
         ) :
-          <UploadedImgWrapper>
-            <UserUploadedImg alt="preview image" src={imageFileSrc} />
-            <div>
-              <ReplaceFileInput type="file" id="file" onChange={onImageChange} accept="image/*" />
-              <ReplaceFileInputLabel htmlFor="file">
-                Tap to replace
-              </ReplaceFileInputLabel>
-            </div>
-          </UploadedImgWrapper>}
+          <div>
+            <ReplaceFileInput type="file" id="file" onChange={onImageChange} accept="image/*" />
+            <ReplaceFileInputLabel htmlFor="file">
+              <div style={{ position: 'relative' }}><UserUploadedImg alt="preview image" src={imageFileSrc} />
+                <ReplaceTag>Tap to replace</ReplaceTag>
+              </div>
+            </ReplaceFileInputLabel>
+          </div>}
       </FileInputWrapper>
     </>
   )
