@@ -16,6 +16,7 @@ import {
 import {getAirTableData, PRIZE_TABLE_NAME, TASK_TABLE_NAME} from "./utils/airtable";
 import { TaskListData } from "./components/tasks/TaskList";
 import { RafflePrizeData } from "./components/raffle/RaffleList";
+import { UserData } from "./App";
 
 export class FirebaseService {
   private db: Database;
@@ -243,6 +244,7 @@ export type Task = {
   description: string;
   borough: string;
   index: number;
+  completed?: boolean;
 }
 
 export type Prize = {
@@ -297,7 +299,7 @@ export class AirTableService {
             description: t.description,
             index: t.index,
             id: t.id,
-            completed: false,
+            completed: t.completed || false,
           }
         })
       });
@@ -350,5 +352,15 @@ export class AirTableService {
       })
     }
     return result;
+  }
+
+  
+  addUserStatusToTasks(tasks: Task[], userData: UserData) {
+    for (const taskId in {...userData.brooklyn_completed_tasks, ...userData.queens_completed_tasks, ...userData.manhattan_completed_tasks}) {
+      let foundTask = tasks.find(t => t.id == taskId);
+      if (foundTask){
+        foundTask.completed = true;
+      }
+    }
   }
 }

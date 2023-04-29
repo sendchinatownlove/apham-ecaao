@@ -58,10 +58,21 @@ type TaskTuple = {
   [Borough.Manhattan]?: Task[]
 }
 
+export type UserData = {
+    brooklyn_completed_tasks?: {},
+    manhattan_completed_tasks?: {},
+    queens_completed_tasks?: {},
+    email?: string,
+    raffles_entered?: {},
+    tickets_remaining?: number
+}
+
 function App() {
     const [user, setUser] = useState<User | null>(null);
     const [email, setEmail] = useState("");
     const [error, setError] = useState("");
+
+    const [userData, setUserData] = useState<UserData>({});
 
     const [allTasks, setAllTasks] = useState<TaskTuple>({});
     const [prizes, setPrizes] = useState<Prize[]>([]);
@@ -157,9 +168,15 @@ function App() {
         if (user) {
             // Fetch user data
             const fetchUserData = async () => {
-                const userData = await firebaseService.getUser(user);
-                console.log("users data: ", userData?.val());
-                setAllTasks(await getAllTasks());
+                const userData = (await firebaseService.getUser(user))?.val() as UserData;
+                setUserData(userData);
+                console.log("users data: ", userData);
+
+                let allTasks = await getAllTasks();
+                for (let [borough,taskSet] of Object.entries(allTasks)) {
+                    airtableService.addUserStatusToTasks(taskSet, userData);
+                }
+                setAllTasks(allTasks);
                 setPrizes(await airtableService.getPrizes());
             };
 
