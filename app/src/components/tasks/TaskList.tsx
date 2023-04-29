@@ -10,16 +10,7 @@ import TaskCompletionBody from "../task-completion/TaskCompletionBody";
 import TaskListTable from "./TaskListTable";
 import TaskListHeader from "./TaskListHeader";
 import {AirTableService, FirebaseService, Task} from "../../Api";
-
-const TaskListContainer = styled.div`
-  border-radius: 25px;
-  text-align: center;
-  background-color: rgba(255, 255, 255, 0.3);
-  width: 98vw;
-  height: auto;
-  max-width: 1200px;
-  margin-top: 30px;
-`;
+import { PageContainer } from "../theme";
 
 export type TaskInfo = {
     title: string;
@@ -70,7 +61,7 @@ export default function TaskList(props: TaskListProps) {
   const onTaskClick = (task: TaskInfo) => setSelectedTask(task);
 
   return (
-    <TaskListContainer>
+    <PageContainer>
       {
         selectedTask?.title && selectedTask?.description ? (
           <>
@@ -98,6 +89,6 @@ export default function TaskList(props: TaskListProps) {
           </>
         )
       }
-    </TaskListContainer>
+    </PageContainer>
   );
 }
