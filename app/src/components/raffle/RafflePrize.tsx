@@ -48,7 +48,7 @@ const PrizeTitle = styled.span`
     letter-spacing: 0.15em;
 `
 
-const PrizeDetails = styled.span`
+const PrizeSubtitle = styled.span`
     display: block;
     font-size: 11px;
     letter-spacing: 0.15em;
@@ -61,7 +61,7 @@ type RaffleListProps = {
   setSelectedGiveaway: Function;
 }
 export default function RafflePrize(props: RaffleListProps) {
-  const { title, description, longDescription, image, ticketsRequired} = props.prize;
+  const { title, subtitle, description, image, ticketsRequired} = props.prize;
 
   return(
       <RafflePrizeContainer onClick={() => props.setSelectedGiveaway(props.prize)}>
@@ -72,7 +72,7 @@ export default function RafflePrize(props: RaffleListProps) {
             </TicketContainer>
             <PrizeCaption>
                 <PrizeTitle>{title.toUpperCase()}</PrizeTitle>
-                <PrizeDetails>{description.toUpperCase()}</PrizeDetails>
+                <PrizeSubtitle>{subtitle.toUpperCase()}</PrizeSubtitle>
             </PrizeCaption>
         </PrizeDescriptionContainer>
         <img src={image} style={{ maxWidth: "85%", maxHeight: "300px" }}/>

@@ -313,8 +313,8 @@ export class AirTableService {
       prizes.forEach(p => {
         result.push({
           title: p.prizeTitle,
-          description: p.description,
-          longDescription: [p.description],
+          subtitle: p.prizeSubtitle,
+          description: [p.description],
           ticketsRequired: p.ticketValue,
           image: p.imageUrl,
           entries: 0,

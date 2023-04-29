@@ -65,7 +65,7 @@ function Entries(props: {numEntries: number | undefined}) {
 }
 
 export default function RaffleEntryItem(props: RafflePrizeData) {
-    const { title, description, longDescription, image, ticketsRequired, entries} = props;
+    const { title, subtitle, description, image, ticketsRequired, entries} = props;
 
     return (
     <>
@@ -83,7 +83,7 @@ export default function RaffleEntryItem(props: RafflePrizeData) {
         <PrizeCaption>
             <PrizeTitle>{title}</PrizeTitle>
             <PrizeDetails>Includes: <br />
-                {longDescription.map((bullet, index) => {
+                {description.map((bullet, index) => {
                     return <span key={index}>{"• " + bullet} <br /></span>
                 })} 
             </PrizeDetails>
