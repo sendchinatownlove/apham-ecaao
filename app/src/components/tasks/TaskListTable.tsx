@@ -16,6 +16,10 @@ const StyledRow = styled.div`
   line-height: 1rem;
   padding: 5px 15px 10px;
   text-align: left;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const TaskRowTitleContainer = styled.div`
@@ -49,7 +53,7 @@ const TaskRowDescription = styled.div`
 type TaskListTableProps = {
     onTaskClick: any,
     tasks: Task[],
-    completedTasks: string[],
+    completedTasks: String[],
 }
 
 function parseTasks(tasks: Task[]) {
@@ -80,6 +84,10 @@ function TaskListTable(props: TaskListTableProps, ) {
     []
     )
 
+    const isCellCompleted = (cell: any): boolean => {
+      return completedTasks.includes(cell.value['id']);
+    }
+
   const {
     rows,
     prepareRow,
@@ -108,13 +116,13 @@ function TaskListTable(props: TaskListTableProps, ) {
                                     <td
                                         {...cell.getCellProps()}
                                     >
-                                        <StyledRow style={{borderTop: borderTop}} onClick={() => onTaskClick(cell.value)}>
+                                        <StyledRow style={{borderTop: borderTop}} onClick={() => !isCellCompleted(cell) ? onTaskClick(cell.value) : false}>
                                             <TaskRowTitleContainer>
                                                 <span>{cell.value['index']}. {cell.value['title']}</span>
-                                                {completedTasks.includes(cell.value['id']) && (
+                                                {isCellCompleted(cell) && (
                                                     <CheckedCheckbox/>
                                                   )}
-                                                {!completedTasks.includes(cell.value['id']) && (
+                                                {!isCellCompleted(cell) && (
                                                     <UncheckedCheckbox/>
                                                 )}
                         </TaskRowTitleContainer>

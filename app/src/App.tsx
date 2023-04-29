@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import {AirTableService, FirebaseService, Prize} from './Api';
+import {AirTableService, FirebaseService, Prize, Task} from './Api';
 import './App.css';
 import Home from "./pages/Home";
 
@@ -57,12 +57,22 @@ type TaskTuple = {
   [Borough.Manhattan]?: Task[]
 }
 
+export type UserData = {
+    brooklyn_completed_tasks?: {},
+    manhattan_completed_tasks?: {},
+    queens_completed_tasks?: {},
+    email?: string,
+    raffles_entered?: {},
+    tickets_remaining?: number
+}
+
 function App() {
     const [user, setUser] = useState<User | null>(null);
     const [email, setEmail] = useState("");
     const [error, setError] = useState("");
 
-    const [allTasks, setAllTasks] = useState<TaskTuple>({});
+    const [userData, setUserData] = useState<UserData>({});
+
     const [prizes, setPrizes] = useState<Prize[]>([]);
 
     const getAllTasks = async () => {
@@ -156,9 +166,14 @@ function App() {
         if (user) {
             // Fetch user data
             const fetchUserData = async () => {
-                const userData = await firebaseService.getUser(user);
-                console.log("users data: ", userData?.val());
-                setAllTasks(await getAllTasks());
+                const userData = (await firebaseService.getUser(user))?.val() as UserData;
+                setUserData(userData);
+                console.log("users data: ", userData);
+
+                let allTasks = await getAllTasks();
+                for (let [borough,taskSet] of Object.entries(allTasks)) {
+                    airtableService.addUserStatusToTasks(taskSet, userData);
+                }
                 setPrizes(await airtableService.getPrizes());
             };
 
@@ -248,34 +263,12 @@ function App() {
             ),
         },
         {
-            path: "/tasks/manhattan",
+            path: "/tasks/:borough",
             element: (
                 <TaskList
-                    location={Borough.Manhattan}
                     userId={user?.uid}
-                    availableTickets={22}
                 />
-            ),
-        },
-        {
-            path: "/tasks/brooklyn",
-            element: (
-                <TaskList
-                    location={Borough.Brooklyn}
-                    userId={user?.uid}
-                    availableTickets={22}
-                />
-            ),
-        },
-        {
-            path: "/tasks/queens",
-            element: (
-                <TaskList
-                    location={Borough.Queens}
-                    userId={user?.uid}
-                    availableTickets={22}
-                />
-            ),
+            )
         },
     ]);
 

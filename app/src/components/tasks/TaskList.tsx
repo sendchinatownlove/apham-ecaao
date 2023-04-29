@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 
 import BackButton from "../header-buttons/backButton";
 import CancelButton from "../header-buttons/cancelButton";
@@ -30,36 +30,40 @@ export type TaskInfo = {
 }
 
 export type TaskListProps = {
-  location: string;
-  availableTickets: number;
   userId: string | undefined;
 }
 
 export default function TaskList(props: TaskListProps) {
-  const { location, availableTickets, userId } = props;
+  const { userId } = props;
+  const borough = useParams().borough;
   const [selectedTask, setSelectedTask] = React.useState<TaskInfo | null>(null);
   const [tasks, setTasks] = React.useState<Task[]>([]);
+  const [availableTickets, setAvailableTickets] = React.useState<number>(0);
   const firebaseService = new FirebaseService();
   const airtableService = new AirTableService();
-  const completedTaskIds: string[] = [];
+  const [completedTaskIds, setCompletedTaskIds] = React.useState<String[]>([]);
 
   useEffect(() => {
       async function getTasks() {
-          setTasks(await airtableService.getTasks(location));
+          setTasks(await airtableService.getTasks(borough));
       }
       async function getCompletedTasks() {
-        const completedTasks = await firebaseService.getTasksByBorough(userId!, location);
-        completedTasks.forEach((task) => {
-            completedTaskIds.push(Object.keys(task)[0]);
-        })
+        const completedTasks = await firebaseService.getTasksByBorough(userId!, borough!);
+        setCompletedTaskIds(Object.keys(completedTasks));
+      }
+
+      async function getAvailableTickets() {
+          const availableTickets = await firebaseService.getAvailableRaffleTickets(userId!);
+          setAvailableTickets(availableTickets || 0);
       }
 
       if (userId !== undefined) {
           getTasks();
           getCompletedTasks();
+          getAvailableTickets();
       }
 
-  }, [userId]);
+  }, [selectedTask]);
 
   let navigate = useNavigate();
 
@@ -71,9 +75,11 @@ export default function TaskList(props: TaskListProps) {
         selectedTask?.title && selectedTask?.description ? (
           <>
             <CancelButton onClick={() => setSelectedTask(null)} />
-            <TaskCompletionHeader location={location} />
+            <TaskCompletionHeader borough={borough!} />
             <TaskCompletionBody
-              location={location}
+              userId={userId ? userId : '0'}
+              taskId={selectedTask.id}
+              borough={borough!}
               taskHeader={selectedTask.title}
               taskDescription={selectedTask.description}
               setSelectedTask={setSelectedTask}
@@ -83,7 +89,7 @@ export default function TaskList(props: TaskListProps) {
           <>
             <BackButton onClick={() => {navigate('/', { replace: true })}}/>
             <TaskListHeader
-                location={location}
+                borough={borough!}
                 tasksCompleted={completedTaskIds.length}
                 totalTasks={tasks.length - 1}
                 availableTickets={availableTickets}

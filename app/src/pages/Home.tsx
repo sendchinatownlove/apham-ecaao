@@ -50,7 +50,7 @@ function Home(props: Props) {
   const [numCompletedQNSTasks, setNumCompletedQNSTasks] = useState<number>(0);
 
   const fetchCompletedTasksByBorough = async (borough: string) => {
-    const completedTasks = await firebaseService.getTasksByBorough(user.uid, borough);
+    const completedTasks = Object.keys(await firebaseService.getTasksByBorough(user.uid, borough));
     if (completedTasks.length > 0) {
       switch (borough) {
         case 'Manhattan':
