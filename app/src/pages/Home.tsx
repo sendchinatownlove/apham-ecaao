@@ -86,10 +86,9 @@ function Home(props: Props) {
       fetchCompletedTasksByBorough('Brooklyn');
       fetchCompletedTasksByBorough('Queens');
       fetchAvailableRaffleTickets();
-      // fetchEnteredRaffleTickets();
-      setTicketsEntered(2)
+      fetchEnteredRaffleTickets();
     }
-  })
+  }, [user]);
 
   const ticketsData = {
     ticketsAvailable,

@@ -26,12 +26,15 @@ const TicketIcon = styled.img`
     content: url("/ticket-icon.svg");
 `
 
-const TicketsRequired = styled.span`
+const TicketsRequired = styled.div`
     color: #FFFFFF;
     font-size: 0.7em;
     font-weight: 700;
-    position: relative;
-    bottom: 2.3em;
+    // position: relative;
+    // bottom: 2.3em;
+    width: 24px;
+    height: 20px;
+    background-image: url("/ticket-icon.svg");
 `
 
 const PrizeCaption = styled.div`
@@ -64,7 +67,7 @@ export default function RafflePrize(props: RaffleListProps) {
       <RafflePrizeContainer onClick={() => props.setSelectedGiveaway(props.prize)}>
         <PrizeDescriptionContainer>
             <TicketContainer>
-                <TicketIcon />
+                {/* <TicketIcon /> */}
                 <TicketsRequired>{ticketsRequired}</TicketsRequired>
             </TicketContainer>
             <PrizeCaption>
