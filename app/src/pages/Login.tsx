@@ -7,15 +7,14 @@ import Footer from '../components/shared/footer';
 import { useState } from "react";
 
 const LoginContainer = styled.div`
-  width: 98vw;
-  height: 95vh;
+  width: 96vw;
   max-width: 1200px;
 `
 
 const LoginWrapper = styled.div`
   background: #ffffff;
   position: relative;
-  top: -60px;
+  top: -40px;
   border-radius: 26px;
   padding: 0 20px;
 `;
@@ -26,7 +25,7 @@ const Header = styled.div`
 
 const Icon = styled.img`
   content: url(${Arch});
-  top: 0px;
+  top: 20px;
   position: relative;
   min-width: 108px;
   z-index: 1
