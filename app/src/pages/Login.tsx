@@ -4,7 +4,12 @@ import Arch from "../assets/arch.svg";
 import { BrandText } from "../styled-components";
 import Footer from '../components/shared/footer';
 
+
 import { useState } from "react";
+import { AuthProvider, useAuth } from "../AuthContext";
+import { useNavigate, useParams } from "react-router-dom";
+
+
 
 const LoginContainer = styled.div`
   width: 98vw;
@@ -146,13 +151,32 @@ function validateEmail(input: string) {
   return false;
 }
 
+
+
 export default function Login() {
   const [error, setError] = useState(false);
   const [email, setEmail] = useState("");
 
-  const handleSubmit = (event: React.FormEvent) => {
+
+  const { user, sendSignInEmail } = useAuth();
+  console.log(user, 'user??')
+
+  const navigate = useNavigate();
+  if (user) {
+    navigate('/', { replace: true })
+  }
+  
+
+
+
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
+    window.localStorage.setItem("emailForSignIn", email);
+    console.log('submit')
+    await sendSignInEmail(email)
   };
+
+    // Redirect to the home page if the user is authenticated
 
   return (
     <>

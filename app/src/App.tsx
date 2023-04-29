@@ -5,6 +5,8 @@ import {AirTableService, FirebaseService, Prize, Task} from './Api';
 import './App.css';
 import Home from "./pages/Home";
 
+import { AuthProvider } from "./AuthContext";
+
 import {
     getAuth,
     User,
@@ -66,6 +68,7 @@ export type UserData = {
     tickets_remaining?: number
 }
 
+
 function App() {
     const [user, setUser] = useState<User | null>(null);
     const [email, setEmail] = useState("");
@@ -96,7 +99,7 @@ function App() {
     const sendSignInEmail = async (email: string) => {
         const actionCodeSettings = {
             url: window.location.href,
-            handleCodeInApp: true,
+            handleCodeInApp: false,
         };
         try {
             await sendSignInLinkToEmail(auth, email, actionCodeSettings);
@@ -122,6 +125,10 @@ function App() {
 
     function HomePage(props: UserProps) {
         const { user } = props;
+        //   const navigate = useNavigate();
+        if (!user && window.location.pathname !== "/login") {
+            window.location.pathname = "/login";
+        }
         return (
             <div>
                 {user ? (
@@ -261,7 +268,9 @@ function App() {
 
     return (
         <div className="App">
-            <RouterProvider router={router} />
+            <AuthProvider>
+                <RouterProvider router={router} />
+            </AuthProvider>
         </div>
     );
 }
