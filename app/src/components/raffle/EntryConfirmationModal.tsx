@@ -17,6 +17,7 @@ const Overlay = styled.div`
 const ModalWrapper = styled.div`
   margin: auto;
   background: white;
+  color: black;
   top: 0;
   text-align: center;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
@@ -50,11 +51,11 @@ const CloseButton = styled.button`
 
 type ConfirmationModalProps = {
   isActive: boolean;
-  setIsActive: React.Dispatch<React.SetStateAction<boolean>>;
+  closeModal: Function;
 }
 
 export default function EntryConfirmationModal(props: ConfirmationModalProps) {
-  const { isActive, setIsActive } = props;
+  const { isActive, closeModal } = props;
 
   return (
     <>
@@ -65,7 +66,7 @@ export default function EntryConfirmationModal(props: ConfirmationModalProps) {
             <ModalHeader>Submission Confirmed</ModalHeader>
             <p>Congratulations!</p>
             <p>You've successfully submitted one (1) entry to this giveaway prize.</p>
-            <CloseButton onClick={() => {setIsActive(false)}}>Close</CloseButton>
+            <CloseButton onClick={() => closeModal()}>Close</CloseButton>
           </ModalWrapper>
         </Overlay>
       )}

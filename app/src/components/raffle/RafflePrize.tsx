@@ -52,11 +52,16 @@ const PrizeDetails = styled.span`
     position: relative;
     bottom: 0.4em;
 `
-export default function RafflePrize(props: RafflePrizeData) {
-  const { title, description, longDescription, image, ticketsRequired} = props;
+
+type RaffleListProps = {
+  prize: RafflePrizeData;
+  setSelectedGiveaway: Function;
+}
+export default function RafflePrize(props: RaffleListProps) {
+  const { title, description, longDescription, image, ticketsRequired} = props.prize;
 
   return(
-      <RafflePrizeContainer>
+      <RafflePrizeContainer onClick={() => props.setSelectedGiveaway(props.prize)}>
         <PrizeDescriptionContainer>
             <TicketContainer>
                 <TicketIcon />

@@ -25,19 +25,24 @@ export type RafflePrizeData = {
 
 type RaffleListProps = {
     prizeData: RafflePrizeData[];
+    setSelectedGiveaway: Function;
 }
 
 
 export default function RaffleList(props: RaffleListProps) {
-    const { prizeData } = props;
+    const { prizeData, setSelectedGiveaway } = props;
 
     return (
         <RaffleListContainer>
             <GiveAwaysDetail numberOfEntries={3}/>
             <RafflePrizeListContainer>
-                {prizeData.map((prize, index) => {
-                    return <RafflePrize key={index} title={prize.title} description={prize.description} longDescription={prize.longDescription} image={prize.image} ticketsRequired={prize.ticketsRequired}></RafflePrize>
-                })}
+                {prizeData.map((prize, index) => (
+                    <RafflePrize
+                        key={prize.id}
+                        prize={prize}
+                        setSelectedGiveaway={setSelectedGiveaway}
+                    />
+                ))}
             </RafflePrizeListContainer>
         </RaffleListContainer>
     );
