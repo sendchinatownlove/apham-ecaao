@@ -247,20 +247,7 @@ function App() {
         },
         {
             path: "/raffles",
-            element: <RaffleListView prizeData={airtableService.convertPrizeListToRafflePrizeData(prizes)} />,
-        },
-        {
-            path: "/raffle-entry",
-            element: (
-                <RaffleEntry
-                    title={raffleListData[0].title}
-                    description={raffleListData[2].description}
-                    longDescription={raffleListData[0].longDescription}
-                    image={raffleListData[0].image}
-                    ticketsRequired={raffleListData[0].ticketsRequired}
-                    entries={raffleListData[2].entries}
-                />
-            ),
+            element: <RaffleListView user={user!} prizeData={airtableService.convertPrizeListToRafflePrizeData(prizes)} />,
         },
         {
             path: "/tasks/:borough",

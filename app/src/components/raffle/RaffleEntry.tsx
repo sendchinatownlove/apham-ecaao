@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { RafflePrizeData } from "./RaffleList";
 import RaffleEntryItem from "./RaffleEntryItem";
+import { User } from "firebase/auth";
+import { FirebaseService } from "../../Api";
 
 
 
@@ -32,16 +34,24 @@ const NoticeText = styled.div`
 `
 type RaffleViewProps = {
     prizeData: RafflePrizeData;
-    setIsPopupActive: Function,
+    setIsPopupActive: Function;
+    user: User;
+    availableTickets: number;
+    setAvailableTickets: Function;
 }
 
 export default function RaffleEntry(props: RaffleViewProps) {
-    const { title, description, longDescription, image, ticketsRequired, entries} = props.prizeData;
+    const { title, description, longDescription, image, ticketsRequired, entries, id} = props.prizeData;
+    const { user, availableTickets, setAvailableTickets } = props;
     // TODO: Add logic if available tickets - tickets required > 0
-    let hasEnoughTickets = true;
+    let hasEnoughTickets = availableTickets >= ticketsRequired;
 
-    const handleEntryButtonClick = () => {
-        // TODO: api submission to confirm selecting giveaway
+    const fireBaseService = new FirebaseService();
+
+    const handleEntryButtonClick = async () => {
+        await fireBaseService.enterRaffle(user.uid, id!, ticketsRequired!);
+        setAvailableTickets(availableTickets - ticketsRequired);
+
         props.setIsPopupActive(true);
     };
     
