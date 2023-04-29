@@ -315,7 +315,7 @@ export class AirTableService {
           id: p.id,
           title: p.prizeTitle,
           subtitle: p.prizeSubtitle,
-          description: [p.description],
+          description: p.description,
           image: p.imageUrl,
           ticketsRequired: p.ticketValue,
           dollarValue: p.dollarValue,
