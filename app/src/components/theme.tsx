@@ -51,7 +51,7 @@ export const PageContainer = styled.div`
   border-top-right-radius: 36px;
   box-sizing: border-box;
   overflow-x: hidden;
-  overflow-y: hidden;
+  overflow-y: scroll;
 `;
 
 export const PrimaryButton = styled.button`
