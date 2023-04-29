@@ -6,7 +6,7 @@ import Footer from '../components/shared/footer';
 
 
 import { useState } from "react";
-import { AuthProvider, useAuth } from "../Auth";
+import { AuthProvider, useAuth } from "../AuthContext";
 import { useNavigate, useParams } from "react-router-dom";
 
 

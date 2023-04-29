@@ -5,7 +5,7 @@ import {AirTableService, FirebaseService, Prize, Task} from './Api';
 import './App.css';
 import Home from "./pages/Home";
 
-import { AuthProvider } from "./Auth";
+import { AuthProvider } from "./AuthContext";
 
 import {
     getAuth,

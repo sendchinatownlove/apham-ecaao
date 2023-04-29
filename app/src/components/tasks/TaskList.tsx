@@ -11,7 +11,7 @@ import TaskListTable from "./TaskListTable";
 import TaskListHeader from "./TaskListHeader";
 import {AirTableService, FirebaseService, Task} from "../../Api";
 
-import {useAuth} from "../../Auth";
+import {useAuth} from "../../AuthContext";
 
 const TaskListContainer = styled.div`
   border-radius: 25px;
