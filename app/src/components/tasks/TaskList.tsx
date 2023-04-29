@@ -77,6 +77,8 @@ export default function TaskList(props: TaskListProps) {
             <CancelButton onClick={() => setSelectedTask(null)} />
             <TaskCompletionHeader borough={borough!} />
             <TaskCompletionBody
+              userId={userId ? userId : '0'}
+              taskId={selectedTask.id}
               borough={borough!}
               taskHeader={selectedTask.title}
               taskDescription={selectedTask.description}
