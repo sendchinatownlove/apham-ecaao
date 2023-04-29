@@ -58,7 +58,7 @@ export default function TaskList(props: TaskListProps) {
           getCompletedTasks();
       }
 
-  }, [userId]);
+  }, [selectedTask]);
 
   let navigate = useNavigate();
 
