@@ -49,7 +49,7 @@ const TaskRowDescription = styled.div`
 type TaskListTableProps = {
     onTaskClick: any,
     tasks: Task[],
-    completedTasks: string[],
+    completedTasks: String[],
 }
 
 function parseTasks(tasks: Task[]) {
