@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { RafflePrizeData } from "./RaffleList";
 import { BubbleLabel } from "../theme";
+import { useEffect } from "react";
 
 const EntryHeaderText = styled.div`
     display: flex;
@@ -67,6 +68,11 @@ function Entries(props: {numEntries: number | undefined}) {
 export default function RaffleEntryItem(props: RafflePrizeData) {
     const { title, description, image, ticketsRequired, entries} = props;
 
+    useEffect(() => {
+        const titleElement = document.getElementById('cancel-button');
+        titleElement?.scrollIntoView({ behavior: 'auto' });
+    })
+
     return (
     <>
      <EntryHeaderText>
@@ -83,7 +89,7 @@ export default function RaffleEntryItem(props: RafflePrizeData) {
         <PrizeCaption>
             <PrizeTitle>{title}</PrizeTitle>
             <PrizeDetails>Includes: <br />
-                {[description].map((bullet, index) => {
+                {description.split('-').map((bullet, index) => {
                     return <span key={index}>{"• " + bullet} <br /></span>
                 })} 
             </PrizeDetails>

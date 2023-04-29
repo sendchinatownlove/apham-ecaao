@@ -41,7 +41,7 @@ export default function CancelButton(props: CancelButtonProps) {
     const { onClick } = props;
 
     return (
-      <Button onClick={onClick}>
+      <Button onClick={onClick} id="cancel-button">
         <ClosedEye/>
         <ButtonText>
           CANCEL
