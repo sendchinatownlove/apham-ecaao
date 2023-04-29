@@ -1,10 +1,11 @@
 import styled from "styled-components";
+import {Activities} from "./TaskList";
 
 const StyledTaskListHeader = styled.div`
   background-image: url("/task-list-header.png");
   background-size: 100% 70px;
   color: #A8192E;
-  padding: 10px 17px;
+  padding: 10px 10px 11px 10px;
 `;
 
 const LocationText = styled.h1`
@@ -26,18 +27,18 @@ const AvailableTicketsText = styled.p`
 
 type TaskListHeaderProps = {
   location: string;
-  totalTasks: number;
-  tasksCompleted: number;
+  totalActivities: number;
+  activitiesCompleted: number;
   availableTickets: number;
 }
 
 export default function TaskListHeader(props: TaskListHeaderProps) {
-    const { location, tasksCompleted, totalTasks, availableTickets } = props;
+    const { location, activitiesCompleted, totalActivities, availableTickets } = props;
   return (
     <StyledTaskListHeader>
       <LocationText>
-        <span>{location.toUpperCase()}</span>
-              <span>{tasksCompleted}/{totalTasks}</span>
+        <span>{location?.toUpperCase()}</span>
+              <span>{activitiesCompleted}/{totalActivities}</span>
       </LocationText>
       <AvailableTicketsText>
         <span>MY AVAILABLE RAFFLE TICKETS</span>

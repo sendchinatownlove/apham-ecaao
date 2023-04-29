@@ -1,30 +1,30 @@
-import React, { useEffect, useState } from "react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { createBrowserRouter, RouterProvider, useRouteLoaderData } from 'react-router-dom';
 
-import {AirTableService, FirebaseService, Prize} from './Api';
+import {FirebaseService} from './Api';
 import './App.css';
 import Home from "./pages/Home";
 
 import {
-    getAuth,
-    User,
-    signInWithPopup,
-    GoogleAuthProvider,
-    sendSignInLinkToEmail,
-    isSignInWithEmailLink,
-    signInWithEmailLink,
-    signOut,
-} from "firebase/auth";
+  getAuth,
+  User,
+  signInWithPopup,
+  GoogleAuthProvider,
+  sendSignInLinkToEmail,
+  isSignInWithEmailLink,
+  signInWithEmailLink,
+  signOut,
+} from 'firebase/auth';
 
-import Login from "./pages/Login";
-import RaffleListView from "./components/raffle/RaffleListView";
-import RaffleEntry from "./components/raffle/RaffleEntry";
-import TaskList from "./components/tasks/TaskList";
+import Login from './pages/Login';
+import RaffleListView from './components/raffle/RaffleListView';
+import RaffleEntry from './components/raffle/RaffleEntry';
+import TaskList from './components/tasks/TaskList';
+import { ActivityInfo, TaskListData } from './components/tasks/TaskList';
 
-import { initializeApp } from "firebase/app";
-import { raffleListData } from "./mock-data/raffle-list-data";
-import { Borough } from "./utils/borough";
-import { all } from "axios";
+import { initializeApp } from 'firebase/app';
+import { raffleListData } from './mock-data/raffle-list-data';
+import { getAirTableData } from './utils/airtable';
 
 // const FIREBASE_CONFIG = {
 //   apiKey: import.meta.env.VITE_REACT_APP_FIREBASE_API_KEY,
@@ -35,255 +35,256 @@ import { all } from "axios";
 //   storageBucket: import.meta.env.VITE_REACT_APP_FIREBASE_STORAGE_BUCKET,
 // };
 
-// According to this, this is ok to be public
+
+// According to this, this is ok to be public 
 // https://stackoverflow.com/a/37484053/2138186
 const firebaseConfig = {
-    apiKey: "AIzaSyD_KVSLkt8eq7-GEFegX9XGfGNg75tucAc",
-    authDomain: "scl-scavengerhunt.firebaseapp.com",
-    projectId: "scl-scavengerhunt",
-    storageBucket: "scl-scavengerhunt.appspot.com",
-    messagingSenderId: "955910274384",
-    appId: "1:955910274384:web:a9de7ecfaa88aa3b940055",
+  apiKey: "AIzaSyD_KVSLkt8eq7-GEFegX9XGfGNg75tucAc",
+  authDomain: "scl-scavengerhunt.firebaseapp.com",
+  projectId: "scl-scavengerhunt",
+  storageBucket: "scl-scavengerhunt.appspot.com",
+  messagingSenderId: "955910274384",
+  appId: "1:955910274384:web:a9de7ecfaa88aa3b940055"
 };
+
 
 const firebaseApp = initializeApp(firebaseConfig);
 const auth = getAuth(firebaseApp);
-const firebaseService = new FirebaseService();
-const airtableService = new AirTableService();
+export const firebaseService = new FirebaseService();
 
-type TaskTuple = {
-  [Borough.Brooklyn]?: Task[],
-  [Borough.Queens]?: Task[],
-  [Borough.Manhattan]?: Task[]
-}
 
 function App() {
-    const [user, setUser] = useState<User | null>(null);
-    const [email, setEmail] = useState("");
-    const [error, setError] = useState("");
+  const [user, setUser] = useState<User | null>(null);
+  const [email, setEmail] = useState('');
+  const [error, setError] = useState('');
+  const [tasks, setTasks] = useState<TaskListData | []>([])
 
-    const [allTasks, setAllTasks] = useState<TaskTuple>({});
-    const [prizes, setPrizes] = useState<Prize[]>([]);
+  //hook to fetch and parse data on init
+  //tasks will be [[manhattan],[brooklyn],[queen]]
+  useEffect(() => {
+    const getTasksByBorough = async() => {
+      const allTasks = await getAirTableData("apahm23_tasks");
+      const output = [
+        allTasks.filter((task: ActivityInfo) => task.fields.Borough === "Manhattan"),
+        allTasks.filter((task: ActivityInfo) => task.fields.Borough === "Brooklyn"),
+        allTasks.filter((task: ActivityInfo) => task.fields.Borough === "Queens")
+      ];
+      setTasks(output);
+    }
+    getTasksByBorough();
+  }, []);
 
-    const getAllTasks = async () => {
-      const allTasks: TaskTuple = {
-        [Borough.Brooklyn]: await airtableService.getTasks(Borough.Brooklyn),
-        [Borough.Queens]: await airtableService.getTasks(Borough.Queens),
-        [Borough.Manhattan]: await airtableService.getTasks(Borough.Manhattan),
+  const signInWithGoogle = async () => {
+    const provider = new GoogleAuthProvider();
+    try {
+      await signInWithPopup(auth, provider);
+    } catch (error: any) {
+      setError(error.message);
+    }
+  };
+
+  const sendSignInEmail = async (email: string) => {
+    const actionCodeSettings = {
+      url: window.location.href,
+      handleCodeInApp: true,
+    };
+    try {
+      await sendSignInLinkToEmail(auth, email, actionCodeSettings);
+      window.localStorage.setItem('emailForSignIn', email);
+      setEmail('');
+      setError('Email sent. Please check your inbox.');
+    } catch (error: any) {
+      setError(error.message);
+    }
+  };
+
+  const signInWithEmail = async (email: string, emailLink: string) => {
+    try {
+      await signInWithEmailLink(auth, email, emailLink);
+    } catch (error: any) {
+      setError(error.message);
+    }
+  };
+
+  interface UserProps {
+    user: User | null;
+  }
+
+  function HomePage(props: UserProps) {
+    const { user } = props
+  return <div>
+    {user ? (
+        <Home user={user}/>
+      ) : (
+        <>
+          <h3>Sign in to get started!</h3>
+          <button onClick={signInWithGoogle}>Sign in with Google</button>
+          <form onSubmit={handleSubmit}>
+            <input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <button type="submit">Send sign-in email</button>
+          </form>
+          {error && <p>{error}</p>}
+        </>
+      )}
+    </div>;
+  }
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        setUser(user);
+      } else {
+        setUser(null);
       }
-      return allTasks;
-    };
+    });
 
-    const signInWithGoogle = async () => {
-        const provider = new GoogleAuthProvider();
-        try {
-            await signInWithPopup(auth, provider);
-        } catch (error: any) {
-            setError(error.message);
-        }
-    };
+    // @TODO https://firebase.google.com/docs/auth/web/email-link-auth?authuser=2&hl=en 
+    if (isSignInWithEmailLink(auth, window.location.href)) {
+      const email = window.localStorage.getItem('emailForSignIn');
+      if (email) {
+        signInWithEmail(email, window.location.href);
+        window.localStorage.removeItem('emailForSignIn');
+      }
+    }
+    if (user) {
+      console.log("Entered here")
+      // Fetch user data
+      const fetchUserData = async () => {
+        const userData = await firebaseService.getUser(user);
+        console.log("users data: ", userData?.val());
+      };
+  
+      fetchUserData();
 
-    const sendSignInEmail = async (email: string) => {
-        const actionCodeSettings = {
-            url: window.location.href,
-            handleCodeInApp: true,
-        };
-        try {
-            await sendSignInLinkToEmail(auth, email, actionCodeSettings);
-            window.localStorage.setItem("emailForSignIn", email);
-            setEmail("");
-            setError("Email sent. Please check your inbox.");
-        } catch (error: any) {
-            setError(error.message);
-        }
-    };
 
-    const signInWithEmail = async (email: string, emailLink: string) => {
-        try {
-            await signInWithEmailLink(auth, email, emailLink);
-        } catch (error: any) {
-            setError(error.message);
-        }
-    };
+      
+      // This is just test code, and should not really be executed here
+  
+      // Add an activity entry
+      // const completeTask = async () => {
+      //   function generateTask() {
+      //     const randomNumber = Math.floor(Math.random() * 100) + 1;
+      //     const randomBorough = ["manhattan", "brooklyn", "queens"][Math.floor(Math.random() * 3)];
+      //     return {
+      //       randomBorough,
+      //       randomNumber
+      //     };
+      //   }
+      //   const task = generateTask();
+      //   console.log(task)
+      //   await firebaseService.completeTask(user.uid, task, true);
+      // };
+  
+      // completeTask();
+      // // Add a raffle ticket entry
+      // const addRaffleTicketEntry = async () => {
+      //   const raffleId = 'some_raffle_id';
+      //   const numberOfEntries = 1;
+      //   await firebaseService.addRaffleEntry(user.uid, raffleId, numberOfEntries);
+      // };
+  
+      // addRaffleTicketEntry();
+  
+      // // Increment the tickets_remaining
+      // const incrementTickets = async () => {
+      //   const incrementValue = 5;
+      //   await firebaseService.incrementTicketsRemaining(user.uid, incrementValue);
+      // };
+  
+      // incrementTickets();
+  
+      // // Decrement the tickets_remaining
+      // const decrementTickets = async () => {
+      //   // spending
+      //   const decrementValue = 2;
+      //   await firebaseService.decrementTicketsRemaining(user.uid, decrementValue);
+      // };
+  
+      // decrementTickets();
 
-    interface UserProps {
-        user: User | null;
     }
 
-    function HomePage(props: UserProps) {
-        const { user } = props;
-        return (
-            <div>
-                {user ? (
-                    <Home user={user} />
-                ) : (
-                    <>
-                        <h3>Sign in to get started!</h3>
-                        <button onClick={signInWithGoogle}>Sign in with Google</button>
-                        <form onSubmit={handleSubmit}>
-                            <input
-                                type="email"
-                                placeholder="Email"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                            />
-                            <button type="submit">Send sign-in email</button>
-                        </form>
-                        {error && <p>{error}</p>}
-                    </>
-                )}
-            </div>
-        );
-    }
+    return () => unsubscribe();
+  }, [user]);
 
-    useEffect(() => {
-        const unsubscribe = auth.onAuthStateChanged((user) => {
-            if (user) {
-                setUser(user);
-            } else {
-                setUser(null);
-            }
-        });
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+    sendSignInEmail(email);
+  };
 
-        // @TODO https://firebase.google.com/docs/auth/web/email-link-auth?authuser=2&hl=en
-        if (isSignInWithEmailLink(auth, window.location.href)) {
-            const email = window.localStorage.getItem("emailForSignIn");
-            if (email) {
-                signInWithEmail(email, window.location.href);
-                window.localStorage.removeItem("emailForSignIn");
-            }
-        }
-        if (user) {
-            // Fetch user data
-            const fetchUserData = async () => {
-                const userData = await firebaseService.getUser(user);
-                console.log("users data: ", userData?.val());
-                setAllTasks(await getAllTasks());
-                setPrizes(await airtableService.getPrizes());
-            };
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <HomePage user={user}/>,
+    },
+    {
+      path: "/login",
+      element: <Login />,
+    },
+    {
+      path: "/raffles",
+      element: (
+        <RaffleListView prizeData={raffleListData} />
+      )
+    },
+    {
+      path: "/raffle-entry",
+      element: (
+      <RaffleEntry 
+        title = {raffleListData[0].title}
+        description = {raffleListData[2].description}
+        longDescription={raffleListData[0].longDescription}
+        image = {raffleListData[0].image}
+        ticketsRequired = {raffleListData[0].ticketsRequired}
+        entries={raffleListData[2].entries} />
+      )
 
-            fetchUserData();
+    },
+    {
+      path: "/tasks/manhattan",
+      element: (
+      <TaskList
+        userId={user?.uid}
+        location={tasks[0]?.[0]?.fields?.Borough}
+        availableTickets={22}
+        activities={tasks[0]}
+      />
+      )
+    },
+    {
+      path: "/tasks/brooklyn",
+      element: (
+      <TaskList
+        userId={user?.uid}
+        location={tasks[1]?.[0]?.fields?.Borough}
+        availableTickets={22}
+        activities={tasks[1]}
+      />
+      )
+    },
+    {
+      path: "/tasks/queens",
+      element: (
+      <TaskList
+        userId={user?.uid}
+        location={tasks[2]?.[0]?.fields?.Borough}
+        availableTickets={22}
+        activities={tasks[2]}
+      />
+      )
+    },
+  ]);
 
-            // This is just test code, and should not really be executed here
-
-            // Jess - CompleteTask testing
-            /**
-             * generate a task
-             * run the firebaseService class function (completeTask) from Apt.tsx
-             */
-            // const completeTask = async () => {
-            //   function generateTask() {
-            //     const randomNumber = Math.floor(Math.random() * 100) + 1;
-            //     const randomBorough = ["manhattan", "brooklyn", "queens"][Math.floor(Math.random() * 3)];
-            //     return {
-            //       randomBorough,
-            //       randomNumber
-            //     };
-            //   }
-            //   const task = generateTask();
-            //   console.log(task);
-            //   await firebaseService.completeTask(user.uid, String(task.randomNumber), task.randomBorough);
-            // };
-            // completeTask();
-
-            // // Add a raffle ticket entry
-            // const addRaffleTicketEntry = async () => {
-            //   const raffleId = 'some_raffle_id';
-            //   const numberOfEntries = 1;
-            //   await firebaseService.addRaffleEntry(user.uid, raffleId, numberOfEntries);
-            // };
-
-            // addRaffleTicketEntry();
-
-            // // Increment the tickets_remaining
-            // const incrementTickets = async () => {
-            //   const incrementValue = 5;
-            //   await firebaseService.incrementTicketsRemaining(user.uid, incrementValue);
-            // };
-
-            // incrementTickets();
-
-            // // Decrement the tickets_remaining
-            // const decrementTickets = async () => {
-            //   // spending
-            //   const decrementValue = 2;
-            //   await firebaseService.decrementTicketsRemaining(user.uid, decrementValue);
-            // };
-
-            // decrementTickets();
-        }
-
-        return () => unsubscribe();
-    }, [user]);
-
-    const handleSubmit = (event: React.FormEvent) => {
-        event.preventDefault();
-        sendSignInEmail(email);
-    };
-
-    const router = createBrowserRouter([
-        {
-            path: "/",
-            element: <HomePage user={user} />,
-        },
-        {
-            path: "/login",
-            element: <Login />,
-        },
-        {
-            path: "/raffles",
-            element: <RaffleListView prizeData={airtableService.convertPrizeListToRafflePrizeData(prizes)} />,
-        },
-        {
-            path: "/raffle-entry",
-            element: (
-                <RaffleEntry
-                    title={raffleListData[0].title}
-                    description={raffleListData[2].description}
-                    longDescription={raffleListData[0].longDescription}
-                    image={raffleListData[0].image}
-                    ticketsRequired={raffleListData[0].ticketsRequired}
-                    entries={raffleListData[2].entries}
-                />
-            ),
-        },
-        {
-            path: "/tasks/manhattan",
-            element: (
-                <TaskList
-                    location={Borough.Manhattan}
-                    userId={user?.uid}
-                    availableTickets={22}
-                />
-            ),
-        },
-        {
-            path: "/tasks/brooklyn",
-            element: (
-                <TaskList
-                    location={Borough.Brooklyn}
-                    userId={user?.uid}
-                    availableTickets={22}
-                />
-            ),
-        },
-        {
-            path: "/tasks/queens",
-            element: (
-                <TaskList
-                    location={Borough.Queens}
-                    userId={user?.uid}
-                    availableTickets={22}
-                />
-            ),
-        },
-    ]);
-
-    return (
-        <div className="App">
-            <RouterProvider router={router} />
-        </div>
-    );
+  return (
+    <div className="App">
+      <RouterProvider router={router} />
+    </div>
+);
 }
 
 export default App;

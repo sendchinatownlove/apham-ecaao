@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
@@ -9,7 +9,7 @@ import TaskCompletionHeader from "../task-completion/TaskCompletionHeader";
 import TaskCompletionBody from "../task-completion/TaskCompletionBody";
 import TaskListTable from "./TaskListTable";
 import TaskListHeader from "./TaskListHeader";
-import {AirTableService, FirebaseService, Task} from "../../Api";
+import { firebaseService } from '../../App';
 
 const TaskListContainer = styled.div`
   border-radius: 25px;
@@ -21,61 +21,60 @@ const TaskListContainer = styled.div`
   margin-top: 30px;
 `;
 
-export type TaskInfo = {
-    title: string;
-    description: string;
-    completed: boolean;
-    index: number;
-    id: string;
+//single activity
+export type ActivityInfo = {
+  id: string;
+  createdTime: string;
+  fields: {
+    Borough: string;
+    "Task Title": string;
+    Index: number;
+    "Task Description": string;
+  }
 }
 
-export type TaskListProps = {
+//array of activities by borough
+export type Activities = ActivityInfo[]
+
+//[[manhattan],[brooklyn],[queen]]
+export type TaskListData = Activities[];
+
+interface TaskListProps {
+  userId?: string | null;
   location: string;
   availableTickets: number;
-  userId: string | undefined;
+  activities: Activities;
 }
 
 export default function TaskList(props: TaskListProps) {
-  const { location, availableTickets, userId } = props;
-  const [selectedTask, setSelectedTask] = React.useState<TaskInfo | null>(null);
-  const [tasks, setTasks] = React.useState<Task[]>([]);
-  const firebaseService = new FirebaseService();
-  const airtableService = new AirTableService();
-  const completedTaskIds: string[] = [];
-
-  useEffect(() => {
-      async function getTasks() {
-          setTasks(await airtableService.getTasks(location));
-      }
-      async function getCompletedTasks() {
-        const completedTasks = await firebaseService.getTasksByBorough(userId!, location);
-        completedTasks.forEach((task) => {
-            completedTaskIds.push(Object.keys(task)[0]);
-        })
-      }
-
-      if (userId !== undefined) {
-          getTasks();
-          getCompletedTasks();
-      }
-
-  }, [userId]);
+  const { userId, location, availableTickets, activities } = props;
+  const [selectedTask, setSelectedTask] = React.useState<ActivityInfo | null>(null);
+  const [numberOfCompletedActivities, setNumberOfCompletedActivities] = useState<number>(0);
 
   let navigate = useNavigate();
 
-  const onTaskClick = (task: TaskInfo) => setSelectedTask(task);
+  const onTaskClick = (task: ActivityInfo) => setSelectedTask(task);
+
+  useEffect(() => {
+    const getNumberOfCompletedActivities = async () => {
+      const numberOfCompletedActivities = await firebaseService.getCompletedTasksByBorough(userId!, location.toLowerCase())
+      setNumberOfCompletedActivities(numberOfCompletedActivities || 0);
+    };
+  
+    getNumberOfCompletedActivities();
+  }, [userId, location]);
 
   return (
     <TaskListContainer>
       {
-        selectedTask?.title && selectedTask?.description ? (
+        selectedTask ? (
           <>
             <CancelButton onClick={() => setSelectedTask(null)} />
             <TaskCompletionHeader location={location} />
             <TaskCompletionBody
               location={location}
-              taskHeader={selectedTask.title}
-              taskDescription={selectedTask.description}
+              taskHeader={selectedTask.fields?.["Task Title"]}
+              taskDescription={selectedTask.fields?.["Task Description"]}
               setSelectedTask={setSelectedTask}
             />
           </>
@@ -84,14 +83,14 @@ export default function TaskList(props: TaskListProps) {
             <BackButton onClick={() => {navigate('/', { replace: true })}}/>
             <TaskListHeader
                 location={location}
-                tasksCompleted={completedTaskIds.length}
-                totalTasks={tasks.length - 1}
+                activitiesCompleted={numberOfCompletedActivities}
+                totalActivities={activities?.length - 1}
                 availableTickets={availableTickets}
             />
-            <TaskListTable onTaskClick={onTaskClick} tasks={tasks} completedTasks={completedTaskIds}/>
+            <TaskListTable activities={activities} onTaskClick={onTaskClick}/>
           </>
         )
-      }
+      } 
     </TaskListContainer>
   );
 }

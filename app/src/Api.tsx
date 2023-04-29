@@ -13,9 +13,6 @@ import {
 import {
   User,
 } from 'firebase/auth';
-import {getAirTableData, PRIZE_TABLE_NAME, TASK_TABLE_NAME} from "./utils/airtable";
-import { TaskListData } from "./components/tasks/TaskList";
-import { RafflePrizeData } from "./components/raffle/RaffleList";
 
 export class FirebaseService {
   private db: Database;
@@ -51,7 +48,7 @@ export class FirebaseService {
       const userId = user.uid
       const snapshot = await get(ref(this.db, `users/${userId}`));
       // user is not initialized yet (firebase on login default sets a UID but no other data)
-      if (snapshot.val()?.email === undefined) {
+      if (snapshot.val().email === undefined) {
         await this.registerUser(user);
         return null;
       } 
@@ -63,30 +60,19 @@ export class FirebaseService {
     }
   }
 
-   /**
-   *  Enters the user into a raffle
-   *  1) decrements the users number of tickets remaining
-   *  2) increases the number of entries for a given raffle
-   * 
-   * @param userId 
-   * @param raffleId
-   * @param ticketCost - the number of tickets it costs to enter a raffle
-   */
-  async enterRaffle(userId: string, raffleId: string, ticketCost: number): Promise<void> {
+  async addRaffleEntry(userId: string, raffleId: string, entries: number): Promise<void> {
     try {
-      await this.decrementTicketsRemaining(userId, ticketCost);
-      const userRef = ref(this.db, `users/${userId}/raffles_entered/${raffleId}/entries`);
-      await runTransaction(userRef, (currentNumEntries) => {
-        return (currentNumEntries || 0) + 1;
-      });
-      console.log(`Raffle entry added successfully to raffle ${raffleId}.`);
+      await set(ref(this.db, `users/${userId}/raffles_entered/${raffleId}`), { entries });
+      console.log("Raffle entry added successfully.");
     } catch (error) {
-      console.error(`Error adding entry to raffle ${raffleId}: `, error);
+      console.error("Error adding raffle entry:", error);
     }
   }
 
+  // @TODO translate to task 
+
   /**
-   *  Decrements a user's tickets for the raffle entry flow
+   * Can be used when redeeming a raffle entry
    * 
    * @param userId 
    * @param decrement 
@@ -110,6 +96,7 @@ export class FirebaseService {
    * @param userId 
    * @param taskId 
    * @param borough 
+   * @param increment 
    */
   async completeTask(userId: string, taskId: string, borough:string): Promise<void> {
     try {
@@ -127,14 +114,20 @@ export class FirebaseService {
     }
   }
 
-  async getTasksByBorough(userId: string, borough: string): Promise<any[]> {
+  /**
+   * Get user's number of completed tasks by borough
+   * 
+   * @param userId 
+   * @param borough 
+   */
+  async getCompletedTasksByBorough(userId: string, borough: string): Promise<number | null> {
     try {
-      const tasks = (await get(ref(this.db, `users/${userId}/${borough.toLowerCase()}_completed_tasks`))).val();
-      if (tasks === null) return [];
-      return tasks;
+      borough = borough.toLowerCase();
+      const completedTasks = (await get(ref(this.db, `users/${userId}/${borough}_completed_tasks`))).val();
+      return !completedTasks ? 0 : Object.keys(completedTasks).length;
     } catch (error) {
       console.error(`Error getting ${borough} tasks for user ${userId}`, error);
-      return [];
+      return null;
     }
   }
 
@@ -164,7 +157,7 @@ export class FirebaseService {
       }
 
       try {
-        const rafflesEntered = (await get(ref(this.db, `users/${userId}/raffles_entered`))).val() ?? {};
+        const rafflesEntered = (await get(ref(this.db, `users/${userId}/raffles_entered`))).val();
         const totalTicketsEntered = Object.values<Raffle>(rafflesEntered).reduce((total, raffle) => total + raffle.entries, 0)
         return totalTicketsEntered;
       } catch (error) {
@@ -173,34 +166,7 @@ export class FirebaseService {
       }
     }
 
-  /**
-   * Get user's completed tasks across all boroughs as a set of taskID's
-   * 
-   * @param userId 
-   * 
-   */
-  async getCompletedTasks(userId: string): Promise<Set<string>| null> {
-    try {
-      let userProfile = (await get(ref(this.db, `users/${userId}`))).val();
-     
-      // TODO: change when enums for the boroughs are implemented
-      let boroughs = ['brooklyn', 'queens', 'manhattan'];
 
-      let completedTasks = new Set<string>();
-      if (userProfile != null) { 
-        for(let b of boroughs) {
-          Object.keys(userProfile[`${b}_completed_tasks`]).forEach(completedTasks.add, completedTasks);
-        }
-        console.log("Completed tasks retrieved successfully: " + completedTasks);
-        return completedTasks;  
-      } else {
-        return null;
-      }
-    } catch (error) {
-      console.error(`Error getting completed tasks`, error);
-      return null;
-    }
-  }
 
   /**
    * Functions we need to write:
@@ -229,120 +195,4 @@ export class FirebaseService {
    *    - start with entries: 1, or increment the number of entries
    * 
    */
-}
-
-export type Task = {
-  id: string;
-  title: string;
-  description: string;
-  borough: string;
-  index: number;
-}
-
-export type Prize = {
-  id: string;
-  prizeTitle: string;
-  prizeSubtitle: string;
-  description: string;
-  dollarValue: string;
-  ticketValue: number;
-  productLink: string;
-  imageUrl: string;
-}
-
-export class AirTableService {
-  async getTasks(borough?: string): Promise<Task[]> {
-    const processedData: Task[] = []
-    try {
-      const rawData = await getAirTableData(TASK_TABLE_NAME);
-
-      rawData.forEach((row: any) => {
-        const rowFields = row.fields;
-
-        // allows user to filter data by borough if provided to method
-        if ((borough != undefined && borough.toLowerCase() === rowFields['Borough'].toLowerCase()) || borough === undefined) {
-          const task: Task = {
-            id: row['id'],
-            title: rowFields['Task Title'],
-            description: rowFields['Task Description'],
-            borough: rowFields['Borough'],
-            index: rowFields['Index']
-          }
-            processedData.push(task);
-          }
-      });
-    } catch (error) {
-      console.error(`Error getting Tasks from Airtable: ${error}`);
-    }
-
-    return processedData;
-  };
-
-  convertTaskListToTaskListData(tasks: Task[], location: string): TaskListData {
-    let result: TaskListData = {
-      location: location,
-      activities: []
-    }
-    if (tasks) {
-      tasks.forEach(t => {
-        result.activities.push({
-          activity: {
-            title: t.title,
-            description: t.description,
-            index: t.index,
-            id: t.id,
-            completed: false,
-          }
-        })
-      });
-    }
-    return result;
-  }
-
-  async getPrizes(): Promise<Prize[]> {
-    const processedData: Prize[] = []
-    try {
-      const rawData = await getAirTableData(PRIZE_TABLE_NAME);
-
-    rawData.forEach((row: any) => {
-      const rowFields = row.fields;
-      const prize: Prize = {
-        id: row['id'],
-        prizeTitle: rowFields['Prize Title (Brand)'],
-        prizeSubtitle: rowFields['Prize Subtitle (Item)'],
-        description: rowFields['Item Description'],
-        dollarValue: rowFields['Item Dollar Value'],
-        ticketValue: rowFields['Item Ticket Value'],
-        productLink: rowFields['Product Link'],
-        imageUrl: rowFields['Image URL']
-      }
-        processedData.push(prize);
-      }
-    );
-    } catch (error) {
-      console.error(`Error getting Prizes from Airtable: ${error}`);
-    }
-
-
-    return processedData;
-  }
-
-  convertPrizeListToRafflePrizeData(prizes: Prize[]): RafflePrizeData[] {
-    const result: RafflePrizeData[] = [];
-
-    if (prizes) {
-      prizes.forEach(p => {
-        result.push({
-          title: p.prizeTitle,
-          description: p.description,
-          longDescription: [p.description],
-          ticketsRequired: p.ticketValue,
-          image: p.imageUrl,
-          entries: 0,
-          id: p.id
-        })
-      })
-    }
-    return result;
-  }
 }
