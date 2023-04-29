@@ -68,6 +68,7 @@ export type UserData = {
     tickets_remaining?: number
 }
 
+
 function App() {
     const [user, setUser] = useState<User | null>(null);
     const [email, setEmail] = useState("");
@@ -124,6 +125,10 @@ function App() {
 
     function HomePage(props: UserProps) {
         const { user } = props;
+        //   const navigate = useNavigate();
+        if (!user && window.location.pathname !== "/login") {
+            window.location.pathname = "/login";
+        }
         return (
             <div>
                 {user ? (
