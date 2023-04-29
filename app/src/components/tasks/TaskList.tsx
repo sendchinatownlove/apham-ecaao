@@ -11,7 +11,6 @@ import TaskListTable from "./TaskListTable";
 import TaskListHeader from "./TaskListHeader";
 import {AirTableService, FirebaseService, Task} from "../../Api";
 import { PageContainer } from "../theme";
-import {useAuth} from "../../AuthContext";
 
 const TaskListContainer = styled.div`
   border-radius: 25px;
@@ -44,8 +43,6 @@ export default function TaskList(props: TaskListProps) {
   const firebaseService = new FirebaseService();
   const airtableService = new AirTableService();
   const [completedTaskIds, setCompletedTaskIds] = React.useState<String[]>([]);
-
-  const user = useAuth();
 
   useEffect(() => {
       async function getTasks() {
