@@ -86,38 +86,6 @@ function App() {
       return allTasks;
     };
 
-    const signInWithGoogle = async () => {
-        const provider = new GoogleAuthProvider();
-        try {
-            await signInWithPopup(auth, provider);
-        } catch (error: any) {
-            setError(error.message);
-        }
-    };
-
-    const sendSignInEmail = async (email: string) => {
-        const actionCodeSettings = {
-            url: window.location.href,
-            handleCodeInApp: false,
-        };
-        try {
-            await sendSignInLinkToEmail(auth, email, actionCodeSettings);
-            window.localStorage.setItem("emailForSignIn", email);
-            setEmail("");
-            setError("Email sent. Please check your inbox.");
-        } catch (error: any) {
-            setError(error.message);
-        }
-    };
-
-    const signInWithEmail = async (email: string, emailLink: string) => {
-        try {
-            await signInWithEmailLink(auth, email, emailLink);
-        } catch (error: any) {
-            setError(error.message);
-        }
-    };
-
     interface UserProps {
         user: User | null;
     }
@@ -135,7 +103,7 @@ function App() {
                 ) : (
                     <>
                         <h3>Sign in to get started!</h3>
-                        <button onClick={signInWithGoogle}>Sign in with Google</button>
+                        {/* <button onClick={signInWithGoogle}>Sign in with Google</button> */}
                         <form onSubmit={handleSubmit}>
                             <input
                                 type="email"
@@ -162,13 +130,13 @@ function App() {
         });
 
         // @TODO https://firebase.google.com/docs/auth/web/email-link-auth?authuser=2&hl=en
-        if (isSignInWithEmailLink(auth, window.location.href)) {
-            const email = window.localStorage.getItem("emailForSignIn");
-            if (email) {
-                signInWithEmail(email, window.location.href);
-                window.localStorage.removeItem("emailForSignIn");
-            }
-        }
+        // if (isSignInWithEmailLink(auth, window.location.href)) {
+        //     const email = window.localStorage.getItem("emailForSignIn");
+        //     if (email) {
+        //         signInWithEmail(email, window.location.href);
+        //         window.localStorage.removeItem("emailForSignIn");
+        //     }
+        // }
         if (user) {
             // Fetch user data
             const fetchUserData = async () => {
@@ -239,7 +207,7 @@ function App() {
 
     const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault();
-        sendSignInEmail(email);
+        // sendSignInEmail(email);
     };
 
     const router = createBrowserRouter([
@@ -267,7 +235,7 @@ function App() {
 
     return (
         <div className="App">
-            <AuthProvider>
+            <AuthProvider appContext={firebaseApp}>
                 <RouterProvider router={router} />
             </AuthProvider>
         </div>
