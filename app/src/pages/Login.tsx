@@ -4,7 +4,12 @@ import Arch from "../assets/arch.svg";
 import { BrandText } from "../styled-components";
 import Footer from '../components/shared/footer';
 
+
 import { useState } from "react";
+import { AuthProvider, useAuth } from "../AuthContext";
+import { useNavigate, useParams } from "react-router-dom";
+
+
 
 const LoginContainer = styled.div`
   width: 98vw;
@@ -146,13 +151,38 @@ function validateEmail(input: string) {
   return false;
 }
 
+
+
 export default function Login() {
   const [error, setError] = useState(false);
   const [email, setEmail] = useState("");
+  const [sent, setSent] = useState(false);
 
-  const handleSubmit = (event: React.FormEvent) => {
+
+  const { user, sendSignInEmail } = useAuth();
+
+  const navigate = useNavigate();
+  if (user) {
+    navigate('/', { replace: true })
+  }
+  
+
+
+
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
+    window.localStorage.setItem("emailForSignIn", email);
+    console.log('submit')
+    try {
+      await sendSignInEmail(email)
+      setSent(true)
+    } catch (error) {
+      console.log(error)
+      setError("Something went wrong. Please try again.")
+    }
   };
+
+    // Redirect to the home page if the user is authenticated
 
   return (
     <>
@@ -190,11 +220,13 @@ export default function Login() {
                   setEmail(e.target.value);
                 } else {
                   setError(true);
+                  setSent(false)
                 }
               }}
             />
             <ErrorWrapper>
               {error && <ErrorText>Please enter a valid email</ErrorText>}
+              {sent && <ErrorText>Check your email for a sign in link</ErrorText>}
             </ErrorWrapper>
           </InputWrapper>
           <ButtonWrapper type="submit" disabled={error || email == ""}>
