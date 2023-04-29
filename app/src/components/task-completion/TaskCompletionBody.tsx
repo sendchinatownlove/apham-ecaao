@@ -115,8 +115,8 @@ export default function TaskCompletion(props: TaskCompletionProps) {
     };
 
     useEffect(() => {
-        const titleElement = document.getElementById('cancel-button');
-        titleElement?.scrollIntoView({ behavior: 'auto' });
+        const cancelButton = document.getElementById('cancel-button');
+        cancelButton?.scrollIntoView({ behavior: 'auto' });
     })
 
     return (

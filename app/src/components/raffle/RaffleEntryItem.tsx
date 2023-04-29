@@ -69,8 +69,8 @@ export default function RaffleEntryItem(props: RafflePrizeData) {
     const { title, description, image, ticketsRequired, entries} = props;
 
     useEffect(() => {
-        const titleElement = document.getElementById('cancel-button');
-        titleElement?.scrollIntoView({ behavior: 'auto' });
+        const cancelButton = document.getElementById('cancel-button');
+        cancelButton?.scrollIntoView({ behavior: 'auto' });
     })
 
     return (
