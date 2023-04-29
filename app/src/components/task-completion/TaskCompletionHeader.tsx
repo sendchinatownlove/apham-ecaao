@@ -21,15 +21,15 @@ const HeaderDescription = styled.p`
   color: #A8192E;
 `
 type TaskCompletionHeaderProps = {
-  location: string;
+  borough: string;
 }
 
 export default function TaskCompletionHeader(props: TaskCompletionHeaderProps) {
-  const { location} = props;
+  const { borough} = props;
 
   return (
     <HeaderWrapper>
-      <HeaderText>{location}</HeaderText>
+      <HeaderText>{borough}</HeaderText>
       <HeaderDescription>Upload a photo of the completed activity</HeaderDescription>
     </HeaderWrapper>
   );

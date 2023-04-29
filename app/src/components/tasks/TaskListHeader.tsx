@@ -25,18 +25,18 @@ const AvailableTicketsText = styled.p`
 `
 
 type TaskListHeaderProps = {
-  location: string;
+  borough: string;
   totalTasks: number;
   tasksCompleted: number;
   availableTickets: number;
 }
 
 export default function TaskListHeader(props: TaskListHeaderProps) {
-    const { location, tasksCompleted, totalTasks, availableTickets } = props;
+    const { borough, tasksCompleted, totalTasks, availableTickets } = props;
   return (
     <StyledTaskListHeader>
       <LocationText>
-        <span>{location.toUpperCase()}</span>
+        <span>{borough.toUpperCase()}</span>
               <span>{tasksCompleted}/{totalTasks}</span>
       </LocationText>
       <AvailableTicketsText>
