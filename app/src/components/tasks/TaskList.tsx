@@ -41,7 +41,7 @@ export default function TaskList(props: TaskListProps) {
   const [tasks, setTasks] = React.useState<Task[]>([]);
   const firebaseService = new FirebaseService();
   const airtableService = new AirTableService();
-  const completedTaskIds: string[] = [];
+  let completedTaskIds: string[] = [];
 
   useEffect(() => {
       async function getTasks() {
@@ -49,9 +49,8 @@ export default function TaskList(props: TaskListProps) {
       }
       async function getCompletedTasks() {
         const completedTasks = await firebaseService.getTasksByBorough(userId!, location);
-        completedTasks.forEach((task) => {
-            completedTaskIds.push(Object.keys(task)[0]);
-        })
+        completedTaskIds = Object.keys(completedTasks);
+        console.log(completedTaskIds);
       }
 
       if (userId !== undefined) {

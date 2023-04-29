@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import {AirTableService, FirebaseService, Prize} from './Api';
+import {AirTableService, FirebaseService, Prize, Task} from './Api';
 import './App.css';
 import Home from "./pages/Home";
 
