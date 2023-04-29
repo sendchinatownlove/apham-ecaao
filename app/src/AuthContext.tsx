@@ -2,11 +2,12 @@
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { getAuth, User, onAuthStateChanged } from 'firebase/auth';
-import { initializeApp } from 'firebase/app';
+import { FirebaseApp, initializeApp } from 'firebase/app';
 
 import {
   // getAuth,
   // User,
+  ActionCodeSettings,
   signInWithPopup,
   GoogleAuthProvider,
   sendSignInLinkToEmail,
@@ -30,26 +31,16 @@ const AuthContext = createContext<AuthContextValue | null>(null);
 // Define the type for the AuthProvider's props
 type AuthProviderProps = {
   children: ReactNode; // Define the 'children' prop with type ReactNode
+  appContext: FirebaseApp;
 };
-import { ActionCodeSettings } from 'firebase/auth';
 
 // Define the AuthProvider component
-export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
+export const AuthProvider: React.FC<AuthProviderProps> = ({ children, appContext }) => {
   const [user, setUser] = useState<User | null>(null);
   const [error, setError] = useState(""); // doesn't go anywhere
   const [email, setEmail] = useState(""); // doesn't go anywhere
 
-  // Initialize Firebase (replace with your own configuration)
-  const firebaseConfig = {
-    apiKey: "AIzaSyD_KVSLkt8eq7-GEFegX9XGfGNg75tucAc",
-    authDomain: "scl-scavengerhunt.firebaseapp.com",
-    projectId: "scl-scavengerhunt",
-    storageBucket: "scl-scavengerhunt.appspot.com",
-    messagingSenderId: "955910274384",
-    appId: "1:955910274384:web:a9de7ecfaa88aa3b940055",
-  };
-  const firebaseApp = initializeApp(firebaseConfig);
-  let auth = getAuth(firebaseApp);
+  let auth = getAuth(appContext);
 
   useEffect(() => {
     // Listen for changes in the authentication state
@@ -84,17 +75,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       //     rel: 'noopener'
       // }
     };
-    try {
       const result = await sendSignInLinkToEmail(auth, email, actionCodeSettings);
       window.localStorage.setItem("emailForSignIn", email);
-      console.log(result)
-      setEmail("");
-      setError("Email sent. Please check your inbox.");
-    } catch (error: any) {
-      console.log(error)
-      sendSignInLinkToEmail(auth, email, actionCodeSettings);
-      setError(error.message);
-    }
+      // console.log(result)
+      // setEmail("");
+      // setError("Email sent. Please check your inbox.");
   };
 
   const signInWithEmail = async (email: string, emailLink: string) => {

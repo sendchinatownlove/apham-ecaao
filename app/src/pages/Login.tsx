@@ -156,10 +156,10 @@ function validateEmail(input: string) {
 export default function Login() {
   const [error, setError] = useState(false);
   const [email, setEmail] = useState("");
+  const [sent, setSent] = useState(false);
 
 
   const { user, sendSignInEmail } = useAuth();
-  console.log(user, 'user??')
 
   const navigate = useNavigate();
   if (user) {
@@ -173,7 +173,13 @@ export default function Login() {
     event.preventDefault();
     window.localStorage.setItem("emailForSignIn", email);
     console.log('submit')
-    await sendSignInEmail(email)
+    try {
+      await sendSignInEmail(email)
+      setSent(true)
+    } catch (error) {
+      console.log(error)
+      setError("Something went wrong. Please try again.")
+    }
   };
 
     // Redirect to the home page if the user is authenticated
@@ -214,11 +220,13 @@ export default function Login() {
                   setEmail(e.target.value);
                 } else {
                   setError(true);
+                  setSent(false)
                 }
               }}
             />
             <ErrorWrapper>
               {error && <ErrorText>Please enter a valid email</ErrorText>}
+              {sent && <ErrorText>Check your email for a sign in link</ErrorText>}
             </ErrorWrapper>
           </InputWrapper>
           <ButtonWrapper type="submit" disabled={error || email == ""}>
