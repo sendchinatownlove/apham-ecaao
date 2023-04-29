@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import CompletionModal from "../tasks/CompletionModal";
-import { ActivityInfo } from "../tasks/TaskList";
+import { TaskInfo } from "../tasks/TaskList";
 
 import TaskChecklistItem from "./TaskChecklistItem";
 import TaskUpload from "./TaskUpload";
@@ -43,7 +43,7 @@ type TaskCompletionProps = {
     location: string;
     taskHeader: string;
     taskDescription: string;
-    setSelectedTask: React.Dispatch<React.SetStateAction<ActivityInfo | null>>;
+    setSelectedTask: React.Dispatch<React.SetStateAction<TaskInfo | null>>;
 };
 
 export default function TaskCompletion(props: TaskCompletionProps) {

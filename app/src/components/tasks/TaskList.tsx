@@ -21,7 +21,7 @@ const TaskListContainer = styled.div`
   margin-top: 30px;
 `;
 
-export type ActivityInfo = {
+export type TaskInfo = {
     title: string;
     description: string;
     completed: boolean;
@@ -37,7 +37,7 @@ export type TaskListProps = {
 
 export default function TaskList(props: TaskListProps) {
   const { location, availableTickets, userId } = props;
-  const [selectedTask, setSelectedTask] = React.useState<ActivityInfo | null>(null);
+  const [selectedTask, setSelectedTask] = React.useState<TaskInfo | null>(null);
   const [tasks, setTasks] = React.useState<Task[]>([]);
   const firebaseService = new FirebaseService();
   const airtableService = new AirTableService();
@@ -63,7 +63,7 @@ export default function TaskList(props: TaskListProps) {
 
   let navigate = useNavigate();
 
-  const onTaskClick = (task: ActivityInfo) => setSelectedTask(task);
+  const onTaskClick = (task: TaskInfo) => setSelectedTask(task);
 
   return (
     <TaskListContainer>
@@ -84,8 +84,8 @@ export default function TaskList(props: TaskListProps) {
             <BackButton onClick={() => {navigate('/', { replace: true })}}/>
             <TaskListHeader
                 location={location}
-                activitiesCompleted={completedTaskIds.length}
-                totalActivities={tasks.length - 1}
+                tasksCompleted={completedTaskIds.length}
+                totalTasks={tasks.length - 1}
                 availableTickets={availableTickets}
             />
             <TaskListTable onTaskClick={onTaskClick} tasks={tasks} completedTasks={completedTaskIds}/>
