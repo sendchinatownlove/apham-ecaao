@@ -50,7 +50,6 @@ export default function TaskList(props: TaskListProps) {
       async function getCompletedTasks() {
         const completedTasks = await firebaseService.getTasksByBorough(userId!, borough!);
         setCompletedTaskIds(Object.keys(completedTasks));
-        console.log(completedTaskIds);
       }
 
       async function getAvailableTickets() {
