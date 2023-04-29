@@ -53,6 +53,17 @@ const auth = getAuth(firebaseApp);
 export const firebaseService = new FirebaseService();
 
 
+interface Task {
+  id: string;
+  createdTime: string;
+  fields: {
+    Borough: string;
+    "Task Title": string;
+    Index: number;
+    "Task Description": string;
+  }
+}
+
 function App() {
   const [user, setUser] = useState<User | null>(null);
   const [email, setEmail] = useState('');
