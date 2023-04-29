@@ -36,16 +36,30 @@ const CheckedCheckbox = styled.div`
   padding-left: 4px;
 `;
 
+const DonationLink = styled.a`
+ color: black;
+ font-weight: 600;
+ font-size: 14px;
+ letter-spacing: 0.055em;
+ text-transform: uppercase;
+ text-decoration: none;
+ 
+ :hover {
+   color: rgb(168, 25, 46);
+ }
+`;
+
 export type TaskChecklistItemProps = {
   taskHeader: string;
   taskDescription: string;
   isChecked: boolean;
+  taskIndex: number;
 }
 
 export default function TaskChecklistItem(props: TaskChecklistItemProps) {
-  const { taskHeader, taskDescription, isChecked } = props;
+  const { taskHeader, taskDescription, isChecked, taskIndex } = props;
 
-  return (
+    return (
     <ChecklistItem>
       <TaskCheckListContainer>
         <span>{taskHeader}</span>
@@ -53,6 +67,18 @@ export default function TaskChecklistItem(props: TaskChecklistItemProps) {
       </TaskCheckListContainer>
       <TaskDescription>
         {taskDescription}
+          {taskIndex === 0 ? (
+              <div>
+              <br/><br/>
+              <DonationLink
+                target="_blank" rel="noreferrer"
+                href="https://square.link/u/G7n2wte2">
+                Donate to us directly via Square
+              </DonationLink>
+              </div>
+          ): (
+              <></>
+          )}
       </TaskDescription>
     </ChecklistItem>
   );
