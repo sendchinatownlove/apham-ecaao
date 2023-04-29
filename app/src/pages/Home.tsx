@@ -36,6 +36,28 @@ const Boroughs = styled.div`
   gap: 15px;
 `;
 
+const MapLink= styled.a`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 39px;
+  padding: 10px 19px;
+  background-color: rgba(255, 255, 255, 0.15);
+  color: white;
+  border-style: solid;
+  border-width: 2px;
+  border-color: white;
+
+  &:hover {
+    color: white;
+  }
+`;
+
+const MapIcon= styled.span`
+  content: url('/location-pin.svg');
+  width: 33px;
+`;
+
 interface Props {
   user: User,
 }
@@ -116,6 +138,10 @@ function Home(props: Props) {
         <BoroughButton borough="Manhattan" totalTasks={33} completedTasks={numCompletedMHTNTasks}/>
         <BoroughButton borough="Queens" totalTasks={33} completedTasks={numCompletedQNSTasks}/>
         <BoroughButton borough="Brooklyn" totalTasks={33} completedTasks={numCompletedBKLYNTasks}/>
+        <MapLink href="https://www.google.com/maps/d/u/0/viewer?mid=1l4O6_kQL21lIP7K6SzS3ZEs6uAp2npM&ll=40.68204387481424%2C-73.9058136434832&z=10" target="_blank" rel="noreferrer">
+          <BodyTextMedium bold size="14px">Explore Via Our Map</BodyTextMedium>
+          <MapIcon />
+        </MapLink>
       </Boroughs>
       <TicketsCounter ticketsData={ticketsData}/>
       <Footer/>
