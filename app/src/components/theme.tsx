@@ -79,6 +79,7 @@ export const BubbleLabel = styled.span`
   font-size: 10px;
   border: 1px solid ${THEME_COLORS.PINK1};
   border-radius: 8px;
-  padding: 3px 12px;
+  padding: 2px 10px;
   letter-spacing: 0.15em;
+  text-transform: uppercase;
 `

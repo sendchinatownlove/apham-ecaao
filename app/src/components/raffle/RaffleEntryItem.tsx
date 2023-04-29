@@ -1,30 +1,7 @@
 import styled from "styled-components";
 import { RafflePrizeData } from "./RaffleList";
+import { BubbleLabel } from "../theme";
 
-const TicketReqText = styled.span`
-    color: white;
-    background-color: #DD678A;
-    font-weight: 700;
-    font-size: 10px;
-    letter-spacing 0.15em;
-    border: 1px solid #DD678A;
-    border-radius: 8px;
-    padding: 2px 10px;
-    text-transform: uppercase;
-    line-height: 13.62px;
-`
-
-const EntriesText = styled.span`
-    color: #DD678A;
-    background-color: white;
-    font-weight: 700;
-    font-size: 10px;
-    letter-spacing 0.15em;
-    border: 1px solid #DD678A;
-    border-radius: 8px;
-    padding: 2px 10px;
-    text-transform: uppercase;
-`   
 const EntryHeaderText = styled.div`
     display: flex;
     justify-content: space-between;
@@ -62,11 +39,11 @@ function TicketReq(props: {ticketsRequired: number}) {
 
     let text;
    if (ticketsRequired > 1) {
-        text = <TicketReqText>{ticketsRequired} Raffle Tickets Required</TicketReqText>
+        text = <BubbleLabel secondary>{ticketsRequired} Raffle Tickets Required</BubbleLabel>
     } else if (ticketsRequired == 1){
-        text = <TicketReqText>1 Raffle Ticket Required</TicketReqText>
+        text = <BubbleLabel secondary>1 Raffle Ticket Required</BubbleLabel>
     }else {
-        text = <TicketReqText>No Raffle Ticket Required</TicketReqText>
+        text = <BubbleLabel secondary>No Raffle Ticket Required</BubbleLabel>
     }
     return text
 }
@@ -78,11 +55,11 @@ function Entries(props: {numEntries: number | undefined}) {
     if(numEntries == undefined) { // remove once numEntries is required
         text = <span></span>
     } else if (numEntries > 1) {
-        text = <EntriesText>{numEntries} Entries</EntriesText>
+        text = <BubbleLabel>{numEntries} Entries</BubbleLabel>
     } else if (numEntries == 1){
-        text = <EntriesText>1 Entry</EntriesText>
+        text = <BubbleLabel>1 Entry</BubbleLabel>
     }else {
-        text = <EntriesText>No Entries Yet</EntriesText>
+        text = <BubbleLabel>No Entries Yet</BubbleLabel>
     }
     return text
 }
