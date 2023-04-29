@@ -38,6 +38,16 @@ const LogoWrapper = styled.div`
   }
 `;
 
+const FooterLink = styled.a`
+  font-weight: inherit;
+  color: inherit;
+  text-decoration: inherit;
+
+  &:hover {
+    color: rgb(168, 25, 46);
+  }
+`
+
 type LayoutFooterProps = {
   color?: string;
   background?: string;
@@ -51,10 +61,14 @@ function LayoutFooter(props: LayoutFooterProps) {
         <img alt="logo" src={Logo} />
       </LogoWrapper>
       <BodyTextMedium color={color} size={"12px"} bold>
-        READ ABOUT THIS EVENT
+        <FooterLink href="https://www.sendchinatownlove.com/ecaao-2023.html" target="_blank" rel="noreferrer">
+          READ ABOUT THIS EVENT
+        </FooterLink>
       </BodyTextMedium>
       <BodyTextMedium color={color} size={"12px"} bold>
-        @SENDCHINATOWNLOVE
+        <FooterLink href="https://www.instagram.com/sendchinatownlove/" target="_blank" rel="noreferrer">
+          @SENDCHINATOWNLOVE
+        </FooterLink>
       </BodyTextMedium>
     </Container>
   );

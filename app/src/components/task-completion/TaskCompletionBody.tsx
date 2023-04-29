@@ -41,7 +41,7 @@ const ErrorMessage = styled.p`
 type TaskCompletionProps = {
     userId: string;
     taskId: string;
-    location: string;
+    borough: string;
     taskHeader: string;
     taskDescription: string;
     setSelectedTask: React.Dispatch<React.SetStateAction<TaskInfo | null>>;
@@ -83,7 +83,6 @@ export default function TaskCompletion(props: TaskCompletionProps) {
             // https://stackoverflow.com/questions/17415579/how-to-iso-8601-format-a-date-with-timezone-offset-in-javascript
             const currentDateWithoutSec = new Date().toLocaleString( 'sv' ).split(":", 2).join(":");
             const fileName = `${userId}-${taskId}-${alphanumericRegex(currentDateWithoutSec)}.${ext}`;
-
 
             const signedUrl = await (
                 await axios.post(API_ROUTE, { filename: fileName, filetype: contentType })
