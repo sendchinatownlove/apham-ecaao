@@ -1,6 +1,7 @@
 import styled from "styled-components";
+import {BaseButton} from "../theme";
 
-const StyledBackButton = styled.button`
+const StyledBackButton = styled(BaseButton)`
   display: flex;
   align-items: center;
   padding-top: 9px;
@@ -8,12 +9,7 @@ const StyledBackButton = styled.button`
   background-color: transparent;
 
   &:hover {
-      background-color: transparent;
-      border-color: transparent;
-    }
-
-  :focus {
-    outline: none;
+    background-color: transparent;
   }
 `
 
