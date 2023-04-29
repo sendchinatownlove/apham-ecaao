@@ -1,7 +1,6 @@
 import axios from "axios";
 import styled from "styled-components";
 import { useState } from "react";
-import { useParams } from "react-router-dom";
 import CompletionModal from "../tasks/CompletionModal";
 import { TaskInfo } from "../tasks/TaskList";
 
@@ -40,6 +39,8 @@ const ErrorMessage = styled.p`
 `
 
 type TaskCompletionProps = {
+    userId: string;
+    taskId: string;
     location: string;
     taskHeader: string;
     taskDescription: string;
@@ -47,14 +48,13 @@ type TaskCompletionProps = {
 };
 
 export default function TaskCompletion(props: TaskCompletionProps) {
-    const { taskHeader, taskDescription, setSelectedTask } = props;
+    const { userId, taskId, taskHeader, taskDescription, setSelectedTask } = props;
     const [imageFileSrc, setImageFileSrc] = useState("");
     const [image, setImage] = useState<File | null>(null);
     const [isLoading, setIsLoading] = useState(false);
     const [errorHasOccurred, setErrorHasOccurred] = useState(false);
     const [isPopupActive, setIsPopupActive] = useState(false);
     const hasImageBeenUploaded = imageFileSrc !== "";
-    const { id } = useParams<any>();
 
     const alphanumericRegex = (str: string) => {
         return str.replace(/[^a-zA-Z0-9]/g, "-");
@@ -79,12 +79,14 @@ export default function TaskCompletion(props: TaskCompletionProps) {
             setIsLoading(true);
             const ext = image?.type.split("/")[1];
             const contentType = image?.type;
-            //TODO add actual user ID and Task ID
-            // If you want to format this fancier to basically ISO but without the seconds and in EDT
-            const filename = `${id}-${alphanumericRegex(new Date().toLocaleDateString())}.${ext}`;
+
+            // https://stackoverflow.com/questions/17415579/how-to-iso-8601-format-a-date-with-timezone-offset-in-javascript
+            const currentDateWithoutSec = new Date().toLocaleString( 'sv' ).split(":", 2).join(":");
+            const fileName = `${userId}-${taskId}-${alphanumericRegex(currentDateWithoutSec)}.${ext}`;
+
 
             const signedUrl = await (
-                await axios.post(API_ROUTE, { filename: filename, filetype: contentType })
+                await axios.post(API_ROUTE, { filename: fileName, filetype: contentType })
             ).data.url;
 
             if (!signedUrl) {
