@@ -4,10 +4,7 @@ import styled from "styled-components";
 import {Task} from "../../Api";
 
 const TaskListTableContainer = styled.div`
-  max-height: 100vh;
-  overflow: scroll;
   background-color: rgba(168, 25, 46, 0.52);
-  border-radius: 0 0 25px 25px;
   color: rgb(255, 255, 255);
   text-align: center;
 `;

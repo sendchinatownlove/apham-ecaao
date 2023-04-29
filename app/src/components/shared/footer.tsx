@@ -13,6 +13,14 @@ const Container = styled.div`
   padding-bottom: 20px;
 `;
 
+const LinkContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+`;
+
+
 const LogoWrapper = styled.div`
   display: block;
   position: relative;
@@ -60,16 +68,18 @@ function LayoutFooter(props: LayoutFooterProps) {
       <LogoWrapper background={background}>
         <img alt="logo" src={Logo} />
       </LogoWrapper>
-      <BodyTextMedium color={color} size={"12px"} bold>
-        <FooterLink href="https://www.sendchinatownlove.com/ecaao-2023.html" target="_blank" rel="noreferrer">
-          READ ABOUT THIS EVENT
-        </FooterLink>
-      </BodyTextMedium>
-      <BodyTextMedium color={color} size={"12px"} bold>
-        <FooterLink href="https://www.instagram.com/sendchinatownlove/" target="_blank" rel="noreferrer">
-          @SENDCHINATOWNLOVE
-        </FooterLink>
-      </BodyTextMedium>
+      <LinkContainer>
+        <BodyTextMedium color={color} size={"12px"} bold>
+          <FooterLink href="https://www.sendchinatownlove.com/ecaao-2023.html" target="_blank" rel="noreferrer">
+            Read More
+          </FooterLink>
+        </BodyTextMedium>
+        <BodyTextMedium color={color} size={"12px"} bold>
+          <FooterLink href="https://www.instagram.com/sendchinatownlove/" target="_blank" rel="noreferrer">
+            @SENDCHINATOWNLOVE
+          </FooterLink>
+        </BodyTextMedium>
+      </LinkContainer>
     </Container>
   );
 }
