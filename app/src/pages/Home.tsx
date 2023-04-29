@@ -56,7 +56,6 @@ function Home(props: Props) {
 
   const fetchCompletedTasksByBorough = async (borough: string) => {
     const completedTasks = Object.keys(await firebaseService.getTasksByBorough(user.uid, borough));
-    console.log(completedTasks);
     if (completedTasks.length > 0) {
       switch (borough) {
         case 'Manhattan':
