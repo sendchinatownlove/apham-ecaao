@@ -7,6 +7,8 @@ import { TaskInfo } from "../tasks/TaskList";
 import TaskChecklistItem from "./TaskChecklistItem";
 import TaskUpload from "./TaskUpload";
 
+import { FirebaseService } from "../../Api";
+
 const TaskCompletionWrapper = styled.div`
     min-width: 350px;
     width: 100%;
@@ -48,13 +50,15 @@ type TaskCompletionProps = {
 };
 
 export default function TaskCompletion(props: TaskCompletionProps) {
-    const { userId, taskId, taskHeader, taskDescription, setSelectedTask } = props;
+    const { userId, taskId, borough, taskHeader, taskDescription, setSelectedTask } = props;
     const [imageFileSrc, setImageFileSrc] = useState("");
     const [image, setImage] = useState<File | null>(null);
     const [isLoading, setIsLoading] = useState(false);
     const [errorHasOccurred, setErrorHasOccurred] = useState(false);
     const [isPopupActive, setIsPopupActive] = useState(false);
     const hasImageBeenUploaded = imageFileSrc !== "";
+
+    const firebaseService = new FirebaseService();
 
     const alphanumericRegex = (str: string) => {
         return str.replace(/[^a-zA-Z0-9]/g, "-");
@@ -101,6 +105,8 @@ export default function TaskCompletion(props: TaskCompletionProps) {
             setErrorHasOccurred(false);
             setIsPopupActive(true);
             setIsLoading(false);
+
+            firebaseService.completeTask(userId, taskId, borough);
 
         } catch (error) {
             console.error(error);
