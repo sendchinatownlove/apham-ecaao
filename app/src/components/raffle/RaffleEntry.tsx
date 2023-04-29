@@ -58,7 +58,7 @@ export default function RaffleEntry(props: RaffleViewProps) {
     return (
         <RaffleEntryContainer>
             <RaffleEntryItem 
-                title ={title}
+                title={title}
                 subtitle={subtitle}
                 description={description}
                 image={image}
