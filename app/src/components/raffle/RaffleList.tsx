@@ -53,15 +53,13 @@ export default function RaffleList(props: RaffleListProps) {
 
     return (
         <RaffleListContainer>
-            <GiveAwaysDetail numberOfEntries={entries}/>
+            <GiveAwaysDetail numberOfEntries={entries} />
             <RafflePrizeListContainer>
-                {prizeData.map((prize, index) => (
-                    <RafflePrize
-                        key={prize.id}
-                        prize={prize}
-                        setSelectedGiveaway={setSelectedGiveaway}
-                    />
-                ))}
+                {prizeData
+                    .sort((a, b) => a.ticketsRequired - b.ticketsRequired)
+                    .map((prize) => (
+                        <RafflePrize key={prize.id} prize={prize} setSelectedGiveaway={setSelectedGiveaway} />
+                    ))}
             </RafflePrizeListContainer>
         </RaffleListContainer>
     );
