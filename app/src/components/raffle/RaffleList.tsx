@@ -18,8 +18,8 @@ const RafflePrizeListContainer = styled.div`
 
 export type RafflePrizeData = {
     title: string;
+    subtitle: string,
     description: string;
-    longDescription: string[];
     image: string;
     ticketsRequired: number;
     entries?: number;

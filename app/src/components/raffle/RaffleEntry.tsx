@@ -41,7 +41,7 @@ type RaffleViewProps = {
 }
 
 export default function RaffleEntry(props: RaffleViewProps) {
-    const { title, description, longDescription, image, ticketsRequired, entries, id} = props.prizeData;
+    const { title, subtitle, description, image, ticketsRequired, entries, id} = props.prizeData;
     const { user, availableTickets, setAvailableTickets } = props;
     // TODO: Add logic if available tickets - tickets required > 0
     let hasEnoughTickets = availableTickets >= ticketsRequired;
@@ -58,9 +58,9 @@ export default function RaffleEntry(props: RaffleViewProps) {
     return (
         <RaffleEntryContainer>
             <RaffleEntryItem 
-                title ={title}
+                title={title}
+                subtitle={subtitle}
                 description={description}
-                longDescription={longDescription}
                 image={image}
                 ticketsRequired={ticketsRequired}
                 entries={entries} />
