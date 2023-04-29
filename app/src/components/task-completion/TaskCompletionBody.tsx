@@ -40,7 +40,7 @@ const ErrorMessage = styled.p`
 `
 
 type TaskCompletionProps = {
-    location: string;
+    borough: string;
     taskHeader: string;
     taskDescription: string;
     setSelectedTask: React.Dispatch<React.SetStateAction<TaskInfo | null>>;

@@ -73,7 +73,6 @@ function App() {
 
     const [userData, setUserData] = useState<UserData>({});
 
-    const [allTasks, setAllTasks] = useState<TaskTuple>({});
     const [prizes, setPrizes] = useState<Prize[]>([]);
 
     const getAllTasks = async () => {
@@ -175,7 +174,6 @@ function App() {
                 for (let [borough,taskSet] of Object.entries(allTasks)) {
                     airtableService.addUserStatusToTasks(taskSet, userData);
                 }
-                setAllTasks(allTasks);
                 setPrizes(await airtableService.getPrizes());
             };
 
@@ -265,34 +263,12 @@ function App() {
             ),
         },
         {
-            path: "/tasks/manhattan",
+            path: "/tasks/:borough",
             element: (
                 <TaskList
-                    location={Borough.Manhattan}
                     userId={user?.uid}
-                    availableTickets={22}
                 />
-            ),
-        },
-        {
-            path: "/tasks/brooklyn",
-            element: (
-                <TaskList
-                    location={Borough.Brooklyn}
-                    userId={user?.uid}
-                    availableTickets={22}
-                />
-            ),
-        },
-        {
-            path: "/tasks/queens",
-            element: (
-                <TaskList
-                    location={Borough.Queens}
-                    userId={user?.uid}
-                    availableTickets={22}
-                />
-            ),
+            )
         },
     ]);
 
