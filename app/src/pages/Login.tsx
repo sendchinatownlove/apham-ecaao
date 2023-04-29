@@ -7,6 +7,7 @@ import Footer from '../components/shared/footer';
 
 import { useState } from "react";
 import { AuthProvider, useAuth } from "../Auth";
+import { useNavigate, useParams } from "react-router-dom";
 
 
 
@@ -158,6 +159,14 @@ export default function Login() {
 
 
   const { user, sendSignInEmail } = useAuth();
+  console.log(user, 'user??')
+
+  const navigate = useNavigate();
+  if (user) {
+    navigate('/', { replace: true })
+  }
+  
+
 
 
   const handleSubmit = async (event: React.FormEvent) => {
@@ -167,6 +176,7 @@ export default function Login() {
     await sendSignInEmail(email)
   };
 
+    // Redirect to the home page if the user is authenticated
 
   return (
     <>

@@ -36,8 +36,8 @@ type AuthProviderProps = {
 // Define the AuthProvider component
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children })  => {
   const [user, setUser] = useState<User | null>(null);
-  const [error, setError] = useState("");
-  const [email, setEmail] = useState("");
+  const [error, setError] = useState(""); // doesn't go anywhere
+  const [email, setEmail] = useState(""); // doesn't go anywhere
 
   // Initialize Firebase (replace with your own configuration)
   const firebaseConfig = {
@@ -79,7 +79,7 @@ const sendSignInEmail = async (email: string) => {
     console.log("sending email call")
     const actionCodeSettings: ActionCodeSettings = {
         url: window.location.href,
-        // handleCodeInApp: false,
+        handleCodeInApp: true,
         // webRequest: {
         //     rel: 'noopener'
         // }
