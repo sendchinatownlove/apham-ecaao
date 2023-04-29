@@ -105,7 +105,7 @@ function Home(props: Props) {
         </NumberLine>
         <NumberLine bold color="#ffff">
           <span>2.</span>
-          <span>TAKE A PICTURE WHEN YOU COMPLETE EACH TASK AND UPLOAD IT</span>
+          <span>TAKE A PICTURE WHEN YOU COMPLETE EACH ACTIVITY AND UPLOAD IT</span>
         </NumberLine>
         <NumberLine bold color="#ffff">
           <span>3.</span>

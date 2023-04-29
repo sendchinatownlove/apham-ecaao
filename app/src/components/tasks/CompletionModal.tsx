@@ -79,7 +79,7 @@ export default function CompletionModal(props: CompletionModalProps) {
             <RaffleImage src={raffleImg} />
             <ModalHeader>You’ve earned a raffle ticket</ModalHeader>
             <p>Nice work! Way to show up for the Chinatown communities.</p>
-            <p>You can use this ticket towards a chosen giveaway prize of your choice.</p>
+            <p>You can use this ticket towards a giveaway prize of your choice.</p>
             <PrimaryButton onClick={() => { navigate('/raffles') }}>Enter my raffle ticket</PrimaryButton>
             <SecondaryButton onClick={() => {
               setIsActive(false);
