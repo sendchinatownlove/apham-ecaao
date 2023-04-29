@@ -8,28 +8,38 @@ import { useState } from "react";
 
 const LoginContainer = styled.div`
   width: 98vw;
-  height: 100vh;
+  height: 104vh;
   max-width: 1200px;
+  margin-top: 15px;
 `
 
 const LoginWrapper = styled.div`
   background: #ffffff;
   position: relative;
-  top: -6px;
+  top: -28px;
   border-radius: 26px;
+  padding: 0 20px;
 `;
 
 const Header = styled.div`
-  padding-top: 30px;
+  padding-top: 20px;
 `
 
-const HeaderText = styled.h1`
-  font-size: 14px;
-  letter-spacing: 0.15em;
-  color: #A8192E;
-  font-weight: 700;
-  padding-bottom: 4px;
+const Icon = styled.img`
+  content: url(${Arch});
+  top: 19px;
+  position: relative;
+  min-width: 108px;
+  z-index: 1
 `
+
+const ECAAOLogo = styled.img`
+  content: url("/ecaao.png");
+  width: 207px;
+  height: 119px;
+  position: relative;
+  z-index: 2;
+`;
 
 const SubheaderText = styled.p`
   font-style: italic;
@@ -157,16 +167,10 @@ export default function Login() {
   return (
     <>
     <LoginContainer>
-          <img
-            alt="arch"
-            src={Arch}
-            style={{ top: "32px", position: "relative" }}
-          />
+          <Icon/>
       <LoginWrapper>
         <Header>
-        <HeaderText>
-          100* WAYS TO SEND CHINATOWN LOVE
-        </HeaderText>
+        <ECAAOLogo/>
         <SubheaderText>EVERYTHING CHINATOWN ALL AT ONCE</SubheaderText>
         </Header>
         <CTAHeader>
