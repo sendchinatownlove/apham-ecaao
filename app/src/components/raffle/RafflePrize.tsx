@@ -72,7 +72,7 @@ export default function RafflePrize(props: RaffleListProps) {
             </TicketContainer>
             <PrizeCaption>
                 <PrizeTitle>{title.toUpperCase()}</PrizeTitle>
-                <PrizeSubtitle>{subtitle.toUpperCase()} {dollarValue ? `- ${dollarValue} VALUE` : ''}</PrizeSubtitle>
+                <PrizeSubtitle>{subtitle.toUpperCase()} {dollarValue ? `- $${dollarValue} VALUE` : ''}</PrizeSubtitle>
             </PrizeCaption>
         </PrizeDescriptionContainer>
         <img src={image} style={{ maxWidth: "85%", maxHeight: "300px" }}/>
