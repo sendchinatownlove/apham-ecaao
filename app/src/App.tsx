@@ -98,7 +98,7 @@ function App() {
     const sendSignInEmail = async (email: string) => {
         const actionCodeSettings = {
             url: window.location.href,
-            handleCodeInApp: true,
+            handleCodeInApp: false,
         };
         try {
             await sendSignInLinkToEmail(auth, email, actionCodeSettings);
