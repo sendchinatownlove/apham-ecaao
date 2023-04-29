@@ -5,6 +5,8 @@ import {AirTableService, FirebaseService, Prize, Task} from './Api';
 import './App.css';
 import Home from "./pages/Home";
 
+import { AuthProvider } from "./Auth";
+
 import {
     getAuth,
     User,
@@ -261,7 +263,9 @@ function App() {
 
     return (
         <div className="App">
-            <RouterProvider router={router} />
+            <AuthProvider>
+                <RouterProvider router={router} />
+            </AuthProvider>
         </div>
     );
 }
