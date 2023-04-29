@@ -40,11 +40,6 @@ interface Props {
   user: User,
 }
 
-const ticketsData = {
-  ticketsEntered: 12,
-  ticketsAvailable: 2,
-}
-
 function Home(props: Props) {
   const { user } = props;
   const firebaseService = new FirebaseService();
@@ -91,7 +86,8 @@ function Home(props: Props) {
       fetchCompletedTasksByBorough('Brooklyn');
       fetchCompletedTasksByBorough('Queens');
       fetchAvailableRaffleTickets();
-      fetchEnteredRaffleTickets();
+      // fetchEnteredRaffleTickets();
+      setTicketsEntered(2)
     }
   })
 

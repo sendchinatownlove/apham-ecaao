@@ -6,6 +6,7 @@ export const THEME_COLORS = {
   "WHITE": "#FFFFFF",
   "BLACK": "#0000000",
   "PINK": "#FFEBEB",
+  "PINK1": "#DD678A",
 };
 
 interface BodyTextProps {
@@ -13,6 +14,10 @@ interface BodyTextProps {
   color?: string,
   upperCase?: boolean,
   size?: string,
+}
+
+interface BubbleLabelProps {
+  secondary?: boolean,
 }
 
 export const BodyTextMedium = styled.span`
@@ -65,4 +70,15 @@ export const SecondaryButton = styled(PrimaryButton)`
   border-radius: 40px;
   width: 50%;
   height: 45px;
+`
+
+export const BubbleLabel = styled.span`
+  color: ${(props: BubbleLabelProps) => props.secondary ? THEME_COLORS.WHITE : THEME_COLORS.PINK1 };
+  background-color: ${(props: BubbleLabelProps) => props.secondary ? THEME_COLORS.PINK1 : THEME_COLORS.WHITE };
+  font-weight: 700;
+  font-size: 10px;
+  border: 1px solid ${THEME_COLORS.PINK1};
+  border-radius: 8px;
+  padding: 3px 12px;
+  letter-spacing: 0.15em;
 `
