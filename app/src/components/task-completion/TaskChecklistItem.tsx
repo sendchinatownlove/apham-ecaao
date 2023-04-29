@@ -66,7 +66,9 @@ export default function TaskChecklistItem(props: TaskChecklistItemProps) {
           {taskIndex === 0 ? (
               <div>
               <br/><br/>
-              <DonationLink href="https://www.sendchinatownlove.com/donate.html">
+              <DonationLink
+                target="_blank" rel="noreferrer"
+                href="https://www.sendchinatownlove.com/donate.html">
                 https://www.sendchinatownlove.com/donate.html
               </DonationLink>
               </div>
