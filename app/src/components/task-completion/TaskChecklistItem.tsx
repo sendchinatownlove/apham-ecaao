@@ -38,7 +38,11 @@ const CheckedCheckbox = styled.div`
 
 const DonationLink = styled.a`
  color: black;
- text-decoration: underline;
+ font-weight: 600;
+ font-size: 14px;
+ letter-spacing: 0.055em;
+ text-transform: uppercase;
+ text-decoration: none;
  
  :hover {
    color: rgb(168, 25, 46);
@@ -68,8 +72,8 @@ export default function TaskChecklistItem(props: TaskChecklistItemProps) {
               <br/><br/>
               <DonationLink
                 target="_blank" rel="noreferrer"
-                href="https://www.sendchinatownlove.com/donate.html">
-                https://www.sendchinatownlove.com/donate.html
+                href="https://square.link/u/G7n2wte2">
+                Donate to us directly via Square
               </DonationLink>
               </div>
           ): (
