@@ -124,8 +124,8 @@ function App() {
     }
 
     function HomePage(props: UserProps) {
-        const { user } = props;
-        //   const navigate = useNavigate();
+
+        
         if (!user && window.location.pathname !== "/login") {
             window.location.pathname = "/login";
         }
