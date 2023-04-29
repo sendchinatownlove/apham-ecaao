@@ -36,16 +36,26 @@ const CheckedCheckbox = styled.div`
   padding-left: 4px;
 `;
 
+const DonationLink = styled.a`
+ color: black;
+ text-decoration: underline;
+ 
+ :hover {
+   color: rgb(168, 25, 46);
+ }
+`;
+
 export type TaskChecklistItemProps = {
   taskHeader: string;
   taskDescription: string;
   isChecked: boolean;
+  taskIndex: number;
 }
 
 export default function TaskChecklistItem(props: TaskChecklistItemProps) {
-  const { taskHeader, taskDescription, isChecked } = props;
+  const { taskHeader, taskDescription, isChecked, taskIndex } = props;
 
-  return (
+    return (
     <ChecklistItem>
       <TaskCheckListContainer>
         <span>{taskHeader}</span>
@@ -53,6 +63,16 @@ export default function TaskChecklistItem(props: TaskChecklistItemProps) {
       </TaskCheckListContainer>
       <TaskDescription>
         {taskDescription}
+          {taskIndex === 0 ? (
+              <div>
+              <br/><br/>
+              <DonationLink href="https://www.sendchinatownlove.com/donate.html">
+                https://www.sendchinatownlove.com/donate.html
+              </DonationLink>
+              </div>
+          ): (
+              <></>
+          )}
       </TaskDescription>
     </ChecklistItem>
   );
