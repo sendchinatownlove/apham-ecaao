@@ -1,7 +1,7 @@
 import React from 'react';
 import {useTable} from 'react-table';
 import styled from "styled-components";
-import {ActivityInfo} from "./TaskList";
+import {Task} from "../../Api";
 
 const TaskListTableContainer = styled.div`
   max-height: 100vh;
@@ -47,14 +47,28 @@ const ActivityRowDescription = styled.div`
 `;
 
 type TaskListTableProps = {
-    activities: { activity: ActivityInfo }[],
     onTaskClick: any,
+    tasks: Task[],
+    completedTasks: string[],
 }
 
-function TaskListTable(props: TaskListTableProps) {
-    const {activities, onTaskClick} = props;
+function parseTasks(tasks: Task[]) {
+    if (tasks === undefined) return [];
+    const parsedTasks: { activity: Task }[] = [];
 
-    activities.sort((a,b) => a.activity.index - b.activity.index);
+    tasks.forEach((task) => {
+        parsedTasks.push({ activity: task})
+    })
+
+    return parsedTasks;
+}
+
+function TaskListTable(props: TaskListTableProps, ) {
+    const {onTaskClick, tasks, completedTasks} = props;
+
+    const parsedTasks = parseTasks(tasks);
+
+    parsedTasks.sort((a,b) => a.activity.index - b.activity.index);
 
     const columns = React.useMemo(
         () => [
@@ -70,7 +84,7 @@ function TaskListTable(props: TaskListTableProps) {
     rows,
     prepareRow,
     // @ts-ignore
-    } = useTable({columns, data: activities})
+    } = useTable({columns, data: parsedTasks})
 
     return (
         <TaskListTableContainer>
@@ -97,10 +111,10 @@ function TaskListTable(props: TaskListTableProps) {
                                         <StyledRow style={{borderTop: borderTop}} onClick={() => onTaskClick(cell.value)}>
                                             <ActivityRowTitleContainer>
                                                 <span>{cell.value['index']}. {cell.value['title']}</span>
-                                                {cell.value['completed'] && (
+                                                {completedTasks.includes(cell.value['id']) && (
                                                     <CheckedCheckbox/>
                                                   )}
-                                                {!cell.value['completed'] && (
+                                                {!completedTasks.includes(cell.value['id']) && (
                                                     <UncheckedCheckbox/>
                                                 )}
                         </ActivityRowTitleContainer>
