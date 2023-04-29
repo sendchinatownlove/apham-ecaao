@@ -8,15 +8,14 @@ import { useState } from "react";
 
 const LoginContainer = styled.div`
   width: 98vw;
-  height: 104vh;
+  height: 95vh;
   max-width: 1200px;
-  margin-top: 15px;
 `
 
 const LoginWrapper = styled.div`
   background: #ffffff;
   position: relative;
-  top: -28px;
+  top: -60px;
   border-radius: 26px;
   padding: 0 20px;
 `;
@@ -27,7 +26,7 @@ const Header = styled.div`
 
 const Icon = styled.img`
   content: url(${Arch});
-  top: 19px;
+  top: 0px;
   position: relative;
   min-width: 108px;
   z-index: 1
@@ -42,7 +41,7 @@ const ECAAOLogo = styled.img`
 `;
 
 const SubheaderText = styled.p`
-  font-style: italic;
+  font-style: italic !important;
   letter-spacing: 0.1em;
   font-size: 10px;
   position: relative;
@@ -75,7 +74,10 @@ const SubheaderText = styled.p`
 const CTAHeader = styled.div`
   color: #000000;
   padding-top: 24px;
+  padding-bottom: 5px;
+  padding-left: 15px;
   font-size: 0.9rem;
+  text-align: left;
 `
 
 const CtaText = styled.div`
@@ -83,12 +85,12 @@ const CtaText = styled.div`
   font-size: 0.9rem;
   line-height: 19px;
   padding: 0 15px;
+  text-align: left;
 `;
 
 const InputWrapper = styled.div`
-  padding-top: 32px;
-  width: 331px;
   margin: auto;
+  padding: 32px 15px 0px 15px;
 `;
 
 const InputLabel = styled(BrandText)`
@@ -97,7 +99,7 @@ const InputLabel = styled(BrandText)`
 `;
 
 const EmailInput = styled.input<{ error: boolean }>`
-  width: 331px;
+  width: 100%;
   height: 50px;
   box-sizing: border-box;
   background: #ffffff;
@@ -165,7 +167,6 @@ export default function Login() {
   };
 
   return (
-    <>
     <LoginContainer>
           <Icon/>
       <LoginWrapper>
@@ -182,7 +183,7 @@ export default function Login() {
         </CtaText>
         <form onSubmit={handleSubmit}>
           <InputWrapper>
-            <InputLabel>Email address</InputLabel>
+            <InputLabel>Email Address</InputLabel>
             <EmailInput
               error={error}
               type="text"
@@ -208,6 +209,5 @@ export default function Login() {
         <Footer background="#A8192E" color="#A8192E" />
       </LoginWrapper>
       </LoginContainer>
-    </>
   );
 }
