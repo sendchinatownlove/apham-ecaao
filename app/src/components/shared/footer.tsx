@@ -15,9 +15,9 @@ const Container = styled.div`
 
 const LinkContainer = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: space-between;
   width: 100%;
-  gap: 15px;
 `;
 
 
@@ -71,7 +71,7 @@ function LayoutFooter(props: LayoutFooterProps) {
       <LinkContainer>
         <BodyTextMedium color={color} size={"12px"} bold>
           <FooterLink href="https://www.sendchinatownlove.com/ecaao-2023.html" target="_blank" rel="noreferrer">
-            Read About This Event
+            Read More
           </FooterLink>
         </BodyTextMedium>
         <BodyTextMedium color={color} size={"12px"} bold>

@@ -22,7 +22,6 @@ import RaffleEntry from "./components/raffle/RaffleEntry";
 import TaskList from "./components/tasks/TaskList";
 
 import { initializeApp } from "firebase/app";
-import { raffleListData } from "./mock-data/raffle-list-data";
 import { Borough } from "./utils/borough";
 import { all } from "axios";
 
