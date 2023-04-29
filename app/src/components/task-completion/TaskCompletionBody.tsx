@@ -1,6 +1,6 @@
 import axios from "axios";
 import styled from "styled-components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CompletionModal from "../tasks/CompletionModal";
 import { TaskInfo } from "../tasks/TaskList";
 
@@ -113,6 +113,11 @@ export default function TaskCompletion(props: TaskCompletionProps) {
             setErrorHasOccurred(true);
         }
     };
+
+    useEffect(() => {
+        const cancelButton = document.getElementById('cancel-button');
+        cancelButton?.scrollIntoView({ behavior: 'auto' });
+    })
 
     return (
         <TaskCompletionWrapper>
