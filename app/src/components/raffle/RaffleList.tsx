@@ -7,13 +7,13 @@ import { User } from "firebase/auth";
 
 const RaffleListContainer = styled.div`
     height: calc(100% - 136px); // 136px is the height of the back button and raffle header, needed to show the whole list without getting cutoff
-    overflow: scroll;
     background-color: rgba(255, 255, 255);
     color: #000000;
 `
 
 const RafflePrizeListContainer = styled.div`
-    padding: 0 14px;
+    padding: 0 14px 8px;
+    background-color: rgb(255, 255, 255);
 `
 
 export type RafflePrizeData = {
