@@ -65,7 +65,7 @@ function Entries(props: {numEntries: number | undefined}) {
 }
 
 export default function RaffleEntryItem(props: RafflePrizeData) {
-    const { title, subtitle, description, image, ticketsRequired, entries} = props;
+    const { title, description, image, ticketsRequired, entries} = props;
 
     return (
     <>

@@ -61,7 +61,7 @@ type RaffleListProps = {
   setSelectedGiveaway: Function;
 }
 export default function RafflePrize(props: RaffleListProps) {
-  const { title, subtitle, description, image, ticketsRequired} = props.prize;
+  const { title, subtitle, image, ticketsRequired, dollarValue } = props.prize;
 
   return(
       <RafflePrizeContainer onClick={() => props.setSelectedGiveaway(props.prize)}>
@@ -72,7 +72,7 @@ export default function RafflePrize(props: RaffleListProps) {
             </TicketContainer>
             <PrizeCaption>
                 <PrizeTitle>{title.toUpperCase()}</PrizeTitle>
-                <PrizeSubtitle>{subtitle.toUpperCase()}</PrizeSubtitle>
+                <PrizeSubtitle>{subtitle.toUpperCase()} {dollarValue ? `- ${dollarValue} VALUE` : ''}</PrizeSubtitle>
             </PrizeCaption>
         </PrizeDescriptionContainer>
         <img src={image} style={{ maxWidth: "85%", maxHeight: "300px" }}/>

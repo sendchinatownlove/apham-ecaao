@@ -22,6 +22,7 @@ export type RafflePrizeData = {
     description: string[];
     image: string;
     ticketsRequired: number;
+    dollarValue?: string;
     entries?: number;
     id?: string;
 }
@@ -36,7 +37,6 @@ type RaffleListProps = {
 export default function RaffleList(props: RaffleListProps) {
     const { prizeData, setSelectedGiveaway, user } = props;
     const [entries, setEntries] = useState<number>(0);
-    console.log(prizeData);
 
     const fireBaseService = new FirebaseService();
 
