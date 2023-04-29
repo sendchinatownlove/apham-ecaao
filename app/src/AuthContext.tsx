@@ -5,14 +5,14 @@ import { getAuth, User, onAuthStateChanged } from 'firebase/auth';
 import { initializeApp } from 'firebase/app';
 
 import {
-    // getAuth,
-    // User,
-    signInWithPopup,
-    GoogleAuthProvider,
-    sendSignInLinkToEmail,
-    isSignInWithEmailLink,
-    signInWithEmailLink,
-    signOut,
+  // getAuth,
+  // User,
+  signInWithPopup,
+  GoogleAuthProvider,
+  sendSignInLinkToEmail,
+  isSignInWithEmailLink,
+  signInWithEmailLink,
+  signOut,
 } from "firebase/auth";
 
 // Define the type for the authentication context value
@@ -29,12 +29,12 @@ const AuthContext = createContext<AuthContextValue | null>(null);
 
 // Define the type for the AuthProvider's props
 type AuthProviderProps = {
-    children: ReactNode; // Define the 'children' prop with type ReactNode
-  };
-  import { ActionCodeSettings } from 'firebase/auth';
+  children: ReactNode; // Define the 'children' prop with type ReactNode
+};
+import { ActionCodeSettings } from 'firebase/auth';
 
 // Define the AuthProvider component
-export const AuthProvider: React.FC<AuthProviderProps> = ({ children })  => {
+export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [error, setError] = useState(""); // doesn't go anywhere
   const [email, setEmail] = useState(""); // doesn't go anywhere
@@ -47,7 +47,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children })  => {
     storageBucket: "scl-scavengerhunt.appspot.com",
     messagingSenderId: "955910274384",
     appId: "1:955910274384:web:a9de7ecfaa88aa3b940055",
-};
+  };
   const firebaseApp = initializeApp(firebaseConfig);
   let auth = getAuth(firebaseApp);
 
@@ -67,44 +67,44 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children })  => {
   const signInWithGoogle = async () => {
     const provider = new GoogleAuthProvider();
     try {
-        await signInWithPopup(auth, provider);
+      await signInWithPopup(auth, provider);
     } catch (error: any) {
-        setError(error.message);
+      setError(error.message);
     }
-};
+  };
 
-const sendSignInEmail = async (email: string) => {
+  const sendSignInEmail = async (email: string) => {
 
 
     console.log("sending email call")
     const actionCodeSettings: ActionCodeSettings = {
-        url: window.location.href,
-        handleCodeInApp: true,
-        // webRequest: {
-        //     rel: 'noopener'
-        // }
+      url: window.location.href,
+      handleCodeInApp: true,
+      // webRequest: {
+      //     rel: 'noopener'
+      // }
     };
     try {
-        const result = await sendSignInLinkToEmail(auth, email, actionCodeSettings);
-        window.localStorage.setItem("emailForSignIn", email);
-        console.log(result)
-        setEmail("");
-        setError("Email sent. Please check your inbox.");
+      const result = await sendSignInLinkToEmail(auth, email, actionCodeSettings);
+      window.localStorage.setItem("emailForSignIn", email);
+      console.log(result)
+      setEmail("");
+      setError("Email sent. Please check your inbox.");
     } catch (error: any) {
-        console.log(error)
-        sendSignInLinkToEmail(auth, email, actionCodeSettings);
-        setError(error.message);
+      console.log(error)
+      sendSignInLinkToEmail(auth, email, actionCodeSettings);
+      setError(error.message);
     }
-};
+  };
 
-const signInWithEmail = async (email: string, emailLink: string) => {
+  const signInWithEmail = async (email: string, emailLink: string) => {
     try {
-        await signInWithEmailLink(auth, email, emailLink);
+      await signInWithEmailLink(auth, email, emailLink);
     } catch (error: any) {
-        console.log(error)
-        setError(error.message);
+      console.log(error)
+      setError(error.message);
     }
-};
+  };
 
   const signOut = async () => {
     // Implementation here
