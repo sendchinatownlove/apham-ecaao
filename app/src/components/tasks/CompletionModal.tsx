@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
 import raffleImg from '../../assets/raffle.png'
-import { ActivityInfo } from "./TaskList";
+import { TaskInfo } from "./TaskList";
 
 const Overlay = styled.div`
   display: block;
@@ -64,7 +64,7 @@ const SecondaryButton = styled(BaseButton)`
 type CompletionModalProps = {
   isActive: boolean;
   setIsActive: React.Dispatch<React.SetStateAction<boolean>>;
-  setSelectedTask: React.Dispatch<React.SetStateAction<ActivityInfo | null>>;
+  setSelectedTask: React.Dispatch<React.SetStateAction<TaskInfo | null>>;
 }
 
 export default function CompletionModal(props: CompletionModalProps) {
