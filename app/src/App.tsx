@@ -10,13 +10,11 @@ import { AuthProvider } from "./AuthContext";
 import {
     getAuth,
     User,
-    signInWithPopup,
-    GoogleAuthProvider,
-    sendSignInLinkToEmail,
-    isSignInWithEmailLink,
-    signInWithEmailLink,
-    signOut,
 } from "firebase/auth";
+
+
+import { getAnalytics } from 'firebase/analytics';
+
 
 import Login from "./pages/Login";
 import RaffleListView from "./pages/RaffleListView";
@@ -50,6 +48,7 @@ const firebaseConfig = {
 
 const firebaseApp = initializeApp(firebaseConfig);
 const auth = getAuth(firebaseApp);
+const analytics = getAnalytics(firebaseApp);
 const firebaseService = new FirebaseService();
 const airtableService = new AirTableService();
 
