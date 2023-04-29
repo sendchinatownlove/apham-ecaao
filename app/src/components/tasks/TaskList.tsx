@@ -70,6 +70,7 @@ export default function TaskList(props: TaskListProps) {
             <TaskCompletionBody
               userId={userId ? userId : '0'}
               taskId={selectedTask.id}
+              taskIndex={selectedTask.index}
               borough={borough!}
               taskHeader={selectedTask.title}
               taskDescription={selectedTask.description}

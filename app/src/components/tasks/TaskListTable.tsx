@@ -124,7 +124,7 @@ function TaskListTable(props: TaskListTableProps, ) {
                                                 )}
                         </TaskRowTitleContainer>
                         <TaskRowDescription>
-                                                {cell.value['description']}
+                             {cell.value['description']}
                         </TaskRowDescription>
                       </StyledRow>
                     </td>

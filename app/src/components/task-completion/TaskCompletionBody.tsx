@@ -47,10 +47,11 @@ type TaskCompletionProps = {
     taskHeader: string;
     taskDescription: string;
     setSelectedTask: React.Dispatch<React.SetStateAction<TaskInfo | null>>;
+    taskIndex: number;
 };
 
 export default function TaskCompletion(props: TaskCompletionProps) {
-    const { userId, taskId, borough, taskHeader, taskDescription, setSelectedTask } = props;
+    const { userId, taskId, borough, taskHeader, taskDescription, setSelectedTask, taskIndex } = props;
     const [imageFileSrc, setImageFileSrc] = useState("");
     const [image, setImage] = useState<File | null>(null);
     const [isLoading, setIsLoading] = useState(false);
@@ -125,6 +126,7 @@ export default function TaskCompletion(props: TaskCompletionProps) {
                 <TaskChecklistItem
                     taskHeader={taskHeader}
                     taskDescription={taskDescription}
+                    taskIndex={taskIndex}
                     isChecked={imageFileSrc !== ""}
                 />
                 <UploadWrapper>
