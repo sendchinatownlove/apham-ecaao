@@ -43,7 +43,7 @@ type RaffleViewProps = {
 export default function RaffleEntry(props: RaffleViewProps) {
     const { title, subtitle, description, image, ticketsRequired, entries, id} = props.prizeData;
     const { user, availableTickets, setAvailableTickets } = props;
-    // TODO: Add logic if available tickets - tickets required > 0
+
     let hasEnoughTickets = availableTickets >= ticketsRequired;
 
     const fireBaseService = new FirebaseService();

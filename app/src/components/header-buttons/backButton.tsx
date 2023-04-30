@@ -22,7 +22,7 @@ const GooglyEye = styled.img`
   max-width: 50px;
 `
 
-const BackButtonText = styled.text`
+const BackButtonText = styled.span`
   letter-spacing: 0.15em;
   font-weight: bold;
   color: rgb(255, 255, 255);

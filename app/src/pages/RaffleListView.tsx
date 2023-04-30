@@ -37,7 +37,7 @@ export default function RaffleListView(props: RaffleViewProps) {
                 if (avail) {
                     setAvailableTickets(avail);
                 }
-                //TODO: may need some updates here when we finish storing total entered tickets in the DB properly
+                
                 const entered = await fetchEnteredRaffleTickets(firebaseService, user);
                 if (entered) {
                     setEnteredTickets(entered)

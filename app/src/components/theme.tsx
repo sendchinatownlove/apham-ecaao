@@ -61,6 +61,7 @@ export const PrimaryButton = styled.button`
   border-radius: 40px;
   width: 100%;
   height: 40px;
+  color:black;
 `
 export const SecondaryButton = styled(PrimaryButton)`
   font-size: 14px;
