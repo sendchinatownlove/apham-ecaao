@@ -73,7 +73,7 @@ export default function TaskChecklistItem(props: TaskChecklistItemProps) {
               <DonationLink
                 target="_blank" rel="noreferrer"
                 href="https://square.link/u/G7n2wte2">
-                Donate to us directly via Square
+                tap to donate directly via square
               </DonationLink>
               </div>
           ): (
