@@ -156,7 +156,7 @@ const ErrorText = styled(BrandText)`
   color: #dd678a;
 `;
 
-const MessageText = styled(BrandText)`
+const LoadingContainer = styled(BrandText)`
   font-size: 20px;
 `;
 
@@ -172,13 +172,9 @@ function validateEmail(input: string) {
 export default function Login() {
   const [error, setError] = useState(false);
   const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
-  const successMessage = `Please check your inbox\
-   and make sure to open the link in the same\
-   browser you currently have open.`;
-
-  const { user, sendSignInEmail, signInPasswordless } = useAuth();
+  const { user, signInPasswordless } = useAuth();
 
   const navigate = useNavigate();
   if (user) {
@@ -187,14 +183,24 @@ export default function Login() {
   
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    window.localStorage.setItem("emailForSignIn", email);
-    setMessage(successMessage);
-
-    // await sendSignInEmail(email);
-    await signInPasswordless(email);
 
     // disable the button to prevent double-submitting
+    const emailToSend = email;
     setEmail("");
+    setIsLoading(true);
+
+    // window.localStorage.setItem("emailForSignIn", email);
+    // await sendSignInEmail(email);
+
+    try {
+      await signInPasswordless(email);
+    }
+    catch (err) {
+      setEmail(emailToSend);
+      setIsLoading(false);
+      setError(true);
+    }
+    
   };
 
     // Redirect to the home page if the user is authenticated
@@ -216,10 +222,10 @@ export default function Login() {
               </CtaText>
               <form onSubmit={handleSubmit}>
                   <InputWrapper>
-                      {message ? (
-                          <MessageText>
+                      {isLoading ? (
+                          <LoadingContainer>
                             <GooglyEyeLoader></GooglyEyeLoader>
-                          </MessageText>
+                          </LoadingContainer>
                       ) : (
                           <>
                               <InputLabel>Email Address</InputLabel>

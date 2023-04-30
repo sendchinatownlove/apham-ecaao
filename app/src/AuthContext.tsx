@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { getAuth, User, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
-import { initializeApp } from 'firebase/app';
+import { FirebaseError, initializeApp } from 'firebase/app';
 
 import {
   // getAuth,
@@ -23,7 +23,6 @@ type AuthContextValue = {
   signInWithGoogle: () => Promise<void>;
   signInPasswordless: (email: string) => Promise<void>;
   sendSignInEmail: (email: string) => Promise<void>;
-  signInWithEmail: (email: string, emailLink: string) => Promise<void>;
   signOut: () => Promise<void>;
 };
 
@@ -78,19 +77,21 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const signInPasswordless = async (email: string) => {
     try {
-      const res = await createUserWithEmailAndPassword(auth, email, FIREBASE_PASSWORD);
-      console.log(res);
+      // First, try to create a new user, will get an error if they already exist
+      try {
+        await createUserWithEmailAndPassword(auth, email, FIREBASE_PASSWORD);
+      }
+      catch (err) {
+        // then if they already exist, just log them in
+        await signInWithEmailAndPassword(auth, email, FIREBASE_PASSWORD);
+      }
+    } catch (err) {
+      console.error(err);
     }
-    catch (err) {
-      console.log(err);
-      const res = await signInWithEmailAndPassword(auth, email, FIREBASE_PASSWORD);
-      console.log(res);
-    }
+
   }
 
   const sendSignInEmail = async (email: string) => {
-
-
     console.log("sending email call")
     const actionCodeSettings: ActionCodeSettings = {
       url: window.location.href,
@@ -107,22 +108,15 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       setError("Email sent. Please check your inbox.");
     } catch (error: any) {
       console.log(error)
+      // is this line needed?
       sendSignInLinkToEmail(auth, email, actionCodeSettings);
-      setError(error.message);
-    }
-  };
-
-  const signInWithEmail = async (email: string, emailLink: string) => {
-    try {
-      await signInWithEmailLink(auth, email, emailLink);
-    } catch (error: any) {
-      console.log(error)
       setError(error.message);
     }
   };
 
   const signOut = async () => {
     // Implementation here
+    console.log("not yet implemented");
   };
 
   // Provide the user object and authentication methods as the context value
@@ -131,7 +125,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     signInWithGoogle,
     signInPasswordless,
     sendSignInEmail,
-    signInWithEmail,
     signOut,
   };
 
