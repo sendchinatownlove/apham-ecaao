@@ -2,7 +2,8 @@
 import { RafflePrizeData } from "./RaffleList";
 import styled from "styled-components";
 import {BubbleLabel} from "../theme";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
+import {FirebaseService} from "../../Api";
 
 const RafflePrizeContainer = styled.div`
     margin: 0 auto 16px;
@@ -87,6 +88,7 @@ type RaffleListProps = {
   setSelectedGiveaway: Function;
   availableTickets: number;
   entries: number;
+  userId: string;
 }
 
 type TicketIconProps = {
@@ -103,17 +105,25 @@ function TicketIcon({ticketsRequired, availableTickets}: TicketIconProps) {
 }
 
 export default function RafflePrize(props: RaffleListProps) {
-  const { title, subtitle, image, ticketsRequired, dollarValue} = props.prize;
+  const { title, subtitle, image, ticketsRequired, dollarValue, id} = props.prize;
   const availableTickets = props.availableTickets;
-  const entries = props.entries
+  const userId = props.userId;
+  const [hasEntries, setHasEntries] = useState(false);
+  const [entryText, setEntryText] = useState("");
 
-  let entryText;
-
-  if (entries === 1) {
-      entryText = '1 ENTRY';
-  } else {
-      entryText = `${entries} ENTRIES`
-  }
+  useEffect(() => {
+      async function getEntries() {
+          const firebaseService = new FirebaseService();
+          if (id) {
+              const entries = await firebaseService.getEntriesForRaffle(userId, id) || 0;
+              if (entries > 0) {
+                setEntryText(`ENTRIES: ${entries}`);
+                setHasEntries(true);
+              }
+          }
+      }
+      getEntries();
+  });
 
   return(
       <RafflePrizeContainer onClick={() => props.setSelectedGiveaway(props.prize)}>
@@ -128,7 +138,7 @@ export default function RafflePrize(props: RaffleListProps) {
         </PrizeDescriptionContainer>
         <PrizeContainer>
           <PrizeImage src={image}/>
-            {entries !== undefined && entries > 0 ? (<EntryPill>{entryText}</EntryPill>) : <></>}
+            {hasEntries ? (<EntryPill>{entryText}</EntryPill>) : <></>}
         </PrizeContainer>
       </RafflePrizeContainer>
   )
