@@ -59,7 +59,7 @@ export default function RaffleList(props: RaffleListProps) {
                 {prizeData
                     .sort((a, b) => a.ticketsRequired - b.ticketsRequired)
                     .map((prize) => (
-                        <RafflePrize key={prize.id} prize={prize} setSelectedGiveaway={setSelectedGiveaway} availableTickets={availableTickets} />
+                        <RafflePrize key={prize.id} prize={prize} setSelectedGiveaway={setSelectedGiveaway} availableTickets={availableTickets} entries={entries} />
                     ))}
             </RafflePrizeListContainer>
         </RaffleListContainer>
