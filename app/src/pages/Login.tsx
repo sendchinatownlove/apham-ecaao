@@ -155,6 +155,10 @@ const ErrorText = styled(BrandText)`
   color: #dd678a;
 `;
 
+const MessageText = styled(BrandText)`
+  font-size: 20px;
+`;
+
 function validateEmail(input: string) {
   if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(input)) {
     return true;
@@ -167,70 +171,83 @@ function validateEmail(input: string) {
 export default function Login() {
   const [error, setError] = useState(false);
   const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
 
+  const successMessage = `Please check your inbox\
+   and make sure to open the link in the same\
+   browser you currently have open.`;
 
   const { user, sendSignInEmail } = useAuth();
-  console.log(user, 'user??')
 
   const navigate = useNavigate();
   if (user) {
     navigate('/', { replace: true })
   }
   
-
-
-
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     window.localStorage.setItem("emailForSignIn", email);
-    console.log('submit')
-    await sendSignInEmail(email)
+    setMessage(successMessage);
+
+    await sendSignInEmail(email);
+
+    // disable the button to prevent double-submitting
+    setEmail("");
   };
 
     // Redirect to the home page if the user is authenticated
 
   return (
-    <LoginContainer>
-          <Icon/>
-      <LoginWrapper>
-        <Header>
-        <ECAAOLogo/>
-        <SubheaderText>EVERYTHING CHINATOWN ALL AT ONCE</SubheaderText>
-        </Header>
-        <CTAHeader>
-          <b>Hey explorer!</b>
-        </CTAHeader>
-        <CtaText>
-          Enter your email below to start exploring the Chinatowns across the
-          boroughs and log your completed activities for chances to win prizes.
-        </CtaText>
-        <form onSubmit={handleSubmit}>
-          <InputWrapper>
-            <InputLabel>Email Address</InputLabel>
-            <EmailInput
-              error={error}
-              type="text"
-              id="email"
-              name="email"
-              onChange={(e) => {
-                if (validateEmail(e.target.value)) {
-                  setError(false);
-                  setEmail(e.target.value);
-                } else {
-                  setError(true);
-                }
-              }}
-            />
-            <ErrorWrapper>
-              {error && <ErrorText>Please enter a valid email</ErrorText>}
-            </ErrorWrapper>
-          </InputWrapper>
-          <ButtonWrapper type="submit" disabled={error || email == ""}>
-            <ButtonText>ENTER</ButtonText>
-          </ButtonWrapper>
-        </form>
-        <Footer background="#A8192E" color="#A8192E" />
-      </LoginWrapper>
+      <LoginContainer>
+          <Icon />
+          <LoginWrapper>
+              <Header>
+                  <ECAAOLogo />
+                  <SubheaderText>EVERYTHING CHINATOWN ALL AT ONCE</SubheaderText>
+              </Header>
+              <CTAHeader>
+                  <b>Hey explorer!</b>
+              </CTAHeader>
+              <CtaText>
+                  Enter your email below to start exploring the Chinatowns across the boroughs and log your completed
+                  activities for chances to win prizes.
+              </CtaText>
+              <form onSubmit={handleSubmit}>
+                  <InputWrapper>
+                      {message ? (
+                          <MessageText>
+                            Email Sent!
+                            <br/>
+                            <br/>
+                            {message}
+                          </MessageText>
+                      ) : (
+                          <>
+                              <InputLabel>Email Address</InputLabel>
+                              <EmailInput
+                                  error={error}
+                                  type="text"
+                                  id="email"
+                                  name="email"
+                                  onChange={(e) => {
+                                      if (validateEmail(e.target.value)) {
+                                          setError(false);
+                                          setEmail(e.target.value);
+                                      } else {
+                                          setError(true);
+                                      }
+                                  }}
+                              />
+                              <ErrorWrapper>{error && <ErrorText>Please enter a valid email</ErrorText>}</ErrorWrapper>
+                          </>
+                      )}
+                  </InputWrapper>
+                  <ButtonWrapper type="submit" disabled={error || email == ""}>
+                      <ButtonText>ENTER</ButtonText>
+                  </ButtonWrapper>
+              </form>
+              <Footer background="#A8192E" color="#A8192E" />
+          </LoginWrapper>
       </LoginContainer>
   );
 }
