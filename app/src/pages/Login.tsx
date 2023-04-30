@@ -56,7 +56,7 @@ const SubheaderText = styled.p`
 
   &:before {
     content: "";
-    width: 50px;
+    min-width: 10vw;
     height: 0.5px;
     background: #a8192e;
     left: 16px;
@@ -66,7 +66,7 @@ const SubheaderText = styled.p`
 
   &:after {
     content: "";
-    width: 50px;
+    min-width: 10vw;
     height: 0.5px;
     background: #a8192e;
     right: 16px;
