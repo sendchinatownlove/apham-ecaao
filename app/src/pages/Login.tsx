@@ -159,6 +159,29 @@ const MessageText = styled(BrandText)`
   font-size: 20px;
 `;
 
+const GoogleButton = styled(BaseButton)`
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: bold;
+  // background: white;
+  border-radius: 10px;
+  width: 50%;
+  height: 40px;
+  color: black;
+  // outline: 1px solid black;
+
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+`
+
+const ProviderButtonContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  height: 113px;
+`;
+
 function validateEmail(input: string) {
   if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(input)) {
     return true;
@@ -177,7 +200,7 @@ export default function Login() {
    and make sure to open the link in the same\
    browser you currently have open.`;
 
-  const { user, sendSignInEmail } = useAuth();
+  const { user, sendSignInEmail, signInWithGoogle, signInWithFacebook } = useAuth();
 
   const navigate = useNavigate();
   if (user) {
@@ -212,6 +235,10 @@ export default function Login() {
                   Enter your email below to start exploring the Chinatowns across the boroughs and log your completed
                   activities for chances to win prizes.
               </CtaText>
+              <ProviderButtonContainer>
+                <GoogleButton onClick={signInWithGoogle}>Continue with Google</GoogleButton>
+                <GoogleButton onClick={signInWithFacebook}>Continue with Facebook</GoogleButton>
+              </ProviderButtonContainer>
               <form onSubmit={handleSubmit}>
                   <InputWrapper>
                       {message ? (

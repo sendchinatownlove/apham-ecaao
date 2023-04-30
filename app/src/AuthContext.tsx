@@ -1,7 +1,7 @@
 // AuthContext.tsx
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { getAuth, User, onAuthStateChanged } from 'firebase/auth';
+import { getAuth, User, onAuthStateChanged, FacebookAuthProvider } from 'firebase/auth';
 import { initializeApp } from 'firebase/app';
 
 import {
@@ -19,6 +19,7 @@ import {
 type AuthContextValue = {
   user: User | null;
   signInWithGoogle: () => Promise<void>;
+  signInWithFacebook: () => Promise<void>;
   sendSignInEmail: (email: string) => Promise<void>;
   signInWithEmail: (email: string, emailLink: string) => Promise<void>;
   signOut: () => Promise<void>;
@@ -73,6 +74,17 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
+  const signInWithFacebook = async () => {
+    const provider = new FacebookAuthProvider();
+    try {
+      let res = await signInWithPopup(auth, provider);
+      console.log(res);
+    } catch (error: any) {
+      console.log(error);
+      setError(error.message);
+    }
+  }
+
   const sendSignInEmail = async (email: string) => {
 
 
@@ -114,6 +126,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const value: AuthContextValue = {
     user,
     signInWithGoogle,
+    signInWithFacebook,
     sendSignInEmail,
     signInWithEmail,
     signOut,
