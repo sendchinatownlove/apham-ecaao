@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { BodyTextMedium, THEME_COLORS } from "../theme";
+import {BaseButton, BodyTextMedium, THEME_COLORS} from "../theme";
 
 interface Props {
   borough: String;
@@ -8,7 +8,7 @@ interface Props {
   totalTasks?: Number;
 }
 
-const Button = styled.button`
+const Button = styled(BaseButton)`
   display: flex;
   justify-content: space-between;
   align-items: center;

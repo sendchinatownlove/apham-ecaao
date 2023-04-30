@@ -3,6 +3,7 @@ import { RafflePrizeData } from "./RaffleList";
 import RaffleEntryItem from "./RaffleEntryItem";
 import { User } from "firebase/auth";
 import { FirebaseService } from "../../Api";
+import {BaseButton} from "../theme";
 
 
 
@@ -14,7 +15,7 @@ const RaffleEntryContainer = styled.div`
   padding: 2.5vh 1.5rem;
   border-top: 1px solid #A8192E;
 `
-const EntryButton = styled.button<{ isDisabled: boolean }>`
+const EntryButton = styled(BaseButton)<{ isDisabled: boolean }>`
     background: ${props => props.isDisabled ? "#8B8B8B" : "#343434"};
     border-radius: 50px;
     width: 100%;

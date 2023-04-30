@@ -52,7 +52,17 @@ export const PageContainer = styled.div`
   overflow-y: scroll;
 `;
 
-export const PrimaryButton = styled.button`
+export const BaseButton = styled.button`
+  &:hover {
+      border-color: transparent;
+    }
+
+  :focus {
+    outline: none;
+  }
+`;
+
+export const PrimaryButton = styled(BaseButton)`
   text-align: center;
   text-transform: uppercase;
   font-size: 11px;

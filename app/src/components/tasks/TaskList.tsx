@@ -39,7 +39,9 @@ export default function TaskList(props: TaskListProps) {
   }
 
   useEffect(() => {
-      getTasks();
+      if (selectedTask === null) {
+          getTasks();
+      }
   });
 
   useEffect(() => {

@@ -5,6 +5,7 @@ import { BrandText } from "../styled-components";
 import Footer from '../components/shared/footer';
 
 import { useState } from "react";
+import {BaseButton} from "../components/theme";
 
 const LoginContainer = styled.div`
   width: 96vw;
@@ -113,7 +114,7 @@ const EmailInput = styled.input<{ error: boolean }>`
   font-size: 18px;
 `;
 
-const ButtonWrapper = styled.button`
+const ButtonWrapper = styled(BaseButton)`
   background: #000000;
   border-radius: 50px;
   width: 267px;
