@@ -133,30 +133,23 @@ function App() {
     }
 
     function HomePage(props: UserProps) {
-
-        
-        // if (!user && window.location.pathname !== "/login") {
-        //     window.location.pathname = "/login";
-        // }
         return (
             <>
-            {isReady ? (
-                <>
-                {user ? (
-                    <Home user={user} />
+                {isReady ? (
+                    <>
+                        {user ? (
+                            <Home user={user} />
+                        ) : (
+                            <>
+                                <Login></Login>
+                            </>
+                        )}
+                    </>
                 ) : (
                     <>
-                    <Login></Login>
+                        <GooglyEyeLoader></GooglyEyeLoader>
                     </>
                 )}
-                </>
-            ) : (
-                <>
-                    <GooglyEyeLoader></GooglyEyeLoader>
-                </>
-            )
-            }
-
             </>
         );
     }
