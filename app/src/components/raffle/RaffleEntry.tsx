@@ -59,12 +59,8 @@ export default function RaffleEntry(props: RaffleViewProps) {
     return (
         <RaffleEntryContainer>
             <RaffleEntryItem 
-                title={title}
-                subtitle={subtitle}
-                description={description}
-                image={image}
-                ticketsRequired={ticketsRequired}
-                entries={entries} />
+                prizeData={props.prizeData}
+                user={user} />
             <div>
                 <EntryButton 
                     isDisabled={!hasEnoughTickets}

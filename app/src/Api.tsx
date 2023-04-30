@@ -162,7 +162,7 @@ export class FirebaseService {
     }
 
   /**
-   * Get user's entered tickets
+   * Get the user's total number of entries into all raffles
    * 
    * @param userId 
    */
@@ -182,7 +182,26 @@ export class FirebaseService {
     }
 
   /**
-   * Get user's entered tickets
+   * Get the number of entries for a specific raffle
+   * 
+   * @param userId 
+   */
+    async getEntriesForRaffle(userId: string, raffleId: string): Promise<number | null> {
+      type Raffle = {
+        entries: number;
+      }
+
+      try {
+        const entries = (await get(ref(this.db, `users/${userId}/raffles_entered/${raffleId}/entries`))).val();
+        return entries;
+      } catch (error) {
+        console.error(`Error getting entries for raffle ${raffleId} for user ${userId}`, error);
+        return null;
+      }
+    }
+
+  /**
+   * Get user's total entered tickets
    * 
    * @param userId 
    */
@@ -228,34 +247,6 @@ export class FirebaseService {
       return null;
     }
   }
-
-  /**
-   * Functions we need to write:
-   * 
-   * 
-   * 1. Get the exact object of user info for the homepage: - Sandy
-   *  - number of tasks completed by borough
-   *  - number of available tickets (not calculated)
-   *  - number of entered tickets
-   * 
-   * 2. Write the exact function called when completing a task - Jess
-   *  - increment tickets remaining
-   *  - "complete task" - creating the task ID entry
-   * 
-   * 3. Get the info needed for a task page - Chianna
-   *  - For a user, the list of ID's of completed tasks
-   *    - Something like an Object.Keys() on the borough array?
-   *  - Think about how to merge this with the AirTable info JSON
-   * 
-   * 4. Get the exact object of user info for the raffle list: - Sandy
-   *  - Can reuse the homepage info?
-   * 
-   * 5. When entering a raffle - Chianna
-   *  - reduce the number of tickets remaining by the # specified
-   *  - CreateOrUpdate that raffle entry
-   *    - start with entries: 1, or increment the number of entries
-   * 
-   */
 }
 
 export type Task = {
