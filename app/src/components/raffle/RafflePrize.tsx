@@ -87,7 +87,6 @@ type RaffleListProps = {
   prize: RafflePrizeData;
   setSelectedGiveaway: Function;
   availableTickets: number;
-  entries: number;
   userId: string;
 }
 
