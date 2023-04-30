@@ -66,6 +66,7 @@ export class FirebaseService {
    *  Enters the user into a raffle
    *  1) decrements the users number of tickets remaining
    *  2) increases the number of entries for a given raffle
+   *  3) increases the number of tickets spent toward a given raffle
    * 
    * @param userId 
    * @param raffleId
@@ -74,10 +75,18 @@ export class FirebaseService {
   async enterRaffle(userId: string, raffleId: string, ticketCost: number): Promise<void> {
     try {
       await this.decrementTicketsRemaining(userId, ticketCost);
+
       const userRef = ref(this.db, `users/${userId}/raffles_entered/${raffleId}/entries`);
       await runTransaction(userRef, (currentNumEntries) => {
         return (currentNumEntries || 0) + 1;
       });
+      
+      // We're also storing the total number of tickets entered here
+      const enteredTicketsRef = ref(this.db, `users/${userId}/tickets_entered`);
+      await runTransaction(enteredTicketsRef, (currentNumtickets) => {
+        return (currentNumtickets || 0) + ticketCost;
+      });
+
       console.log(`Raffle entry added successfully to raffle ${raffleId}.`);
     } catch (error) {
       console.error(`Error adding entry to raffle ${raffleId}: `, error);
@@ -157,7 +166,7 @@ export class FirebaseService {
    * 
    * @param userId 
    */
-    async getEnteredRaffleTickets(userId: string): Promise<number | null> {
+    async getEnteredRaffles(userId: string): Promise<number | null> {
       type Raffle = {
         entries: number;
       }
@@ -167,7 +176,26 @@ export class FirebaseService {
         const totalTicketsEntered = Object.values<Raffle>(rafflesEntered).reduce((total, raffle) => total + raffle.entries, 0)
         return totalTicketsEntered;
       } catch (error) {
-        console.error(`Error getting entered raffle tickets for user ${userId}`, error);
+        console.error(`Error getting entered raffles user ${userId}`, error);
+        return null;
+      }
+    }
+
+  /**
+   * Get user's entered tickets
+   * 
+   * @param userId 
+   */
+    async getEnteredRaffleTickets(userId: string): Promise<number | null> {
+      type Raffle = {
+        entries: number;
+      }
+
+      try {
+        const ticketsEntered = (await get(ref(this.db, `users/${userId}/tickets_entered`))).val();
+        return ticketsEntered;
+      } catch (error) {
+        console.error(`Error getting total entered raffle tickets for user ${userId}`, error);
         return null;
       }
     }

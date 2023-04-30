@@ -30,6 +30,9 @@
         "tickets_remaining": {
           ".validate": "newData.isNumber() && newData.val() >= 0"
         },
+        "tickets_entered": {
+          ".validate": "newData.isNumber() && newData.val() >= 0"
+        },
         "$other": {
           ".validate": false
         }

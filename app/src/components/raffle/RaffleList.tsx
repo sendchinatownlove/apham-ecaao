@@ -43,9 +43,8 @@ export default function RaffleList(props: RaffleListProps) {
 
     useEffect(() => {
         (async () => {
-            //TODO: may need some updates here when we finish storing total entered tickets in the DB properly
             if (user) {
-                const entries = await fireBaseService.getEnteredRaffleTickets(user.uid);
+                const entries = await fireBaseService.getEnteredRaffles(user.uid);
                 if (entries) {
                     setEntries(entries!);
                 }

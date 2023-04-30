@@ -22,7 +22,7 @@ const ClosedEye = styled.img`
   margin: auto 10px auto 5px;
 `
 
-const ButtonText = styled.text`
+const ButtonText = styled.span`
   letter-spacing: 0.15em;
   font-weight: bold;
   color: rgb(255, 255, 255);
