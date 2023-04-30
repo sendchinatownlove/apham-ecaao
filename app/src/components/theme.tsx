@@ -43,18 +43,26 @@ export const PageContainer = styled.div`
   background-color: rgba(255, 255, 255, 0.3);
   width: 98vw;
   text-align: center;
-  height: calc(100vh - 30px);
-  margin: 0 auto;
-  margin-top: 30px;
+  height: 95vh;
+  margin-top: 10px;
   max-width: 1200px;
-  border-top-left-radius: 36px;
-  border-top-right-radius: 36px;
+  border-radius: 36px;
   box-sizing: border-box;
   overflow-x: hidden;
   overflow-y: scroll;
 `;
 
-export const PrimaryButton = styled.button`
+export const BaseButton = styled.button`
+  &:hover {
+      border-color: transparent;
+    }
+
+  :focus {
+    outline: none;
+  }
+`;
+
+export const PrimaryButton = styled(BaseButton)`
   text-align: center;
   text-transform: uppercase;
   font-size: 11px;
@@ -63,6 +71,7 @@ export const PrimaryButton = styled.button`
   border-radius: 40px;
   width: 100%;
   height: 40px;
+  color:black;
 `
 export const SecondaryButton = styled(PrimaryButton)`
   font-size: 14px;

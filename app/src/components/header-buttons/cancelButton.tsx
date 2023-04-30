@@ -1,6 +1,7 @@
 import styled from "styled-components";
+import {BaseButton} from "../theme";
 
-const Button = styled.button`
+const Button = styled(BaseButton)`
 display: flex;
 align-items: center;
 padding-top: 9px;
@@ -10,13 +11,9 @@ height: 64px;
 letter-spacing: 0.15em;
 
 &:hover {
-    background-color: transparent;
-    border-color: transparent;
-  }
-
-:focus {
-  outline: none;
+  background-color: transparent;
 }
+
 `
 
 const ClosedEye = styled.img`
@@ -25,7 +22,7 @@ const ClosedEye = styled.img`
   margin: auto 10px auto 5px;
 `
 
-const ButtonText = styled.text`
+const ButtonText = styled.span`
   letter-spacing: 0.15em;
   font-weight: bold;
   color: rgb(255, 255, 255);
@@ -41,7 +38,7 @@ export default function CancelButton(props: CancelButtonProps) {
     const { onClick } = props;
 
     return (
-      <Button onClick={onClick}>
+      <Button onClick={onClick} id="cancel-button">
         <ClosedEye/>
         <ButtonText>
           CANCEL

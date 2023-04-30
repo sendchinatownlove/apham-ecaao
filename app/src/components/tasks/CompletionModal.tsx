@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import raffleImg from '../../assets/raffle.png'
 import { TaskInfo } from "./TaskList";
+import {BaseButton} from "../theme";
 
 const Overlay = styled.div`
   display: block;
@@ -41,22 +42,31 @@ const ModalHeader = styled.p`
   font-weight: 700;
 `
 
-const BaseButton = styled.button`
+const BaseModalButton = styled(BaseButton)`
   width: 100%;
   height: 36px;
   text-transform: uppercase;
   letter-spacing: 0.15em;
   font-weight: 700;
   border-radius: 40px;
+  
+  &:hover {
+      border-color: transparent;
+    }
+
+  :focus {
+    outline: none;
+  }
 `
 
-const PrimaryButton = styled(BaseButton)`
+const PrimaryButton = styled(BaseModalButton)`
   background: #A8192E;
   color: white;
   margin: 20px 0;
+  
 `
 
-const SecondaryButton = styled(BaseButton)`
+const SecondaryButton = styled(BaseModalButton)`
   color: #A8192E;
   background: none;
 `

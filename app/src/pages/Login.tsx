@@ -9,35 +9,43 @@ import { useState } from "react";
 import { AuthProvider, useAuth } from "../AuthContext";
 import { useNavigate, useParams } from "react-router-dom";
 
-
+import {BaseButton} from "../components/theme";
 
 const LoginContainer = styled.div`
-  width: 98vw;
-  height: 100vh;
+  width: 96vw;
   max-width: 1200px;
 `
 
 const LoginWrapper = styled.div`
   background: #ffffff;
   position: relative;
-  top: -6px;
+  top: -40px;
   border-radius: 26px;
+  padding: 0 20px;
 `;
 
 const Header = styled.div`
-  padding-top: 30px;
+  padding-top: 20px;
 `
 
-const HeaderText = styled.h1`
-  font-size: 14px;
-  letter-spacing: 0.15em;
-  color: #A8192E;
-  font-weight: 700;
-  padding-bottom: 4px;
+const Icon = styled.img`
+  content: url(${Arch});
+  top: 20px;
+  position: relative;
+  min-width: 108px;
+  z-index: 1
 `
+
+const ECAAOLogo = styled.img`
+  content: url("/ecaao.png");
+  width: 207px;
+  height: 119px;
+  position: relative;
+  z-index: 2;
+`;
 
 const SubheaderText = styled.p`
-  font-style: italic;
+  font-style: italic !important;
   letter-spacing: 0.1em;
   font-size: 10px;
   position: relative;
@@ -70,7 +78,10 @@ const SubheaderText = styled.p`
 const CTAHeader = styled.div`
   color: #000000;
   padding-top: 24px;
+  padding-bottom: 5px;
+  padding-left: 15px;
   font-size: 0.9rem;
+  text-align: left;
 `
 
 const CtaText = styled.div`
@@ -78,12 +89,12 @@ const CtaText = styled.div`
   font-size: 0.9rem;
   line-height: 19px;
   padding: 0 15px;
+  text-align: left;
 `;
 
 const InputWrapper = styled.div`
-  padding-top: 32px;
-  width: 331px;
   margin: auto;
+  padding: 32px 15px 0px 15px;
 `;
 
 const InputLabel = styled(BrandText)`
@@ -92,7 +103,7 @@ const InputLabel = styled(BrandText)`
 `;
 
 const EmailInput = styled.input<{ error: boolean }>`
-  width: 331px;
+  width: 100%;
   height: 50px;
   box-sizing: border-box;
   background: #ffffff;
@@ -107,7 +118,7 @@ const EmailInput = styled.input<{ error: boolean }>`
   font-size: 18px;
 `;
 
-const ButtonWrapper = styled.button`
+const ButtonWrapper = styled(BaseButton)`
   background: #000000;
   border-radius: 50px;
   width: 267px;
@@ -179,18 +190,11 @@ export default function Login() {
     // Redirect to the home page if the user is authenticated
 
   return (
-    <>
     <LoginContainer>
-          <img
-            alt="arch"
-            src={Arch}
-            style={{ top: "32px", position: "relative" }}
-          />
+          <Icon/>
       <LoginWrapper>
         <Header>
-        <HeaderText>
-          100* WAYS TO SEND CHINATOWN LOVE
-        </HeaderText>
+        <ECAAOLogo/>
         <SubheaderText>EVERYTHING CHINATOWN ALL AT ONCE</SubheaderText>
         </Header>
         <CTAHeader>
@@ -202,7 +206,7 @@ export default function Login() {
         </CtaText>
         <form onSubmit={handleSubmit}>
           <InputWrapper>
-            <InputLabel>Email address</InputLabel>
+            <InputLabel>Email Address</InputLabel>
             <EmailInput
               error={error}
               type="text"
@@ -228,6 +232,5 @@ export default function Login() {
         <Footer background="#A8192E" color="#A8192E" />
       </LoginWrapper>
       </LoginContainer>
-    </>
   );
 }

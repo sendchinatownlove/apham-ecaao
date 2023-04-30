@@ -31,11 +31,21 @@ exports.airtable_proxy = functions.https.onRequest(async (req, res) => {
     };
 
     try {
+        let records = []
+
         functions.logger.log("Sending request to AirTable");
         let result = await fetch(airtableURL, config);
         result = await result.json();
 
-        res.status(200).send(result.records);
+        records.push(...result.records);
+
+        if (result.offset) {
+            let res2 = await fetch(airtableURL + `?offset=${result.offset}`, config);
+            res2 = await res2.json();
+            records.push(...res2.records);
+        }
+
+        res.status(200).send(records);
     } catch (err) {
         functions.logger.error("Error fetching results from AirTable", err);
         res.status(500).send(err);

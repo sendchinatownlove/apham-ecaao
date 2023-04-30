@@ -12,16 +12,6 @@ import TaskListHeader from "./TaskListHeader";
 import {AirTableService, FirebaseService, Task} from "../../Api";
 import { PageContainer } from "../theme";
 
-const TaskListContainer = styled.div`
-  border-radius: 25px;
-  text-align: center;
-  background-color: rgba(255, 255, 255, 0.3);
-  width: 98vw;
-  height: auto;
-  max-width: 1200px;
-  margin-top: 30px;
-`;
-
 export type TaskInfo = {
     title: string;
     description: string;
@@ -44,10 +34,17 @@ export default function TaskList(props: TaskListProps) {
   const airtableService = new AirTableService();
   const [completedTaskIds, setCompletedTaskIds] = React.useState<String[]>([]);
 
+  async function getTasks() {
+      setTasks(await airtableService.getTasks(borough));
+  }
+
   useEffect(() => {
-      async function getTasks() {
-          setTasks(await airtableService.getTasks(borough));
+      if (selectedTask === null) {
+          getTasks();
       }
+  });
+
+  useEffect(() => {
       async function getCompletedTasks() {
         const completedTasks = await firebaseService.getTasksByBorough(userId!, borough!);
         setCompletedTaskIds(Object.keys(completedTasks));
@@ -80,6 +77,7 @@ export default function TaskList(props: TaskListProps) {
             <TaskCompletionBody
               userId={userId ? userId : '0'}
               taskId={selectedTask.id}
+              taskIndex={selectedTask.index}
               borough={borough!}
               taskHeader={selectedTask.title}
               taskDescription={selectedTask.description}

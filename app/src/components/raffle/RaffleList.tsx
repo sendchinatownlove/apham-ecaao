@@ -22,6 +22,7 @@ export type RafflePrizeData = {
     description: string;
     image: string;
     ticketsRequired: number;
+    dollarValue?: string;
     entries?: number;
     id?: string;
 }
@@ -30,20 +31,20 @@ type RaffleListProps = {
     prizeData: RafflePrizeData[];
     setSelectedGiveaway: Function;
     user: User;
+    availableTickets: number;
 }
 
 
 export default function RaffleList(props: RaffleListProps) {
-    const { prizeData, setSelectedGiveaway, user } = props;
+    const { prizeData, setSelectedGiveaway, user, availableTickets } = props;
     const [entries, setEntries] = useState<number>(0);
 
     const fireBaseService = new FirebaseService();
 
     useEffect(() => {
         (async () => {
-            //TODO: may need some updates here when we finish storing total entered tickets in the DB properly
             if (user) {
-                const entries = await fireBaseService.getEnteredRaffleTickets(user.uid);
+                const entries = await fireBaseService.getEnteredRaffles(user.uid);
                 if (entries) {
                     setEntries(entries!);
                 }
@@ -53,15 +54,13 @@ export default function RaffleList(props: RaffleListProps) {
 
     return (
         <RaffleListContainer>
-            <GiveAwaysDetail numberOfEntries={entries}/>
+            <GiveAwaysDetail numberOfEntries={entries} />
             <RafflePrizeListContainer>
-                {prizeData.map((prize, index) => (
-                    <RafflePrize
-                        key={prize.id}
-                        prize={prize}
-                        setSelectedGiveaway={setSelectedGiveaway}
-                    />
-                ))}
+                {prizeData
+                    .sort((a, b) => a.ticketsRequired - b.ticketsRequired)
+                    .map((prize) => (
+                        <RafflePrize key={prize.id} prize={prize} setSelectedGiveaway={setSelectedGiveaway} availableTickets={availableTickets} />
+                    ))}
             </RafflePrizeListContainer>
         </RaffleListContainer>
     );

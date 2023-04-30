@@ -3,6 +3,7 @@ import { RafflePrizeData } from "./RaffleList";
 import RaffleEntryItem from "./RaffleEntryItem";
 import { User } from "firebase/auth";
 import { FirebaseService } from "../../Api";
+import {BaseButton} from "../theme";
 
 
 
@@ -14,7 +15,7 @@ const RaffleEntryContainer = styled.div`
   padding: 2.5vh 1.5rem;
   border-top: 1px solid #A8192E;
 `
-const EntryButton = styled.button<{ isDisabled: boolean }>`
+const EntryButton = styled(BaseButton)<{ isDisabled: boolean }>`
     background: ${props => props.isDisabled ? "#8B8B8B" : "#343434"};
     border-radius: 50px;
     width: 100%;
@@ -43,7 +44,7 @@ type RaffleViewProps = {
 export default function RaffleEntry(props: RaffleViewProps) {
     const { title, subtitle, description, image, ticketsRequired, entries, id} = props.prizeData;
     const { user, availableTickets, setAvailableTickets } = props;
-    // TODO: Add logic if available tickets - tickets required > 0
+
     let hasEnoughTickets = availableTickets >= ticketsRequired;
 
     const fireBaseService = new FirebaseService();

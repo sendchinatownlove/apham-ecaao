@@ -1,6 +1,6 @@
 import axios from "axios";
 import styled from "styled-components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CompletionModal from "../tasks/CompletionModal";
 import { TaskInfo } from "../tasks/TaskList";
 
@@ -8,6 +8,7 @@ import TaskChecklistItem from "./TaskChecklistItem";
 import TaskUpload from "./TaskUpload";
 
 import { FirebaseService } from "../../Api";
+import {BaseButton} from "../theme";
 
 const TaskCompletionWrapper = styled.div`
     min-width: 350px;
@@ -23,7 +24,7 @@ const UploadWrapper = styled.div`
     padding: 0 10px 10px 10px;
     text-align: center;
 `;
-const UploadButton = styled.button<{ isDisabled: boolean }>`
+const UploadButton = styled(BaseButton)<{ isDisabled: boolean }>`
     background: ${(props) => (props.isDisabled ? "#8B8B8B" : "#343434")};
     border-radius: 50px;
     width: 95%;
@@ -47,10 +48,11 @@ type TaskCompletionProps = {
     taskHeader: string;
     taskDescription: string;
     setSelectedTask: React.Dispatch<React.SetStateAction<TaskInfo | null>>;
+    taskIndex: number;
 };
 
 export default function TaskCompletion(props: TaskCompletionProps) {
-    const { userId, taskId, borough, taskHeader, taskDescription, setSelectedTask } = props;
+    const { userId, taskId, borough, taskHeader, taskDescription, setSelectedTask, taskIndex } = props;
     const [imageFileSrc, setImageFileSrc] = useState("");
     const [image, setImage] = useState<File | null>(null);
     const [isLoading, setIsLoading] = useState(false);
@@ -114,12 +116,18 @@ export default function TaskCompletion(props: TaskCompletionProps) {
         }
     };
 
+    useEffect(() => {
+        const cancelButton = document.getElementById('cancel-button');
+        cancelButton?.scrollIntoView({ behavior: 'auto' });
+    })
+
     return (
         <TaskCompletionWrapper>
             <TaskCompletionContainer>
                 <TaskChecklistItem
                     taskHeader={taskHeader}
                     taskDescription={taskDescription}
+                    taskIndex={taskIndex}
                     isChecked={imageFileSrc !== ""}
                 />
                 <UploadWrapper>

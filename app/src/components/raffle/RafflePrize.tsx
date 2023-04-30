@@ -22,11 +22,7 @@ const TicketContainer = styled.div`
     margin-right: 9px;
 `
 
-const TicketIcon = styled.img`
-    content: url("/ticket-icon.svg");
-`
-
-const TicketsRequired = styled.div`
+const TicketsRequiredEnabled = styled.div`
     color: #FFFFFF;
     font-size: 0.7em;
     font-weight: 700;
@@ -34,7 +30,16 @@ const TicketsRequired = styled.div`
     // bottom: 2.3em;
     width: 24px;
     height: 20px;
-    background-image: url("/ticket-icon.svg");
+    background-image: url("/pink-ticket-icon.svg");
+`
+
+const TicketsRequiredDisabled = styled.div`
+    color: #FFFFFF;
+    font-size: 0.7em;
+    font-weight: 700;
+    width: 24px;
+    height: 20px;
+    background-image: url("/gray-ticket-icon.svg");
 `
 
 const PrizeCaption = styled.div`
@@ -48,7 +53,7 @@ const PrizeTitle = styled.span`
     letter-spacing: 0.15em;
 `
 
-const PrizeDetails = styled.span`
+const PrizeSubtitle = styled.span`
     display: block;
     font-size: 11px;
     letter-spacing: 0.15em;
@@ -59,20 +64,36 @@ const PrizeDetails = styled.span`
 type RaffleListProps = {
   prize: RafflePrizeData;
   setSelectedGiveaway: Function;
+  availableTickets: number;
 }
+
+type TicketIconProps = {
+    ticketsRequired: number;
+    availableTickets: number;
+}
+
+function TicketIcon({ticketsRequired, availableTickets}: TicketIconProps) {
+    if (availableTickets >= ticketsRequired) {
+        return <TicketsRequiredEnabled>{ticketsRequired}</TicketsRequiredEnabled>
+    } else {
+        return <TicketsRequiredDisabled>{ticketsRequired}</TicketsRequiredDisabled>
+    }
+}
+
 export default function RafflePrize(props: RaffleListProps) {
-  const { title, subtitle, image, ticketsRequired} = props.prize;
+  const { title, subtitle, image, ticketsRequired, dollarValue } = props.prize;
+  const availableTickets = props.availableTickets;
 
   return(
       <RafflePrizeContainer onClick={() => props.setSelectedGiveaway(props.prize)}>
         <PrizeDescriptionContainer>
             <TicketContainer>
                 {/* <TicketIcon /> */}
-                <TicketsRequired>{ticketsRequired}</TicketsRequired>
+                <TicketIcon ticketsRequired={ticketsRequired} availableTickets={availableTickets}></TicketIcon>
             </TicketContainer>
             <PrizeCaption>
                 <PrizeTitle>{title.toUpperCase()}</PrizeTitle>
-                <PrizeDetails>{subtitle.toUpperCase()}</PrizeDetails>
+                <PrizeSubtitle>{subtitle.toUpperCase()} {dollarValue ? `- $${dollarValue} VALUE` : ''}</PrizeSubtitle>
             </PrizeCaption>
         </PrizeDescriptionContainer>
         <img src={image} style={{ maxWidth: "85%", maxHeight: "300px" }}/>
