@@ -1,7 +1,9 @@
 import styled from "styled-components";
 import { RafflePrizeData } from "./RaffleList";
 import { BubbleLabel } from "../theme";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { User } from "firebase/auth";
+import { FirebaseService } from "../../Api";
 
 const EntryHeaderText = styled.div`
     display: flex;
@@ -49,13 +51,11 @@ function TicketReq(props: {ticketsRequired: number}) {
     return text
 }
 
-function Entries(props: {numEntries: number | undefined}) {
+function Entries(props: {numEntries: number}) {
     const {numEntries} = props;
 
     let text;
-    if(numEntries == undefined) { // remove once numEntries is required
-        text = <span></span>
-    } else if (numEntries > 1) {
+    if (numEntries > 1) {
         text = <BubbleLabel>{numEntries} Entries</BubbleLabel>
     } else if (numEntries == 1){
         text = <BubbleLabel>1 Entry</BubbleLabel>
@@ -65,12 +65,30 @@ function Entries(props: {numEntries: number | undefined}) {
     return text
 }
 
-export default function RaffleEntryItem(props: RafflePrizeData) {
-    const { title, description, image, ticketsRequired, entries} = props;
+type RaffleEntryItemProps = {
+    prizeData: RafflePrizeData;
+    user: User;
+}
+
+export default function RaffleEntryItem(props: RaffleEntryItemProps) {
+    const { title, description, image, ticketsRequired, id} = props.prizeData;
+    const { user } = props;
+
+    const [entries, setEntries] = useState<number>(0);
+
+    const firebaseService = new FirebaseService();
 
     useEffect(() => {
         const cancelButton = document.getElementById('cancel-button');
         cancelButton?.scrollIntoView({ behavior: 'auto' });
+
+        (async () => {
+            const entries = await firebaseService.getEntriesForRaffle(user.uid, id!);
+            if (entries) {
+                setEntries(entries);
+            }
+        })();
+
     })
 
     return (
