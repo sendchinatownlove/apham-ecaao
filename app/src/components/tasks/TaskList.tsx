@@ -35,14 +35,10 @@ export default function TaskList(props: TaskListProps) {
   const [completedTaskIds, setCompletedTaskIds] = React.useState<String[]>([]);
 
   async function getTasks() {
-      setTasks(await airtableService.getTasks(borough));
-  }
-
-  useEffect(() => {
-      if (selectedTask === null) {
-          getTasks();
+      if(!tasks || tasks.length == 0) {
+        setTasks(await airtableService.getTasks(borough));
       }
-  });
+  }
 
   useEffect(() => {
       async function getCompletedTasks() {
@@ -55,13 +51,15 @@ export default function TaskList(props: TaskListProps) {
           setAvailableTickets(availableTickets || 0);
       }
 
-      if (userId !== undefined) {
-          getTasks();
-          getCompletedTasks();
-          getAvailableTickets();
-      }
+      (async () => {
+        if (userId !== undefined) {
+          await getTasks();
+          await getCompletedTasks();
+          await getAvailableTickets();
+        }
+      })();
 
-  }, [selectedTask]);
+  }, [userId, selectedTask]);
 
   let navigate = useNavigate();
 

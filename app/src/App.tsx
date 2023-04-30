@@ -186,10 +186,13 @@ function App() {
                 setUserData(userData);
                 console.log("users data: ", userData);
 
+                /*
+                No longer being used -- pages are getting their tasks directly
                 let allTasks = await getAllTasks();
                 for (let [borough,taskSet] of Object.entries(allTasks)) {
                     airtableService.addUserStatusToTasks(taskSet, userData);
                 }
+                */
                 setPrizes(await airtableService.getPrizes());
             };
 
