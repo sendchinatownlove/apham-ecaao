@@ -168,7 +168,6 @@ function validateEmail(input: string) {
 }
 
 
-
 export default function Login() {
   const [error, setError] = useState(false);
   const [email, setEmail] = useState("");
@@ -189,6 +188,7 @@ export default function Login() {
     setEmail("");
     setIsLoading(true);
 
+    // old magic link sign-in method
     // window.localStorage.setItem("emailForSignIn", email);
     // await sendSignInEmail(email);
 
@@ -202,8 +202,6 @@ export default function Login() {
     }
     
   };
-
-    // Redirect to the home page if the user is authenticated
 
   return (
       <LoginContainer>

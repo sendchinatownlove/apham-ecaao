@@ -125,7 +125,6 @@ export class FirebaseService {
       console.log("User activity added successfully.");
       
       const userRef = ref(this.db, `users/${userId}/tickets_remaining`);
-      console.log(userRef);
       await runTransaction(userRef, (currentTickets) => {
         return (currentTickets || 0) + 1;
       });

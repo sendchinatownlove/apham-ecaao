@@ -10,12 +10,6 @@ import { AuthProvider } from "./AuthContext";
 import {
     getAuth,
     User,
-    signInWithPopup,
-    GoogleAuthProvider,
-    sendSignInLinkToEmail,
-    isSignInWithEmailLink,
-    signInWithEmailLink,
-    signOut,
 } from "firebase/auth";
 
 import Login from "./pages/Login";
@@ -87,38 +81,6 @@ function App() {
       return allTasks;
     };
 
-    const signInWithGoogle = async () => {
-        const provider = new GoogleAuthProvider();
-        try {
-            await signInWithPopup(auth, provider);
-        } catch (error: any) {
-            setError(error.message);
-        }
-    };
-
-    const sendSignInEmail = async (email: string) => {
-        const actionCodeSettings = {
-            url: window.location.href,
-            handleCodeInApp: false,
-        };
-        try {
-            await sendSignInLinkToEmail(auth, email, actionCodeSettings);
-            window.localStorage.setItem("emailForSignIn", email);
-            setEmail("");
-            setError("Email sent. Please check your inbox.");
-        } catch (error: any) {
-            setError(error.message);
-        }
-    };
-
-    const signInWithEmail = async (email: string, emailLink: string) => {
-        try {
-            await signInWithEmailLink(auth, email, emailLink);
-        } catch (error: any) {
-            setError(error.message);
-        }
-    };
-
     interface UserProps {
         user: User | null;
     }
@@ -155,20 +117,11 @@ function App() {
             setIsReady(true);
         });
 
-        // @TODO https://firebase.google.com/docs/auth/web/email-link-auth?authuser=2&hl=en
-        if (isSignInWithEmailLink(auth, window.location.href)) {
-            const email = window.localStorage.getItem("emailForSignIn");
-            if (email) {
-                signInWithEmail(email, window.location.href);
-                window.localStorage.removeItem("emailForSignIn");
-            }
-        }
         if (user) {
             // Fetch user data
             const fetchUserData = async () => {
                 const userData = (await firebaseService.getUser(user))?.val() as UserData;
                 setUserData(userData);
-                console.log("users data: ", userData);
 
                 /*
                 No longer being used -- pages are getting their tasks directly
@@ -177,68 +130,15 @@ function App() {
                     airtableService.addUserStatusToTasks(taskSet, userData);
                 }
                 */
+
                 setPrizes(await airtableService.getPrizes());
             };
 
             fetchUserData();
-
-            // This is just test code, and should not really be executed here
-
-            // Jess - CompleteTask testing
-            /**
-             * generate a task
-             * run the firebaseService class function (completeTask) from Apt.tsx
-             */
-            // const completeTask = async () => {
-            //   function generateTask() {
-            //     const randomNumber = Math.floor(Math.random() * 100) + 1;
-            //     const randomBorough = ["manhattan", "brooklyn", "queens"][Math.floor(Math.random() * 3)];
-            //     return {
-            //       randomBorough,
-            //       randomNumber
-            //     };
-            //   }
-            //   const task = generateTask();
-            //   console.log(task);
-            //   await firebaseService.completeTask(user.uid, String(task.randomNumber), task.randomBorough);
-            // };
-            // completeTask();
-
-            // // Add a raffle ticket entry
-            // const addRaffleTicketEntry = async () => {
-            //   const raffleId = 'some_raffle_id';
-            //   const numberOfEntries = 1;
-            //   await firebaseService.addRaffleEntry(user.uid, raffleId, numberOfEntries);
-            // };
-
-            // addRaffleTicketEntry();
-
-            // // Increment the tickets_remaining
-            // const incrementTickets = async () => {
-            //   const incrementValue = 5;
-            //   await firebaseService.incrementTicketsRemaining(user.uid, incrementValue);
-            // };
-
-            // incrementTickets();
-
-            // // Decrement the tickets_remaining
-            // const decrementTickets = async () => {
-            //   // spending
-            //   const decrementValue = 2;
-            //   await firebaseService.decrementTicketsRemaining(user.uid, decrementValue);
-            // };
-
-            // decrementTickets();
         }
-
 
         return () => unsubscribe();
     }, [user]);
-
-    const handleSubmit = (event: React.FormEvent) => {
-        event.preventDefault();
-        sendSignInEmail(email);
-    };
 
     const router = createBrowserRouter([
         {
