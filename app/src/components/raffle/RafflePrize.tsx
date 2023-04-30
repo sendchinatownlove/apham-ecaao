@@ -64,23 +64,22 @@ const PrizeSubtitle = styled.span`
 const PrizeContainer = styled.div`
     position: relative;
     display: inline-block;
+    min-width: 100%;
 `;
 const PrizeImage = styled.img`
     border-radius: 9px;
     border: 1px solid #EAEAEA;
-    margin-left: 8px;
+    margin: auto;
     position: relative;
-    min-height: 184px;
-    min-width: 394px;
-    maxWidth: 85%;
-    maxHeight: 300px;
+    max-height: 300px;
+    width: 94%;
     display: block;
 `;
 
 const EntryPill = styled(BubbleLabel)`
     position: absolute;
     bottom: 10px;
-    right: 10px;
+    right: 4vw;
 `;
 
 type RaffleListProps = {
