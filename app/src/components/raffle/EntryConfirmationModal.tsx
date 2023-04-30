@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import confirmationImg from '../../assets/confirmation.png'
+import {BaseButton} from "../theme";
 
 const Overlay = styled.div`
   display: block;
@@ -39,7 +40,7 @@ const ModalHeader = styled.p`
   font-weight: 700;
 `
 
-const CloseButton = styled.button`
+const CloseButton = styled(BaseButton)`
   width: 100%;
   text-transform: uppercase;
   letter-spacing: 0.15em;
