@@ -1,7 +1,7 @@
 // AuthContext.tsx
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { getAuth, User, onAuthStateChanged } from 'firebase/auth';
+import { getAuth, User, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import { initializeApp } from 'firebase/app';
 
 import {
@@ -15,10 +15,13 @@ import {
   signOut,
 } from "firebase/auth";
 
+const FIREBASE_PASSWORD = 'SCLFIREBASE123';
+
 // Define the type for the authentication context value
 type AuthContextValue = {
   user: User | null;
   signInWithGoogle: () => Promise<void>;
+  signInPasswordless: (email: string) => Promise<void>;
   sendSignInEmail: (email: string) => Promise<void>;
   signInWithEmail: (email: string, emailLink: string) => Promise<void>;
   signOut: () => Promise<void>;
@@ -73,6 +76,18 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
+  const signInPasswordless = async (email: string) => {
+    try {
+      const res = await createUserWithEmailAndPassword(auth, email, FIREBASE_PASSWORD);
+      console.log(res);
+    }
+    catch (err) {
+      console.log(err);
+      const res = await signInWithEmailAndPassword(auth, email, FIREBASE_PASSWORD);
+      console.log(res);
+    }
+  }
+
   const sendSignInEmail = async (email: string) => {
 
 
@@ -114,6 +129,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const value: AuthContextValue = {
     user,
     signInWithGoogle,
+    signInPasswordless,
     sendSignInEmail,
     signInWithEmail,
     signOut,

@@ -25,8 +25,7 @@ import TaskList from "./components/tasks/TaskList";
 
 import { initializeApp } from "firebase/app";
 import { Borough } from "./utils/borough";
-import { all } from "axios";
-import styled from "styled-components";
+import GooglyEyeLoader from "./components/shared/GooglyEyeLoader";
 
 // const FIREBASE_CONFIG = {
 //   apiKey: import.meta.env.VITE_REACT_APP_FIREBASE_API_KEY,
@@ -67,14 +66,6 @@ export type UserData = {
     raffles_entered?: {},
     tickets_remaining?: number
 }
-
-const GooglyEyeLoader = styled.img`
-    content: url('/googly-eye-loading.gif');
-    position: relative;
-    top: -40vh;
-    margin: auto;
-    
-`
 
 function App() {
     const [user, setUser] = useState<User | null>(null);

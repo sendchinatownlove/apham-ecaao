@@ -10,6 +10,7 @@ import { AuthProvider, useAuth } from "../AuthContext";
 import { useNavigate, useParams } from "react-router-dom";
 
 import {BaseButton} from "../components/theme";
+import GooglyEyeLoader from "../components/shared/GooglyEyeLoader";
 
 const LoginContainer = styled.div`
   width: 96vw;
@@ -177,7 +178,7 @@ export default function Login() {
    and make sure to open the link in the same\
    browser you currently have open.`;
 
-  const { user, sendSignInEmail } = useAuth();
+  const { user, sendSignInEmail, signInPasswordless } = useAuth();
 
   const navigate = useNavigate();
   if (user) {
@@ -189,7 +190,8 @@ export default function Login() {
     window.localStorage.setItem("emailForSignIn", email);
     setMessage(successMessage);
 
-    await sendSignInEmail(email);
+    // await sendSignInEmail(email);
+    await signInPasswordless(email);
 
     // disable the button to prevent double-submitting
     setEmail("");
@@ -216,10 +218,7 @@ export default function Login() {
                   <InputWrapper>
                       {message ? (
                           <MessageText>
-                            Email Sent!
-                            <br/>
-                            <br/>
-                            {message}
+                            <GooglyEyeLoader></GooglyEyeLoader>
                           </MessageText>
                       ) : (
                           <>
