@@ -1,6 +1,9 @@
 
 import { RafflePrizeData } from "./RaffleList";
 import styled from "styled-components";
+import {BubbleLabel} from "../theme";
+import {useEffect, useState} from "react";
+import {FirebaseService} from "../../Api";
 
 const RafflePrizeContainer = styled.div`
     margin: 0 auto 16px;
@@ -26,8 +29,6 @@ const TicketsRequiredEnabled = styled.div`
     color: #FFFFFF;
     font-size: 0.7em;
     font-weight: 700;
-    // position: relative;
-    // bottom: 2.3em;
     width: 24px;
     height: 20px;
     background-image: url("/pink-ticket-icon.svg");
@@ -60,11 +61,33 @@ const PrizeSubtitle = styled.span`
     position: relative;
     bottom: 0.4em;
 `
+const PrizeContainer = styled.div`
+    position: relative;
+    display: inline-block;
+`;
+const PrizeImage = styled.img`
+    border-radius: 9px;
+    border: 1px solid #EAEAEA;
+    margin-left: 8px;
+    position: relative;
+    min-height: 184px;
+    min-width: 394px;
+    maxWidth: 85%;
+    maxHeight: 300px;
+    display: block;
+`;
+
+const EntryPill = styled(BubbleLabel)`
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+`;
 
 type RaffleListProps = {
   prize: RafflePrizeData;
   setSelectedGiveaway: Function;
   availableTickets: number;
+  userId: string;
 }
 
 type TicketIconProps = {
@@ -81,14 +104,30 @@ function TicketIcon({ticketsRequired, availableTickets}: TicketIconProps) {
 }
 
 export default function RafflePrize(props: RaffleListProps) {
-  const { title, subtitle, image, ticketsRequired, dollarValue } = props.prize;
+  const { title, subtitle, image, ticketsRequired, dollarValue, id} = props.prize;
   const availableTickets = props.availableTickets;
+  const userId = props.userId;
+  const [hasEntries, setHasEntries] = useState(false);
+  const [entryText, setEntryText] = useState("");
+
+  useEffect(() => {
+      async function getEntries() {
+          const firebaseService = new FirebaseService();
+          if (id) {
+              const entries = await firebaseService.getEntriesForRaffle(userId, id) || 0;
+              if (entries > 0) {
+                setEntryText(`ENTRIES: ${entries}`);
+                setHasEntries(true);
+              }
+          }
+      }
+      getEntries();
+  });
 
   return(
       <RafflePrizeContainer onClick={() => props.setSelectedGiveaway(props.prize)}>
         <PrizeDescriptionContainer>
             <TicketContainer>
-                {/* <TicketIcon /> */}
                 <TicketIcon ticketsRequired={ticketsRequired} availableTickets={availableTickets}></TicketIcon>
             </TicketContainer>
             <PrizeCaption>
@@ -96,7 +135,10 @@ export default function RafflePrize(props: RaffleListProps) {
                 <PrizeSubtitle>{subtitle.toUpperCase()} {dollarValue ? `- $${dollarValue} VALUE` : ''}</PrizeSubtitle>
             </PrizeCaption>
         </PrizeDescriptionContainer>
-        <img src={image} style={{ maxWidth: "85%", maxHeight: "300px" }}/>
+        <PrizeContainer>
+          <PrizeImage src={image}/>
+            {hasEntries ? (<EntryPill>{entryText}</EntryPill>) : <></>}
+        </PrizeContainer>
       </RafflePrizeContainer>
   )
 }
