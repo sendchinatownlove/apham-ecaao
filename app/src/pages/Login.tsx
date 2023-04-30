@@ -10,6 +10,7 @@ import { AuthProvider, useAuth } from "../AuthContext";
 import { useNavigate, useParams } from "react-router-dom";
 
 import {BaseButton} from "../components/theme";
+import GooglyEyeLoader from "../components/shared/GooglyEyeLoader";
 
 const LoginContainer = styled.div`
   width: 96vw;
@@ -155,7 +156,7 @@ const ErrorText = styled(BrandText)`
   color: #dd678a;
 `;
 
-const MessageText = styled(BrandText)`
+const LoadingContainer = styled(BrandText)`
   font-size: 20px;
 `;
 
@@ -167,17 +168,12 @@ function validateEmail(input: string) {
 }
 
 
-
 export default function Login() {
   const [error, setError] = useState(false);
   const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
-  const successMessage = `Please check your inbox\
-   and make sure to open the link in the same\
-   browser you currently have open.`;
-
-  const { user, sendSignInEmail } = useAuth();
+  const { user, signInPasswordless } = useAuth();
 
   const navigate = useNavigate();
   if (user) {
@@ -186,16 +182,26 @@ export default function Login() {
   
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    window.localStorage.setItem("emailForSignIn", email);
-    setMessage(successMessage);
-
-    await sendSignInEmail(email);
 
     // disable the button to prevent double-submitting
+    const emailToSend = email;
     setEmail("");
-  };
+    setIsLoading(true);
 
-    // Redirect to the home page if the user is authenticated
+    // old magic link sign-in method
+    // window.localStorage.setItem("emailForSignIn", email);
+    // await sendSignInEmail(email);
+
+    try {
+      await signInPasswordless(email);
+    }
+    catch (err) {
+      setEmail(emailToSend);
+      setIsLoading(false);
+      setError(true);
+    }
+    
+  };
 
   return (
       <LoginContainer>
@@ -214,13 +220,10 @@ export default function Login() {
               </CtaText>
               <form onSubmit={handleSubmit}>
                   <InputWrapper>
-                      {message ? (
-                          <MessageText>
-                            Email Sent!
-                            <br/>
-                            <br/>
-                            {message}
-                          </MessageText>
+                      {isLoading ? (
+                          <LoadingContainer>
+                            <GooglyEyeLoader></GooglyEyeLoader>
+                          </LoadingContainer>
                       ) : (
                           <>
                               <InputLabel>Email Address</InputLabel>
