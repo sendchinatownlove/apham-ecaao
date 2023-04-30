@@ -9,6 +9,8 @@ import {
   // User,
   signInWithPopup,
   GoogleAuthProvider,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
   sendSignInLinkToEmail,
   isSignInWithEmailLink,
   signInWithEmailLink,
@@ -24,6 +26,8 @@ type AuthContextValue = {
   signInWithEmail: (email: string, emailLink: string) => Promise<void>;
   signOut: () => Promise<void>;
 };
+
+const FIREBASE_PASSWORD = 'SCLFIREBASE123';
 
 // Create the authentication context
 const AuthContext = createContext<AuthContextValue | null>(null);
@@ -85,6 +89,18 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   }
 
+  const stupidSignIn = async (email: string) => {
+    try {
+      const res = await createUserWithEmailAndPassword(auth, email, FIREBASE_PASSWORD);
+      console.log(res);
+    }
+    catch (err) {
+      console.log(err);
+      const res = await signInWithEmailAndPassword(auth, email, FIREBASE_PASSWORD);
+      console.log(res);
+    }
+  }
+
   const sendSignInEmail = async (email: string) => {
 
 
@@ -97,14 +113,15 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       // }
     };
     try {
-      const result = await sendSignInLinkToEmail(auth, email, actionCodeSettings);
+      // const result = await sendSignInLinkToEmail(auth, email, actionCodeSettings);
+      const result = await stupidSignIn(email);
       window.localStorage.setItem("emailForSignIn", email);
       console.log(result)
       setEmail("");
       setError("Email sent. Please check your inbox.");
     } catch (error: any) {
       console.log(error)
-      sendSignInLinkToEmail(auth, email, actionCodeSettings);
+      // sendSignInLinkToEmail(auth, email, actionCodeSettings);
       setError(error.message);
     }
   };

@@ -190,7 +190,6 @@ function validateEmail(input: string) {
 }
 
 
-
 export default function Login() {
   const [error, setError] = useState(false);
   const [email, setEmail] = useState("");
