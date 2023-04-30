@@ -26,6 +26,7 @@ import TaskList from "./components/tasks/TaskList";
 import { initializeApp } from "firebase/app";
 import { Borough } from "./utils/borough";
 import { all } from "axios";
+import styled from "styled-components";
 
 // const FIREBASE_CONFIG = {
 //   apiKey: import.meta.env.VITE_REACT_APP_FIREBASE_API_KEY,
@@ -67,6 +68,13 @@ export type UserData = {
     tickets_remaining?: number
 }
 
+const GooglyEyeLoader = styled.img`
+    content: url('/googly-eye-loading.gif');
+    position: relative;
+    top: -40vh;
+    margin: auto;
+    
+`
 
 function App() {
     const [user, setUser] = useState<User | null>(null);
@@ -76,6 +84,8 @@ function App() {
     const [userData, setUserData] = useState<UserData>({});
 
     const [prizes, setPrizes] = useState<Prize[]>([]);
+
+    const [isReady, setIsReady] = useState<boolean>(false);
 
     const getAllTasks = async () => {
       const allTasks: TaskTuple = {
@@ -125,30 +135,29 @@ function App() {
     function HomePage(props: UserProps) {
 
         
-        if (!user && window.location.pathname !== "/login") {
-            window.location.pathname = "/login";
-        }
+        // if (!user && window.location.pathname !== "/login") {
+        //     window.location.pathname = "/login";
+        // }
         return (
-            <div>
+            <>
+            {isReady ? (
+                <>
                 {user ? (
                     <Home user={user} />
                 ) : (
                     <>
-                        <h3>Sign in to get started!</h3>
-                        <button onClick={signInWithGoogle}>Sign in with Google</button>
-                        <form onSubmit={handleSubmit}>
-                            <input
-                                type="email"
-                                placeholder="Email"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                            />
-                            <button type="submit">Send sign-in email</button>
-                        </form>
-                        {error && <p>{error}</p>}
+                    <Login></Login>
                     </>
                 )}
-            </div>
+                </>
+            ) : (
+                <>
+                    <GooglyEyeLoader></GooglyEyeLoader>
+                </>
+            )
+            }
+
+            </>
         );
     }
 
@@ -159,6 +168,7 @@ function App() {
             } else {
                 setUser(null);
             }
+            setIsReady(true);
         });
 
         // @TODO https://firebase.google.com/docs/auth/web/email-link-auth?authuser=2&hl=en
@@ -233,6 +243,7 @@ function App() {
 
             // decrementTickets();
         }
+
 
         return () => unsubscribe();
     }, [user]);
