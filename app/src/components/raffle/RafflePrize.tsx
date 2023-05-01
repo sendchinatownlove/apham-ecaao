@@ -72,7 +72,7 @@ export const PrizeImage = styled.img`
     margin: auto;
     position: relative;
     max-height: 300px;
-    width: 94%;
+    max-width: 94%;
     display: block;
 `;
 
