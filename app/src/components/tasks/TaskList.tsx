@@ -11,6 +11,7 @@ import TaskListTable from "./TaskListTable";
 import TaskListHeader from "./TaskListHeader";
 import {AirTableService, FirebaseService, Task} from "../../Api";
 import { PageContainer } from "../theme";
+import GooglyEyeLoader from "../shared/GooglyEyeLoader";
 
 export type TaskInfo = {
     title: string;
@@ -34,6 +35,8 @@ export default function TaskList(props: TaskListProps) {
   const airtableService = new AirTableService();
   const [completedTaskIds, setCompletedTaskIds] = React.useState<String[]>([]);
 
+  const [isReady, setIsReady] = React.useState<boolean>(false);
+
   async function getTasks() {
       if(!tasks || tasks.length == 0) {
         setTasks(await airtableService.getTasks(borough));
@@ -56,6 +59,7 @@ export default function TaskList(props: TaskListProps) {
           await getTasks();
           await getCompletedTasks();
           await getAvailableTickets();
+          setIsReady(true);
         }
       })();
 
@@ -66,35 +70,43 @@ export default function TaskList(props: TaskListProps) {
   const onTaskClick = (task: TaskInfo) => setSelectedTask(task);
 
   return (
-    <PageContainer>
-      {
-        selectedTask?.title && selectedTask?.description ? (
-          <>
-            <CancelButton onClick={() => setSelectedTask(null)} />
-            <TaskCompletionHeader borough={borough!} />
-            <TaskCompletionBody
-              userId={userId ? userId : '0'}
-              taskId={selectedTask.id}
-              taskIndex={selectedTask.index}
-              borough={borough!}
-              taskHeader={selectedTask.title}
-              taskDescription={selectedTask.description}
-              setSelectedTask={setSelectedTask}
-            />
-          </>
-        ) : (
-          <>
-            <BackButton onClick={() => {navigate('/', { replace: true })}}/>
-            <TaskListHeader
-                borough={borough!}
-                tasksCompleted={completedTaskIds.length}
-                totalTasks={tasks.length - 1}
-                availableTickets={availableTickets}
-            />
-            <TaskListTable onTaskClick={onTaskClick} tasks={tasks} completedTasks={completedTaskIds}/>
-          </>
-        )
-      }
-    </PageContainer>
+      <>
+          {!isReady ? (
+              <GooglyEyeLoader></GooglyEyeLoader>
+          ) : (
+              <PageContainer>
+                  {selectedTask?.title && selectedTask?.description ? (
+                      <>
+                          <CancelButton onClick={() => setSelectedTask(null)} />
+                          <TaskCompletionHeader borough={borough!} />
+                          <TaskCompletionBody
+                              userId={userId ? userId : "0"}
+                              taskId={selectedTask.id}
+                              taskIndex={selectedTask.index}
+                              borough={borough!}
+                              taskHeader={selectedTask.title}
+                              taskDescription={selectedTask.description}
+                              setSelectedTask={setSelectedTask}
+                          />
+                      </>
+                  ) : (
+                      <>
+                          <BackButton
+                              onClick={() => {
+                                  navigate("/", { replace: true });
+                              }}
+                          />
+                          <TaskListHeader
+                              borough={borough!}
+                              tasksCompleted={completedTaskIds.length}
+                              totalTasks={tasks.length - 1}
+                              availableTickets={availableTickets}
+                          />
+                          <TaskListTable onTaskClick={onTaskClick} tasks={tasks} completedTasks={completedTaskIds} />
+                      </>
+                  )}
+              </PageContainer>
+          )}
+      </>
   );
 }
