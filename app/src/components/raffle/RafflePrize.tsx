@@ -66,7 +66,7 @@ const PrizeContainer = styled.div`
     display: inline-block;
     min-width: 100%;
 `;
-const PrizeImage = styled.img`
+export const PrizeImage = styled.img`
     border-radius: 9px;
     border: 1px solid #EAEAEA;
     margin: auto;

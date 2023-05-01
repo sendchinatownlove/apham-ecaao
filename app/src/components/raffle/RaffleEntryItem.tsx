@@ -4,13 +4,14 @@ import { BubbleLabel } from "../theme";
 import { useEffect, useState } from "react";
 import { User } from "firebase/auth";
 import { FirebaseService } from "../../Api";
+import { PrizeImage } from "./RafflePrize";
 
 const EntryHeaderText = styled.div`
     display: flex;
     justify-content: space-between;
     margin-bottom: 10px
 `
-const PrizeImage = styled.div`
+const PrizeImageContainer = styled.div`
     margin-top: 20px;
     position: relative;
 `
@@ -100,9 +101,9 @@ export default function RaffleEntryItem(props: RaffleEntryItemProps) {
             <Entries numEntries = {entries} />
         </EntryHeaderText>
         
-        <PrizeImage>
-            <img src={image} style={{ maxWidth: "200px", maxHeight: "300px" }} />
-        </PrizeImage>
+        <PrizeImageContainer>
+            <PrizeImage src={image}></PrizeImage>
+        </PrizeImageContainer>
 
         <PrizeCaption>
             <PrizeTitle>{title}</PrizeTitle>
