@@ -50,13 +50,13 @@ const GiveawaysText = styled.div`
 
 type RaffleHeaderProps = {
     availableTickets: number;
-    enteredTickets?: number;
+    enteredTickets: number;
 }
 
 export default function RaffleHeader(props: RaffleHeaderProps) {
     const { enteredTickets, availableTickets } = props;
     let topElement;
-    if (enteredTickets) {
+    if (enteredTickets >= 0) {
         topElement = <EnteredTicketsText><span>MY ENTERED RAFFLE TICKETS</span><span>{enteredTickets}</span></EnteredTicketsText>
     } else {
         topElement = <GiveawaysText>Giveaways</GiveawaysText>

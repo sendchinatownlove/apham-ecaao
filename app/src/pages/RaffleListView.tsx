@@ -59,7 +59,7 @@ export default function RaffleListView(props: RaffleViewProps) {
                 selectedGiveaway ? (
                 <>
                     <CancelButton onClick={() => setSelectedGiveaway(null)}/>
-                    <RaffleHeader availableTickets={availableTickets} />
+                    <RaffleHeader availableTickets={availableTickets} enteredTickets={-1} />
                     <RaffleEntry
                         user={user}
                         availableTickets={availableTickets}
