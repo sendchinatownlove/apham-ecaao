@@ -108,8 +108,8 @@ export default function RaffleEntryItem(props: RaffleEntryItemProps) {
         <PrizeCaption>
             <PrizeTitle>{title}</PrizeTitle>
             <PrizeDetails>Includes: <br />
-                {description.split(`\n-`).map((bullet, index) => {
-                    return <span key={index}>{"• " + bullet} <br /></span>
+                {description.replace(/- /g, '• ').split(`\n`).map((line, index) => {
+                    return <span key={index}>{line} <br /></span>
                 })} 
             </PrizeDetails>
         </PrizeCaption>
