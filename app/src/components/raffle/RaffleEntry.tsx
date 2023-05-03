@@ -4,6 +4,7 @@ import RaffleEntryItem from "./RaffleEntryItem";
 import { User } from "firebase/auth";
 import { FirebaseService } from "../../Api";
 import {BaseButton} from "../theme";
+import { useState } from "react";
 
 
 
@@ -46,10 +47,14 @@ export default function RaffleEntry(props: RaffleViewProps) {
     const { user, availableTickets, setAvailableTickets } = props;
 
     let hasEnoughTickets = availableTickets >= ticketsRequired;
+    const [isDisabled, setIsDisabled]= useState<boolean>(!hasEnoughTickets);
+
 
     const fireBaseService = new FirebaseService();
 
     const handleEntryButtonClick = async () => {
+        setIsDisabled(true);
+
         await fireBaseService.enterRaffle(user.uid, id!, ticketsRequired!);
         setAvailableTickets(availableTickets - ticketsRequired);
 
@@ -63,8 +68,8 @@ export default function RaffleEntry(props: RaffleViewProps) {
                 user={user} />
             <div>
                 <EntryButton 
-                    isDisabled={!hasEnoughTickets}
-                    disabled={!hasEnoughTickets}
+                    isDisabled={isDisabled}
+                    disabled={isDisabled}
                     onClick={handleEntryButtonClick}>
                     Confirm Entry
                 </EntryButton>

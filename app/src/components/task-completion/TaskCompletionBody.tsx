@@ -58,7 +58,7 @@ export default function TaskCompletion(props: TaskCompletionProps) {
     const [isLoading, setIsLoading] = useState(false);
     const [errorHasOccurred, setErrorHasOccurred] = useState(false);
     const [isPopupActive, setIsPopupActive] = useState(false);
-    const hasImageBeenUploaded = imageFileSrc !== "";
+    const [hasImageBeenUploaded, setHasImageBeenUploaded] = useState<boolean>(false);
 
     const firebaseService = new FirebaseService();
 
@@ -80,6 +80,9 @@ export default function TaskCompletion(props: TaskCompletionProps) {
          *  4. (later) update our app DB that the task is completed
          *
          */
+
+        // set this to disable the button
+        setHasImageBeenUploaded(false);
 
         try {
             setIsLoading(true);
@@ -113,13 +116,20 @@ export default function TaskCompletion(props: TaskCompletionProps) {
         } catch (error) {
             console.error(error);
             setErrorHasOccurred(true);
+            setHasImageBeenUploaded(true);
         }
     };
 
     useEffect(() => {
         const cancelButton = document.getElementById('cancel-button');
         cancelButton?.scrollIntoView({ behavior: 'auto' });
-    })
+    });
+
+    useEffect(() => {
+        if (imageFileSrc !== "") {
+            setHasImageBeenUploaded(true);
+        }
+    }, [imageFileSrc]);
 
     return (
         <TaskCompletionWrapper>
