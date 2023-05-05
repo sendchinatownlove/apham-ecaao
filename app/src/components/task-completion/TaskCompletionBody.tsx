@@ -10,6 +10,8 @@ import TaskUpload from "./TaskUpload";
 import { FirebaseService } from "../../Api";
 import {BaseButton} from "../theme";
 
+import exifr from 'exifr'
+
 const TaskCompletionWrapper = styled.div`
     min-width: 350px;
     width: 100%;
@@ -50,6 +52,8 @@ type TaskCompletionProps = {
     setSelectedTask: React.Dispatch<React.SetStateAction<TaskInfo | null>>;
     taskIndex: number;
 };
+import * as EXIF from "exif-js";
+import piexif from "piexifjs";
 
 export default function TaskCompletion(props: TaskCompletionProps) {
     const { userId, taskId, borough, taskHeader, taskDescription, setSelectedTask, taskIndex } = props;
@@ -68,58 +72,85 @@ export default function TaskCompletion(props: TaskCompletionProps) {
 
     const API_ROUTE = "https://us-central1-scl-scavengerhunt.cloudfunctions.net/generateV4UploadSignedUrl";
 
-    const submitImage = async () => {
-        /**
-         *  1. create the filename
-         *
-         *  2. post the filename to the backend
-         *    - receive specific upload url
-         *
-         *  3. upload the file to that signed url
-         *
-         *  4. (later) update our app DB that the task is completed
-         *
-         */
 
+
+    const submitImage = async () => {
         // set this to disable the button
         setHasImageBeenUploaded(false);
-
-        try {
-            setIsLoading(true);
-            const ext = image?.type.split("/")[1];
-            const contentType = image?.type;
-
-            // https://stackoverflow.com/questions/17415579/how-to-iso-8601-format-a-date-with-timezone-offset-in-javascript
-            const currentDateWithoutSec = new Date().toLocaleString( 'sv' ).split(":", 2).join(":");
-            const fileName = `${userId}-${taskId}-${alphanumericRegex(currentDateWithoutSec)}.${ext}`;
-
-            const signedUrl = await (
+      
+        // try {
+          setIsLoading(true);
+          const ext = image?.type.split("/")[1];
+          const contentType = image?.type;
+      
+          // Read the image file as a Data URL
+          const reader = new FileReader();
+          reader.onload = async () => {
+            const dataUrl = reader.result as string;
+      
+            // Create an Image element with the Data URL as its source
+            const img = new Image();
+            img.src = dataUrl;
+            img.onload = async function () {
+              // Get the EXIF data from the image
+              const exifBytes = piexif.load(dataUrl);
+      
+              // Create a canvas and draw the image
+              const canvas = document.createElement("canvas");
+              canvas.width = img.width;
+              canvas.height = img.height;
+              const ctx = canvas.getContext("2d");
+              ctx?.drawImage(img, 0, 0);
+      
+              // Convert the canvas back to a Data URL with the preserved EXIF data
+              const preservedDataURL = piexif.insert(piexif.dump(exifBytes), canvas.toDataURL(contentType));
+              const response = await fetch(preservedDataURL);
+              const preservedImage = await response.blob();
+      
+              // Generate the filename
+              const currentDateWithoutSec = new Date().toLocaleString("sv").split(":", 2).join(":");
+              const fileName = `${userId}-${taskId}-${alphanumericRegex(currentDateWithoutSec)}.${ext}`;
+      
+              // Request the signed URL
+              const signedUrl = await (
                 await axios.post(API_ROUTE, { filename: fileName, filetype: contentType })
-            ).data.url;
-
-            if (!signedUrl) {
+              ).data.url;
+      
+              if (!signedUrl) {
                 setErrorHasOccurred(true);
                 throw new Error("Empty signed URL");
-            }
-
-            let result = await axios.put(signedUrl, image, {
+              }
+              debugger
+              // Upload the preservedImage to the signed URL
+              let result = await axios.put(signedUrl, preservedImage, {
                 headers: {
-                    "Content-Type": contentType,
+                  "Content-Type": contentType,
+                  'x-goog-content-length-range': '0,104857600'
                 },
-            });
-            setErrorHasOccurred(false);
-            setIsPopupActive(true);
-            setIsLoading(false);
-
-            firebaseService.completeTask(userId, taskId, borough);
-
-        } catch (error) {
+              }).catch((error) => {
+                console.error(error);
+                debugger
+              });
+      
+              setErrorHasOccurred(false);
+              setIsPopupActive(true);
+              setIsLoading(false);
+      
+              firebaseService.completeTask(userId, taskId, borough);
+            };
+          };
+          reader.onerror = (error) => {
             console.error(error);
             setErrorHasOccurred(true);
             setHasImageBeenUploaded(true);
-        }
-    };
-
+          };
+          reader.readAsDataURL(image as File);
+        // } catch (error) {
+        //   console.error(error);
+        //   setErrorHasOccurred(true);
+        //   setHasImageBeenUploaded(true);
+        // }
+      };
     useEffect(() => {
         const cancelButton = document.getElementById('cancel-button');
         cancelButton?.scrollIntoView({ behavior: 'auto' });
