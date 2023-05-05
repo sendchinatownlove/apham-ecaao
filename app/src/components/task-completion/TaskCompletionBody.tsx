@@ -120,16 +120,15 @@ export default function TaskCompletion(props: TaskCompletionProps) {
                 setErrorHasOccurred(true);
                 throw new Error("Empty signed URL");
               }
-              debugger
+            
               // Upload the preservedImage to the signed URL
               let result = await axios.put(signedUrl, preservedImage, {
                 headers: {
-                  "Content-Type": contentType,
-                  'x-goog-content-length-range': '0,104857600'
+                  "Content-Type": contentType
                 },
               }).catch((error) => {
                 console.error(error);
-                debugger
+            
               });
       
               setErrorHasOccurred(false);
