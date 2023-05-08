@@ -83,7 +83,7 @@ Promise.all([taskPromise, rafflePromise]).then(data => {
                 }
             });
         });
-        const sortedCountFreq = [...countFreq.entries()].sort((a, b) => b[1] - a[1]);
+        const sortedCountFreq = [...countFreq.entries()].sort((a, b) => b[1] - a[1]).slice(0, 10);
         sortedCountFreq.forEach((elem, index) => {
             const title = itemList.find((item: any) => item.id === elem[0]).fields[titleKey];
             console.log(`${index + 1}. ${title} => ${elem[1]} users`)
