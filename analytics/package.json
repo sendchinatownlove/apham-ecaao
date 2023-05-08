@@ -1,0 +1,19 @@
+{
+  "name": "analytics",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "ts-node analytics.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.4.0",
+    "file-system": "^2.2.2",
+    "firebase": "^9.21.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.4"
+  }
+}
