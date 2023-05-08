@@ -14,7 +14,6 @@ import {
 
 import Login from "./pages/Login";
 import RaffleListView from "./pages/RaffleListView";
-import RaffleEntry from "./components/raffle/RaffleEntry";
 import TaskList from "./components/tasks/TaskList";
 
 import { initializeApp } from "firebase/app";
