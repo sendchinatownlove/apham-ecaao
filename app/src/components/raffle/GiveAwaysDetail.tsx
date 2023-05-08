@@ -27,7 +27,7 @@ export default function GiveAwaysDetail(props: GiveAwaysDetailProps) {
 
     let text = "For every completed activity, you'll earn one (1) raffle ticket. Each giveaway prize is worth a certain number of raffle tickets for one (1) raffle entry. Once you have enough tickets, enter them into the giveaway prize of your choice!";
     if (isFeatureFlagOn(FeatureFlags.RAFFLE_SHUTDOWN_MAY_22)) {
-        text = "The giveaway has ended. Thanks for playing!"
+        text = "The giveaways have ended. Thanks for playing!"
     }
 
     return (
