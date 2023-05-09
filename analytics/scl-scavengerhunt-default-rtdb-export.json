@@ -1,5 +1,9 @@
 {
   "users": {
+    "04cgJgznEHfUVwN8Ev7Oo7LFEoS2": {
+      "email": "jditinsky@yahoo.com",
+      "tickets_remaining": 0
+    },
     "065w5TV23DfZDszNpjZDIHJ8u0l1": {
       "email": "lorrebox@fastmail.com",
       "tickets_remaining": 0
@@ -56,11 +60,13 @@
       "email": "jet78xo@gmail.com",
       "manhattan_completed_tasks": {
         "recVhJZBIgTxnfGgd": true,
+        "recXp4TTZ8jlPcfyJ": true,
         "reclm365UdEGlCkiw": true,
         "recqv6yvOwMrqkRlu": true,
+        "rect4Q3NDyjfsQO1h": true,
         "recyGlOTxWvLDBWHV": true
       },
-      "tickets_remaining": 4
+      "tickets_remaining": 6
     },
     "1OCGQTOF9ZczVi74CGcMdlEh9Oa2": {
       "email": "rebecca112233@gmail.com",
@@ -68,7 +74,16 @@
     },
     "1PYZVJVb1xWEAdNlmKc7GTcsVHx1": {
       "email": "aalison.fu@gmail.com",
-      "tickets_remaining": 0
+      "manhattan_completed_tasks": {
+        "rec7g6MlnmH9WrpsR": true,
+        "recVhJZBIgTxnfGgd": true,
+        "recjBZWNOYNd8sIiZ": true,
+        "recksjaezlgh2m8Uc": true,
+        "recoq6IHIVLHxZfRT": true,
+        "recpK6tXuTTgzcXnG": true,
+        "recyGlOTxWvLDBWHV": true
+      },
+      "tickets_remaining": 7
     },
     "1gXJtpiTVrTHNSswGFStHDIH28d2": {
       "email": "clinelliott@gmail.com",
@@ -197,6 +212,10 @@
     },
     "3SXYcgOhbTNH0afvvauM6liGs2v2": {
       "email": "mollygosson@gmail.com",
+      "tickets_remaining": 0
+    },
+    "3ho2XBcBx7V3Oeips4TGFiRaMd52": {
+      "email": "danachan8888@yahoo.com",
       "tickets_remaining": 0
     },
     "3mhsHoeBkwgM1QsYIf1Hol4BdzR2": {
@@ -484,6 +503,7 @@
       },
       "email": "tiffanytan1205@gmail.com",
       "manhattan_completed_tasks": {
+        "rec6rtwzPEkK91CC6": true,
         "rec7g6MlnmH9WrpsR": true,
         "recDNezOcHdmdHxXH": true,
         "recEvqobxPhtlsVJl": true,
@@ -491,7 +511,7 @@
         "recoq6IHIVLHxZfRT": true,
         "recpK6tXuTTgzcXnG": true
       },
-      "tickets_remaining": 13
+      "tickets_remaining": 14
     },
     "8uYKtWJWmZaYSZ6tz06fOm2pz882": {
       "email": "kmyang016@gmail.com",
@@ -584,6 +604,7 @@
       "manhattan_completed_tasks": {
         "rec7g6MlnmH9WrpsR": true,
         "rec7kDV1Ad4pCcdMN": true,
+        "recXp4TTZ8jlPcfyJ": true,
         "recaLAG0hSntgHjBJ": true,
         "recksjaezlgh2m8Uc": true,
         "recoq6IHIVLHxZfRT": true,
@@ -592,7 +613,13 @@
         "recqv6yvOwMrqkRlu": true,
         "recwNFkAQTA23AoVP": true
       },
-      "tickets_remaining": 9
+      "raffles_entered": {
+        "recrqIxsp9Q8xod4F": {
+          "entries": 1
+        }
+      },
+      "tickets_entered": 10,
+      "tickets_remaining": 0
     },
     "Arn0K3Wv3DfNYoqCRLkK4xHgxgg2": {
       "email": "yunaseol@gmail.com",
@@ -987,9 +1014,10 @@
     "GD4gPLheafdLTwFJCQuYEpcrXVp1": {
       "email": "snowleopardsforever@gmail.com",
       "queens_completed_tasks": {
-        "rec7zad7EQmYo9Ykz": true
+        "rec7zad7EQmYo9Ykz": true,
+        "recnqQq3shsUoME5D": true
       },
-      "tickets_remaining": 1
+      "tickets_remaining": 2
     },
     "GTc1tc21DKRvR8qvzIy1SywQzp53": {
       "email": "kkim34@pratt.edu",
@@ -1057,6 +1085,10 @@
     },
     "HpmduZ9wtTPptWwGlVvLWYhNIQF3": {
       "email": "chanconnie2013@gmail.com",
+      "tickets_remaining": 0
+    },
+    "HyToLUxkW9Me39Q3MVDekXPui2x2": {
+      "email": "amyzhang2013@gmail.com",
       "tickets_remaining": 0
     },
     "HyWEIZYflLbQ6gDDFvMctoDIPmJ3": {
@@ -1222,6 +1254,10 @@
       "email": "amyzheng822@jhs185.org",
       "tickets_remaining": 0
     },
+    "Jgg1C9wytkYtKGGO1jB4hXBf7hn2": {
+      "email": "lauracng91@gmail.com",
+      "tickets_remaining": 0
+    },
     "Jjtf1KB5UudKihaW4AAi1WARuE62": {
       "email": "rayman7869@gmail.com",
       "tickets_remaining": 0
@@ -1245,9 +1281,10 @@
     "K7MUyeKdn5OIgfQIx3BECWDWRGt2": {
       "email": "kelishamenon@gmail.com",
       "queens_completed_tasks": {
+        "recfzA35bjxmVOQ0Z": true,
         "reckOeSbSEuM0fgTB": true
       },
-      "tickets_remaining": 1
+      "tickets_remaining": 2
     },
     "KE37pe6GEAZPN8958jsR9XH4xiM2": {
       "email": "joshuagsunga@gmail.com",
@@ -1448,6 +1485,10 @@
       "email": "rosannahma@gmail.com",
       "tickets_remaining": 0
     },
+    "NGV8HbVxdkVvHT0VyUep0LCzKz23": {
+      "email": "allysontravels4@gmail.com",
+      "tickets_remaining": 0
+    },
     "NY98UyZZwvTKyetjXQEP13Vh3Zt2": {
       "email": "cindy.lin13@gmail.com",
       "tickets_remaining": 0
@@ -1529,8 +1570,11 @@
       "tickets_remaining": 0
     },
     "PD02Z3jlx4QDCm08sKmLgby7xkE2": {
+      "brooklyn_completed_tasks": {
+        "recMBM0GOihkg4iXp": true
+      },
       "email": "carlykwang@yahoo.com",
-      "tickets_remaining": 0
+      "tickets_remaining": 1
     },
     "PIGDYGdJkRbBksX8jvxWQS7He232": {
       "email": "bonnie2yan@gmail.com",
@@ -1604,9 +1648,10 @@
     "PzPVt0oVEOOZYVKYFBZeB8m2wvS2": {
       "email": "ttl526@gmail.com",
       "manhattan_completed_tasks": {
-        "recksjaezlgh2m8Uc": true
+        "recksjaezlgh2m8Uc": true,
+        "recoq6IHIVLHxZfRT": true
       },
-      "tickets_remaining": 1
+      "tickets_remaining": 2
     },
     "Q2hNXV8CgwY1oP18DauFOMNv95I3": {
       "email": "pragatirohra@gmail.com",
@@ -1653,6 +1698,10 @@
       "email": "christoph.r.grosse@gmail.com",
       "tickets_remaining": 0
     },
+    "QZzBDQR5HKMh0Zbwmj1kKiIy6F02": {
+      "email": "mansoor@trialspark.com",
+      "tickets_remaining": 0
+    },
     "Qe3pr3uQOhOAc6ORjlnbhWAjia03": {
       "email": "juliusjuhachi@gmail.com",
       "tickets_remaining": 0
@@ -1690,6 +1739,7 @@
         "recEtbyHBCflCvB1r": true,
         "recULs3ffSdejtBOx": true,
         "recYnUfLsoZTsJXzw": true,
+        "recaXkflqU7DZG6aV": true,
         "recq5LirOxg09Pdgt": true,
         "recupRgDeFwwEsZVI": true
       },
@@ -1700,7 +1750,13 @@
       "queens_completed_tasks": {
         "recKlx92VDy1S4w8j": true
       },
-      "tickets_remaining": 8
+      "raffles_entered": {
+        "recePXr7sGnaO1Bx5": {
+          "entries": 1
+        }
+      },
+      "tickets_entered": 8,
+      "tickets_remaining": 1
     },
     "R9ZlguzqPvMpUvUto44gZJiURYJ3": {
       "email": "jasminelouie97@gmail.com",
@@ -1723,6 +1779,10 @@
     },
     "RYRuaEt95TYVbbnVRiA1BOMZkqv1": {
       "email": "aycil.basman@gmail.com",
+      "tickets_remaining": 0
+    },
+    "Ra5roq52iJMYQ8bTq2l6boi5hxs1": {
+      "email": "vivian@vivianshih.com",
       "tickets_remaining": 0
     },
     "RaCATaKsYeazBKFhtnYoi6kTGTP2": {
@@ -1938,6 +1998,10 @@
       "email": "savannah@bu.edu",
       "tickets_remaining": 0
     },
+    "VULW43tX54aRCXPr6pzaidcJ6bQ2": {
+      "email": "jiamusun2000@gmail.com",
+      "tickets_remaining": 0
+    },
     "VezRmtt18vgMzhc0PH9YYX4Aa363": {
       "email": "eorkhon16@yahoo.com",
       "tickets_remaining": 0
@@ -2036,8 +2100,13 @@
       "tickets_remaining": 0
     },
     "Weo4UIBBjYWR3lTNyqf8llTNl9f2": {
+      "brooklyn_completed_tasks": {
+        "recULs3ffSdejtBOx": true,
+        "recfc4M2QMUD2liMo": true,
+        "recupRgDeFwwEsZVI": true
+      },
       "email": "edan333@gmail.com",
-      "tickets_remaining": 0
+      "tickets_remaining": 3
     },
     "WiLG8pVxzaf0qBuR441IWOnzGG13": {
       "email": "aleesh1997@gmail.com",
@@ -2061,6 +2130,10 @@
     },
     "X6PeHedg0eaeSPED6qFXxSqdUe22": {
       "email": "mike@nomadmktg.com",
+      "tickets_remaining": 0
+    },
+    "X9ngDvNYIXfw8AqeR3vZVGyfu6P2": {
+      "email": "girlzrule0207@gmail.com",
       "tickets_remaining": 0
     },
     "X9sb5jqjEbcJDG7hfvUSuldLQF53": {
@@ -2120,9 +2193,16 @@
       "manhattan_completed_tasks": {
         "rec7kDV1Ad4pCcdMN": true,
         "rec7wrKKFkFFJiczm": true,
-        "recoq6IHIVLHxZfRT": true
+        "rec9CxKCaiL1Mhlys": true,
+        "recaLAG0hSntgHjBJ": true,
+        "recjBZWNOYNd8sIiZ": true,
+        "recjvQjIRxztTLIxF": true,
+        "recoq6IHIVLHxZfRT": true,
+        "recpUrh9JZ9XUrIGs": true,
+        "recqv6yvOwMrqkRlu": true,
+        "recvNC3SjGAFJrkWN": true
       },
-      "tickets_remaining": 3
+      "tickets_remaining": 10
     },
     "Y2IlUDPQUjMKLt6WVY5Amoej9C22": {
       "email": "justin.duda77@gmail.com",
@@ -2163,6 +2243,10 @@
       "email": "aprilhuang224@ymail.com",
       "tickets_remaining": 0
     },
+    "Z16dOxBl06YuArtq1p7HEPiWcWP2": {
+      "email": "tourist_stadia.0q@icloud.com",
+      "tickets_remaining": 0
+    },
     "ZCOr3K9vExXd7VfzZ4FRnOjTpyu2": {
       "email": "superqim@gmail.com",
       "tickets_remaining": 0
@@ -2185,6 +2269,10 @@
     },
     "ZgcZ4HicFaNA5Yofp2lXCk9G2v83": {
       "email": "summerwang95@gmail.com",
+      "tickets_remaining": 0
+    },
+    "Zuzw9hQM71RvfAarwpTKguecgm63": {
+      "email": "1bryan.doan@gmail.com",
       "tickets_remaining": 0
     },
     "a8sIscSMcUVX5KUE76apkrwasgE3": {
@@ -2243,7 +2331,13 @@
         "recvNC3SjGAFJrkWN": true,
         "recyGlOTxWvLDBWHV": true
       },
-      "tickets_remaining": 13
+      "raffles_entered": {
+        "rec6dKAceUHsZtJOd": {
+          "entries": 1
+        }
+      },
+      "tickets_entered": 10,
+      "tickets_remaining": 3
     },
     "bM1snQLE0sRHHPDY4Zh8hEOoYbu1": {
       "email": "monatong44@gmail.com",
@@ -2348,6 +2442,10 @@
     },
     "d09dEPpvGlXePpadQX8mLIP6OZI2": {
       "email": "pollychauht@gmail.com",
+      "tickets_remaining": 0
+    },
+    "d3F33zs6jPcZ7wbu7dGdPklGeNA2": {
+      "email": "michin3@yahoo.com",
       "tickets_remaining": 0
     },
     "dKMXKyeyeXZZMDAnz2XMx6to6363": {
@@ -2458,6 +2556,10 @@
       "email": "nicole@trialspark.com",
       "tickets_remaining": 0
     },
+    "fEC5fRnkR8bTaveOxUH848a8fO53": {
+      "email": "prane@trialspark.com",
+      "tickets_remaining": 0
+    },
     "fFsGLfNI1thd8IkckkKVbk30d8X2": {
       "email": "seuqiang@gmail.com",
       "tickets_remaining": 0
@@ -2503,8 +2605,20 @@
       "email": "wendy51800@gmail.com",
       "tickets_remaining": 0
     },
+    "fof7jMDZ4rcPQnKl9zOo5NpR0VR2": {
+      "email": "conor.higgins@trialspark.com",
+      "tickets_remaining": 0
+    },
+    "fvP49TxDcRZCeecuBPFyqkQ8RuA2": {
+      "email": "madywu2006@yahoo.com",
+      "tickets_remaining": 0
+    },
     "g0oJpovDROd793pPgguUT3r9kWA3": {
       "email": "asd@sakd.com",
+      "tickets_remaining": 0
+    },
+    "g1ZFqcTXXCZ4yD1E5R4TZMsitRt2": {
+      "email": "olivia8162005@gmail.com",
       "tickets_remaining": 0
     },
     "g2BuAgpzPVg7bvSeSq6KbPoiHdJ3": {
@@ -2626,8 +2740,14 @@
     },
     "hgkCWSxeVHbMUMMojyktb26oQEL2": {
       "email": "alas.lingsong@gmail.com",
+      "manhattan_completed_tasks": {
+        "rec9CxKCaiL1Mhlys": true,
+        "recXp4TTZ8jlPcfyJ": true,
+        "recfYDnO08jR1G8Dq": true,
+        "recoq6IHIVLHxZfRT": true
+      },
       "tickets_entered": 0,
-      "tickets_remaining": 0
+      "tickets_remaining": 4
     },
     "hhEJrTS9QvScTlY1GqZ9ZwM7ckN2": {
       "email": "chiui1@tcnj.edu",
@@ -2820,6 +2940,10 @@
       "email": "pinkpremika@gmail.com",
       "tickets_remaining": 0
     },
+    "liWYDzHSzoSd7WWByn6r5xmNEZs1": {
+      "email": "kkannew@gmail.com",
+      "tickets_remaining": 0
+    },
     "lrnKUfrH6XT4Seov4RX1Ta4kIud2": {
       "email": "andyliang60@gmail.com",
       "tickets_remaining": 0
@@ -2859,6 +2983,14 @@
     },
     "mYdSkzRLGFf2vYqxWDDzUBwyWg52": {
       "email": "dparkk96@gmail.com",
+      "manhattan_completed_tasks": {
+        "rec5QLuiU2S6gXMVm": true,
+        "recXp4TTZ8jlPcfyJ": true
+      },
+      "tickets_remaining": 2
+    },
+    "me9TEfmYJ1OQPI9d0DicIiqmv7f1": {
+      "email": "jenniferyu1995@gmail.com",
       "tickets_remaining": 0
     },
     "mjEasQUnLHQ1mAZl5RkaHaRyi4L2": {
@@ -2903,7 +3035,10 @@
     },
     "nRYNkXQTS8PWwnEAgyBLF97Ht2r2": {
       "email": "christinelantigua@yahoo.com",
-      "tickets_remaining": 0
+      "queens_completed_tasks": {
+        "recNAQGLNbAD7MKkc": true
+      },
+      "tickets_remaining": 1
     },
     "nWR2LfcO0HM1LhYxb8ni1ysmGdG2": {
       "email": "angc558@newschool.edu",
@@ -3040,6 +3175,10 @@
       "email": "bluetiger174@gmail.com",
       "tickets_remaining": 0
     },
+    "qTZ5D4yxLoWFhHotuPYsfFBVUfW2": {
+      "email": "lauren.toppenberg@gmail.com",
+      "tickets_remaining": 0
+    },
     "qVhYPFFRrqU5bNAsXvzt8SKRqEN2": {
       "email": "laxchic07@yahoo.com",
       "tickets_remaining": 0
@@ -3110,6 +3249,10 @@
       },
       "tickets_entered": 16,
       "tickets_remaining": 1
+    },
+    "qosMc4KbtDNdKjk6KfIRZoxSbnF2": {
+      "email": "nclevenger@arizona.edu",
+      "tickets_remaining": 0
     },
     "qvnK6lXsBHQcLm0mkNpmQf2GyLf2": {
       "email": "angela290@netzero.net",
@@ -3251,6 +3394,10 @@
       "email": "michelleflorcruz@gmail.com",
       "tickets_remaining": 0
     },
+    "tPhqy2j33JRD8aJtQOUIQ9OqfJM2": {
+      "email": "elainezyip@gmail.com",
+      "tickets_remaining": 0
+    },
     "tSdXVttHsEVsmZUliEM6kZhQTyJ2": {
       "email": "fyyue.liu@gmail.com",
       "tickets_remaining": 0
@@ -3318,6 +3465,10 @@
       "email": "ycm752@gmail.com",
       "tickets_remaining": 0
     },
+    "uD4Z2AC8lKgNVliOEgyN1hoXUSZ2": {
+      "email": "expeditionempire357@gmail.com",
+      "tickets_remaining": 0
+    },
     "uOom7Fa4khVD7eiPR8HtYZCGKNF3": {
       "email": "wang.odette@gmail.com",
       "tickets_remaining": 0
@@ -3356,9 +3507,11 @@
         "rec9CxKCaiL1Mhlys": true,
         "recEvqobxPhtlsVJl": true,
         "recVhJZBIgTxnfGgd": true,
+        "recXp4TTZ8jlPcfyJ": true,
         "recaLAG0hSntgHjBJ": true,
         "recjBZWNOYNd8sIiZ": true,
         "recksjaezlgh2m8Uc": true,
+        "reclm365UdEGlCkiw": true,
         "recpK6tXuTTgzcXnG": true,
         "recqv6yvOwMrqkRlu": true,
         "recvNC3SjGAFJrkWN": true,
@@ -3370,7 +3523,7 @@
         }
       },
       "tickets_entered": 8,
-      "tickets_remaining": 3
+      "tickets_remaining": 5
     },
     "vN98nlxlcYVawPPwTdRfBTpxl9A3": {
       "email": "topcheffan39@yahoo.com",
@@ -3443,6 +3596,10 @@
       },
       "email": "lily.ng7@gmail.com",
       "tickets_remaining": 2
+    },
+    "wvsrpYGpVpessboGgWOjwIiJLyj1": {
+      "email": "alisonwong.em@gmail.com",
+      "tickets_remaining": 0
     },
     "wz9wg1FOnFcoBC8GypttH3ZpUxj2": {
       "email": "carinamariakg@gmail.com",
@@ -3523,11 +3680,14 @@
       "email": "elainekmao@gmail.com",
       "manhattan_completed_tasks": {
         "rec9CxKCaiL1Mhlys": true,
+        "recfiFkxxSo9Hcxyb": true,
         "recksjaezlgh2m8Uc": true,
         "recoq6IHIVLHxZfRT": true,
-        "recpK6tXuTTgzcXnG": true
+        "recpK6tXuTTgzcXnG": true,
+        "recqv6yvOwMrqkRlu": true,
+        "recvNC3SjGAFJrkWN": true
       },
-      "tickets_remaining": 4
+      "tickets_remaining": 7
     },
     "yo305fZWU3NSUkbllHx9CWMrgkj1": {
       "email": "22gablair@gmail.com",

@@ -65,13 +65,38 @@ Promise.all([taskPromise, rafflePromise]).then(data => {
     });
 
     console.log('\nTask Information');
+    // Total tasks completed and total unique tasks completed
+    const uniqueTasksCompleted = new Map();
+    const uniqueTasksCount = new Map([
+        ['manhattan_completed_tasks', 0],
+        ['brooklyn_completed_tasks', 0],
+        ['queens_completed_tasks', 0]
+    ]);
+    const addUniqueTaskCount = (user: any, borough: string) => {
+        Object.entries(user[borough] ?? {}).forEach(task => {
+            if (!uniqueTasksCompleted.has(task[0])) {
+                uniqueTasksCompleted.set(task[0], true);
+                const count = uniqueTasksCount.get(borough);
+                uniqueTasksCount.set(borough, (count ?? 0) + 1);
+            }
+        });
+    }
+    users.forEach(user => {
+        addUniqueTaskCount(user, 'manhattan_completed_tasks');
+        addUniqueTaskCount(user, 'brooklyn_completed_tasks');
+        addUniqueTaskCount(user, 'queens_completed_tasks');
+    });
     console.log(`1. ${users.reduce((acc, curr) => acc + curr.total_completed_tasks, 0)} tasks have been completed by all users`);
-    console.log(`2. ${users.reduce((acc, curr) => acc + curr.manhattan_tasks_count, 0)} tasks have been completed in Manhattan`);
-    console.log(`3. ${users.reduce((acc, curr) => acc + curr.brooklyn_tasks_count, 0)} tasks have been completed in Brooklyn`);
-    console.log(`4. ${users.reduce((acc, curr) => acc + curr.queens_tasks_count, 0)} tasks have been completed in Queens`);
+    console.log(`2. ${[...uniqueTasksCount.values()].reduce((acc, curr) => acc + curr, 0)} unique tasks have been completed overall`);
+    console.log(`3. ${users.reduce((acc, curr) => acc + curr.manhattan_tasks_count, 0)} tasks have been completed in Manhattan`);
+    console.log(`4. ${uniqueTasksCount.get('manhattan_completed_tasks')} unique tasks have been completed in Manhattan`);
+    console.log(`5. ${users.reduce((acc, curr) => acc + curr.brooklyn_tasks_count, 0)} tasks have been completed in Brooklyn`);
+    console.log(`6. ${uniqueTasksCount.get('brooklyn_completed_tasks')} unique tasks have been completed in Brooklyn`);
+    console.log(`7. ${users.reduce((acc, curr) => acc + curr.queens_tasks_count, 0)} tasks have been completed in Queens`);
+    console.log(`8. ${uniqueTasksCount.get('queens_completed_tasks')} unique tasks have been completed in Queens`);
 
     // Top 10 tasks per borough
-    const itemCountFreq = (itemId: string, itemList: any[], titleKey: string) => {
+    const usersCountFreq = (itemId: string, itemList: any[], titleKey: string) => {
         const countFreq = new Map();
         users.forEach(user => {
             Object.keys(user[itemId] ?? {}).forEach(id => {
@@ -91,18 +116,18 @@ Promise.all([taskPromise, rafflePromise]).then(data => {
     }
     console.log('\nTop 10 Completed Tasks in Manhattan')
     const manhattanTasks = taskData.filter((task: any) => task.fields.Borough === 'Manhattan');
-    itemCountFreq('manhattan_completed_tasks', manhattanTasks, 'Task Title');
+    usersCountFreq('manhattan_completed_tasks', manhattanTasks, 'Task Title');
     console.log('\nTop 10 Completed Tasks in Brooklyn')
     const brooklynTasks = taskData.filter((task: any) => task.fields.Borough === 'Brooklyn');
-    itemCountFreq('brooklyn_completed_tasks', brooklynTasks, 'Task Title');
+    usersCountFreq('brooklyn_completed_tasks', brooklynTasks, 'Task Title');
     console.log('\nTop 10 Completed Tasks in Queens')
     const queensTasks = taskData.filter((task: any) => task.fields.Borough === 'Queens');
-    itemCountFreq('queens_completed_tasks', queensTasks, 'Task Title');
+    usersCountFreq('queens_completed_tasks', queensTasks, 'Task Title');
 
     console.log('\nRaffle Information');
     console.log(`1. ${users.reduce((acc, curr) => acc + (curr.tickets_entered ?? 0), 0)} raffle tickets have been submitted across all users`);
     console.log(`2. ${users.reduce((acc, curr) => acc + curr.raffles_entered_count, 0)} raffle entries have been submitted across all users`);
 
     console.log('\nTop 10 Raffle Items');
-    itemCountFreq('raffles_entered', raffleData, 'Prize Title (Brand)');
+    usersCountFreq('raffles_entered', raffleData, 'Prize Title (Brand)');
 });
