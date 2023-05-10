@@ -67,15 +67,27 @@ type TaskUploadProps = {
   imageFileSrc: any;
   setImage: React.Dispatch<React.SetStateAction<any>>;
   setImageFileSrc: React.Dispatch<React.SetStateAction<any>>;
+  setInvalidImageMessage: React.Dispatch<React.SetStateAction<any>>;
 }
 
 export default function TaskUpload(props: TaskUploadProps) {
-  const { imageFileSrc, setImage, setImageFileSrc } = props;
+  const { imageFileSrc, setImage, setImageFileSrc, setInvalidImageMessage } = props;
 
   const onImageChange = (event: any) => {
+    console.log('event.target.files[0]',  event.target.files[0])
     if (event.target.files && event.target.files[0]) {
+      const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png']
+      if (!allowedTypes.includes(event.target.files[0].type)) {
+        setInvalidImageMessage('Please upload a valid image file!')
+        return;
+      };
+      if (event.target.files[0].size > 1000000) {
+        setInvalidImageMessage('File is too large! Please upload a smaller image.')
+        return;
+      };
       setImage(event.target.files[0]);
       setImageFileSrc(URL.createObjectURL(event.target.files[0]));
+      setInvalidImageMessage('');
     }
   };
 

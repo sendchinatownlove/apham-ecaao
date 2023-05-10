@@ -57,6 +57,7 @@ export default function TaskCompletion(props: TaskCompletionProps) {
     const [image, setImage] = useState<File | null>(null);
     const [isLoading, setIsLoading] = useState(false);
     const [errorHasOccurred, setErrorHasOccurred] = useState(false);
+    const [invalidImageMessage, setInvalidImageMessage] = useState("");
     const [isPopupActive, setIsPopupActive] = useState(false);
     const [hasImageBeenUploaded, setHasImageBeenUploaded] = useState<boolean>(false);
 
@@ -141,9 +142,10 @@ export default function TaskCompletion(props: TaskCompletionProps) {
                     isChecked={imageFileSrc !== ""}
                 />
                 <UploadWrapper>
-                    <TaskUpload imageFileSrc={imageFileSrc} setImageFileSrc={setImageFileSrc} setImage={setImage} />
+                    <TaskUpload imageFileSrc={imageFileSrc} setImageFileSrc={setImageFileSrc} setImage={setImage} setInvalidImageMessage={setInvalidImageMessage} />
                     {errorHasOccurred &&
                         <ErrorMessage>{' Sorry! We had trouble uploading that image. Try again?'}</ErrorMessage>}
+                        <ErrorMessage>{invalidImageMessage}</ErrorMessage>
                     <UploadButton
                         disabled={!hasImageBeenUploaded}
                         isDisabled={!hasImageBeenUploaded}
