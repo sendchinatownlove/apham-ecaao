@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import {THEME_COLORS} from "../theme";
 
 const ChecklistItem = styled.div`
   padding: 7px 17px 10px;;
@@ -37,16 +38,18 @@ const CheckedCheckbox = styled.div`
 `;
 
 const DonationLink = styled.a`
- color: black;
- font-weight: 600;
- font-size: 14px;
- letter-spacing: 0.055em;
+ text-align: center;
  text-transform: uppercase;
- text-decoration: none;
+ font-size: 11px;
+ font-weight: bold;
+ background: ${THEME_COLORS.RED};
+ border-radius: 40px;
+ color: white;
+ padding: 10px 25px;
  
  :hover {
-   color: rgb(168, 25, 46);
- }
+  color: white;
+}
 `;
 
 export type TaskChecklistItemProps = {
@@ -73,7 +76,7 @@ export default function TaskChecklistItem(props: TaskChecklistItemProps) {
               <DonationLink
                 target="_blank" rel="noreferrer"
                 href="https://square.link/u/G7n2wte2">
-                tap to donate directly via square
+                donate directly via square
               </DonationLink>
               </div>
           ): (
