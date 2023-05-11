@@ -1,5 +1,4 @@
 export function isFeatureFlagOn(featureFlag: string) {
-    console.log(import.meta.env[featureFlag]);
     return import.meta.env[featureFlag] === 'true';
 }
 
