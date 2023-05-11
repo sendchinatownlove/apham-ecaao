@@ -74,7 +74,6 @@ export default function TaskUpload(props: TaskUploadProps) {
   const { imageFileSrc, setImage, setImageFileSrc, setInvalidImageMessage } = props;
 
   const onImageChange = (event: any) => {
-    console.log('event.target.files[0]',  event.target.files[0])
     if (event.target.files && event.target.files[0]) {
       const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/heic']
       if (!allowedTypes.includes(event.target.files[0].type)) {
