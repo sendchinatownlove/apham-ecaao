@@ -15,5 +15,8 @@
     "firebase": "^9.21.0",
     "ts-node": "^10.9.1",
     "typescript": "^5.0.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20.1.2"
   }
 }
