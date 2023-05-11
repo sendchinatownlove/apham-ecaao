@@ -76,12 +76,12 @@ export default function TaskUpload(props: TaskUploadProps) {
   const onImageChange = (event: any) => {
     console.log('event.target.files[0]',  event.target.files[0])
     if (event.target.files && event.target.files[0]) {
-      const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png']
+      const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/heic']
       if (!allowedTypes.includes(event.target.files[0].type)) {
         setInvalidImageMessage('Please upload a valid image file!')
         return;
       };
-      if (event.target.files[0].size > 1000000) {
+      if (event.target.files[0].size > 10000000 ) {
         setInvalidImageMessage('File is too large! Please upload a smaller image.')
         return;
       };
@@ -96,7 +96,7 @@ export default function TaskUpload(props: TaskUploadProps) {
       <FileInputWrapper>
         {imageFileSrc === "" ? (
           <>
-            <FileInput type="file" id="file" onChange={onImageChange} accept="image/*" />
+            <FileInput type="file" id="file" onChange={onImageChange} accept="image/*, .heic" />
             <FileInputLabel htmlFor="file">
               <UploadIcon />
               Tap to upload a picture of your completed activity
@@ -105,7 +105,7 @@ export default function TaskUpload(props: TaskUploadProps) {
           </>
         ) :
           <div>
-            <ReplaceFileInput type="file" id="file" onChange={onImageChange} accept="image/*" />
+            <ReplaceFileInput type="file" id="file" onChange={onImageChange} accept="image/*, .heic" />
             <ReplaceFileInputLabel htmlFor="file">
               <div style={{ position: 'relative' }}><UserUploadedImg alt="preview image" src={imageFileSrc} />
                 <ReplaceTag>Tap to replace</ReplaceTag>
