@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { BubbleLabel, LabelMedium, THEME_COLORS } from "../theme";
+import {FeatureFlags, isFeatureFlagOn} from "../../utils/featureFlags";
 
 const PageTitleText = styled.div`
     border-top: 1px solid #A8192E;
@@ -24,6 +25,11 @@ type GiveAwaysDetailProps = {
 export default function GiveAwaysDetail(props: GiveAwaysDetailProps) {
     const { numberOfEntries } = props;
 
+    let text = "For every completed activity, you'll earn one (1) raffle ticket. Each giveaway prize is worth a certain number of raffle tickets for one (1) raffle entry. Once you have enough tickets, enter them into the giveaway prize of your choice!";
+    if (isFeatureFlagOn(FeatureFlags.RAFFLE_SHUTDOWN_MAY_22)) {
+        text = "The giveaways have ended. Thanks for playing!"
+    }
+
     return (
     <div>
       <PageTitleText>
@@ -31,7 +37,7 @@ export default function GiveAwaysDetail(props: GiveAwaysDetailProps) {
         <BubbleLabel>{numberOfEntries} ENTRIES</BubbleLabel>
       </PageTitleText>
       <PageDescription>
-        <span>For every completed activity, you'll earn one (1) raffle ticket. Each giveaway prize is worth a certain number of raffle tickets for one (1) raffle entry. Once you have enough tickets, enter them into the giveaway prize of your choice!</span>
+        <span>{text}</span>
       </PageDescription>
     </div>
   );

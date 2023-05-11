@@ -4,6 +4,7 @@ import styled from "styled-components";
 import {BubbleLabel} from "../theme";
 import {useEffect, useState} from "react";
 import {FirebaseService} from "../../Api";
+import {FeatureFlags, isFeatureFlagOn} from "../../utils/featureFlags";
 
 const RafflePrizeContainer = styled.div`
     margin: 0 auto 16px;
@@ -123,8 +124,12 @@ export default function RafflePrize(props: RaffleListProps) {
       getEntries();
   });
 
-  return(
-      <RafflePrizeContainer onClick={() => props.setSelectedGiveaway(props.prize)}>
+    function setSelectedGiveaway() {
+        if (!isFeatureFlagOn(FeatureFlags.RAFFLE_SHUTDOWN_MAY_22)) props.setSelectedGiveaway(props.prize);
+    }
+
+    return(
+      <RafflePrizeContainer onClick={() => setSelectedGiveaway()}>
         <PrizeDescriptionContainer>
             <TicketContainer>
                 <TicketIcon ticketsRequired={ticketsRequired} availableTickets={availableTickets}></TicketIcon>
