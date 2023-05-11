@@ -71,7 +71,7 @@ export default function TaskChecklistItem(props: TaskChecklistItemProps) {
       <TaskDescription>
         {taskDescription}
           {taskIndex === 0 ? (
-              <div>
+              <div style={{textAlign: "center", }}>
               <br/><br/>
               <DonationLink
                 target="_blank" rel="noreferrer"
