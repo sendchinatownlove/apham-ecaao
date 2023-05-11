@@ -12,6 +12,7 @@ import TaskListHeader from "./TaskListHeader";
 import {AirTableService, FirebaseService, Task} from "../../Api";
 import { PageContainer } from "../theme";
 import GooglyEyeLoader from "../shared/GooglyEyeLoader";
+import {FeatureFlags, isFeatureFlagOn} from "../../utils/featureFlags";
 
 export type TaskInfo = {
     title: string;
@@ -67,7 +68,9 @@ export default function TaskList(props: TaskListProps) {
 
   let navigate = useNavigate();
 
-  const onTaskClick = (task: TaskInfo) => setSelectedTask(task);
+  const onTaskClick = (task: TaskInfo) => {
+      if (!isFeatureFlagOn(FeatureFlags.RAFFLE_SHUTDOWN_MAY_22)) setSelectedTask(task);
+  }
 
   return (
       <>
@@ -75,7 +78,10 @@ export default function TaskList(props: TaskListProps) {
               <GooglyEyeLoader></GooglyEyeLoader>
           ) : (
               <PageContainer>
-                  {selectedTask?.title && selectedTask?.description ? (
+                  {
+                      selectedTask?.title &&
+                      selectedTask?.description &&
+                      !isFeatureFlagOn(FeatureFlags.RAFFLE_SHUTDOWN_MAY_22) ? (
                       <>
                           <CancelButton onClick={() => setSelectedTask(null)} />
                           <TaskCompletionHeader borough={borough!} />
