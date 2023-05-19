@@ -20,7 +20,7 @@ function generateTicketID() {
             const numTickets = raffles[raffleId].entries;
             for (let i = 1; i <= numTickets; i++) {
               //each ticketID consist of the prizeId and the user's email
-              const ticketID = `${raffleId}_${user.email}`;
+              const ticketID = `${raffleId}_${user.email}_${userId.substring(0,4)}`;
               output.push(ticketID);
             }
           }
@@ -67,7 +67,7 @@ const drawAll = async() => {
 
   //loop through each prize in airTable and draw based on if Item Description specify more than 1 winner
   for(i = 0; i < data.length; i ++){
-    console.log("-----------------------------")
+    console.log(`----------------------------- (${i})`)
 
     //draw 3 winners
     if(data[i].fields["Item Description"].includes("(Three winners will be drawn.)")){
