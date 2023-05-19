@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node analytics.ts"
+    "start": "ts-node analytics.ts",
+    "draw": "node raffleDraw.js"
   },
   "keywords": [],
   "author": "",
