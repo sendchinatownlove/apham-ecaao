@@ -70,3 +70,7 @@ node_modules/
 
 # google cloud credentials files
 credentials.json
+
+# Data file for analytics
+analytics/*export.json
+analytics/scl-scavengerhunt-default-rtdb-export.json

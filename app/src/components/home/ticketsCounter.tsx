@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { LabelMedium, THEME_COLORS, PrimaryButton } from "../theme";
 import TicketsDataProptype from "../../propTypes/ticketsData";
 import styled from "styled-components";
+import {FeatureFlags, isFeatureFlagOn} from "../../utils/featureFlags";
 
 const TicketsCounterContainer = styled.div`
   display: flex;
@@ -81,7 +82,7 @@ function TicketsCounter(props: Props) {
           </TicketData>
           <ButtonContainer>
             <PrimaryButton onClick={() => navigate("/raffles")}>
-              { !ticketsAvailable ? "View" : "Enter"} Raffles
+              { isFeatureFlagOn(FeatureFlags.RAFFLE_SHUTDOWN_MAY_22) || !ticketsAvailable ? "View" : "Enter"} Raffles
             </PrimaryButton>
           </ButtonContainer>
         </ContentContainer>

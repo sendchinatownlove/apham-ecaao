@@ -12,6 +12,7 @@ import RaffleList, { RafflePrizeData } from "../components/raffle/RaffleList";
 import RaffleEntry from "../components/raffle/RaffleEntry";
 import EntryConfirmationModal from "../components/raffle/EntryConfirmationModal";
 import { fetchEnteredRaffleTickets } from "../utils/user";
+import {FeatureFlags, isFeatureFlagOn} from "../utils/featureFlags";
 
 type RaffleViewProps = {
     prizeData: RafflePrizeData[];
@@ -56,7 +57,7 @@ export default function RaffleListView(props: RaffleViewProps) {
         <>
         <PageContainer>
             {
-                selectedGiveaway ? (
+                selectedGiveaway && !isFeatureFlagOn(FeatureFlags.RAFFLE_SHUTDOWN_MAY_22) ? (
                 <>
                     <CancelButton onClick={() => setSelectedGiveaway(null)}/>
                     <RaffleHeader availableTickets={availableTickets} enteredTickets={-1} />
