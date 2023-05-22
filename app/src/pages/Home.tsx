@@ -1,6 +1,6 @@
 
 import { useEffect, useState } from 'react';
-import { User } from 'firebase/auth';
+import { User, browserPopupRedirectResolver } from 'firebase/auth';
 
 import { FirebaseService } from '../Api';
 import BoroughButton from '../components/home/borough';
@@ -9,6 +9,7 @@ import { BodyTextMedium, PageContainer } from "../components/theme";
 import styled from "styled-components";
 import HomeButton from "../components/header-buttons/homeButton";
 import Footer from "../components/shared/footer";
+import { FeatureFlags, isFeatureFlagOn } from '../utils/featureFlags';
 
 const HomeContainer = styled(PageContainer)`
   display: flex;
@@ -71,6 +72,18 @@ function Home(props: Props) {
   const [numCompletedBKLYNTasks, setNumCompletedBKLYNTasks] = useState<number>(0);
   const [numCompletedQNSTasks, setNumCompletedQNSTasks] = useState<number>(0);
 
+  let introText: Array<string> = !isFeatureFlagOn(FeatureFlags.RAFFLE_SHUTDOWN_MAY_22) ?
+  [
+    "1. START BY CHOOSING A BOROUGH AND EXPLORING THE list of activities",
+    "2. TAKE A PICTURE WHEN YOU COMPLETE EACH ACTIVITY AND UPLOAD IT",
+    "3. WITH EVERY COMPLETION, you get a raffle ticket to enter for a chance to win a giveaway prize of your choice!"
+  ] :
+  [
+    "The event has finished!",
+    "Thank you for supporting NYC Chinatowns.",
+    "You can view your completed activities and entered raffles, but you are no longer able to complete activities or enter raffles."
+  ]
+
   const fetchCompletedTasksByBorough = async (borough: string) => {
     const completedTasks = Object.keys(await firebaseService.getTasksByBorough(user.uid, borough));
     if (completedTasks.length > 0) {
@@ -122,16 +135,13 @@ function Home(props: Props) {
       <HomeButton/>
       <Instructions>
         <NumberLine bold color="#ffff">
-          <span>1.</span>
-          <span>START BY CHOOSING A BOROUGH AND EXPLORING THE list of activities</span>
+          <span>{introText[0]}</span>
         </NumberLine>
         <NumberLine bold color="#ffff">
-          <span>2.</span>
-          <span>TAKE A PICTURE WHEN YOU COMPLETE EACH ACTIVITY AND UPLOAD IT</span>
+          <span>{introText[1]}</span>
         </NumberLine>
         <NumberLine bold color="#ffff">
-          <span>3.</span>
-          <span>WITH EVERY COMPLETION, you get a raffle ticket to enter for a chance to win a giveaway prize of your choice!</span>
+          <span>{introText[2]}</span>
         </NumberLine>
       </Instructions>
       <Boroughs>

@@ -1,5 +1,10 @@
 export function isFeatureFlagOn(featureFlag: string) {
-    return import.meta.env[featureFlag] === 'true';
+    if (featureFlag == FeatureFlags.RAFFLE_SHUTDOWN_MAY_22) {
+        return new Date(Date.now()) > new Date("2023/05/22");
+    }
+    else {
+        return import.meta.env[featureFlag] === 'true';
+    }
 }
 
 export const FeatureFlags = {
